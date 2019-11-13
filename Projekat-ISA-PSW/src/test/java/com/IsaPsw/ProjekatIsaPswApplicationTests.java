@@ -8,6 +8,7 @@ class ProjekatIsaPswApplicationTests {
 
 	@Test
 	void contextLoads() {
+
 	}
 
 }
