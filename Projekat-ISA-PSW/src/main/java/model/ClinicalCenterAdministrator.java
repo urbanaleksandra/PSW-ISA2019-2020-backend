@@ -19,9 +19,9 @@ public class ClinicalCenterAdministrator {
 	private ClinicalCenter clinicalCenter;
 	
 	@Column(name = "username", nullable = false)
-	String username;
+	private String username;
 	@Column(name = "password", nullable = false)
-	String password;
+	private String password;
 	
 	
 	

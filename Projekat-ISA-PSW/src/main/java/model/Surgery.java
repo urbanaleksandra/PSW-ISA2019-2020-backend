@@ -26,9 +26,9 @@ public class Surgery {
 	private MedicalRecord medicalRecord;
 	
 	@Column(nullable = false)
-	long date;
+	private long date;
 	@Column(nullable = false)
-	String description;
+	private String description;
 	
 
 	public Long getId() {
