@@ -5,7 +5,7 @@ import javax.persistence.Column;
 import model.Appointment;
 
 public class AppointmentDTO {
- 
+  
 	private long date;
 	
 	private String description;
