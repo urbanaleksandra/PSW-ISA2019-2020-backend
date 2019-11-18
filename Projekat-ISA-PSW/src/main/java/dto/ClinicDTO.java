@@ -6,6 +6,10 @@ import model.Clinic;
 
 public class ClinicDTO {
 
+	private Long id;
+	//private ClinicalCenterDTO clinicalCenter;
+	private ClinicAdministratorDTO clinicAdministratorDTO;
+	
 	private String name;
 	private String adress;
 	private int pricelist;

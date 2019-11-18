@@ -28,7 +28,7 @@ public class Clinic {
 	@OneToMany(mappedBy = "clinic", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<HospitalRoom> hospitalRooms = new HashSet<HospitalRoom>();
 	
-	@Column(name = "duration", nullable = false)
+	@Column(name = "name", nullable = false)
 	private String name;
 	
 	@Column(name = "adress", nullable = false)

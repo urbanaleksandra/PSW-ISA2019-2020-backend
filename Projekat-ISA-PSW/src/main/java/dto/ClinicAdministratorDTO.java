@@ -6,6 +6,7 @@ import model.ClinicAdministrator;
 
 public class ClinicAdministratorDTO {
 
+	private Long id;
 	private String password;
 	private String username;
 

@@ -6,6 +6,14 @@ import model.Appointment;
 
 public class AppointmentDTO {
   
+	private Long id;
+	
+	private DoctorDTO doctor;
+	//private HospitalRoomDTO hospitalRoom;
+	//private MedicalRecordDTO medicalRecord;
+	//private RecipeDTO recipe;
+	
+	
 	private long date;
 	
 	private String description;

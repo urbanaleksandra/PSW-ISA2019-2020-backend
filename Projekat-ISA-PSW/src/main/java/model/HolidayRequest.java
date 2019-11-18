@@ -18,6 +18,12 @@ public class HolidayRequest {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private ClinicAdministrator clinicAdministrator;
 	
+	public ClinicAdministrator getClinicAdministrator() {
+		return clinicAdministrator;
+	}
+	public void setClinicAdministrator(ClinicAdministrator clinicAdministrator) {
+		this.clinicAdministrator = clinicAdministrator;
+	}
 	@Column(nullable = false)
 	private String username;
 	@Column(nullable = false)
