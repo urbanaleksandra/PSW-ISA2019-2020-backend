@@ -31,6 +31,24 @@ public class Surgery {
 	private String description;
 	
 
+	public Doctor getDoctor() {
+		return doctor;
+	}
+	public void setDoctor(Doctor doctor) {
+		this.doctor = doctor;
+	}
+	public HospitalRoom getHospitalRoom() {
+		return hospitalRoom;
+	}
+	public void setHospitalRoom(HospitalRoom hospitalRoom) {
+		this.hospitalRoom = hospitalRoom;
+	}
+	public MedicalRecord getMedicalRecord() {
+		return medicalRecord;
+	}
+	public void setMedicalRecord(MedicalRecord medicalRecord) {
+		this.medicalRecord = medicalRecord;
+	}
 	public Long getId() {
 		return id;
 	}

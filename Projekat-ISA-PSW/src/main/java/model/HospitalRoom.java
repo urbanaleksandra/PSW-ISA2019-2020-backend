@@ -19,6 +19,14 @@ public class HospitalRoom {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	@OneToMany(mappedBy = "hospitalRoom", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Surgery> surgeries = new HashSet<Surgery>();
 	
