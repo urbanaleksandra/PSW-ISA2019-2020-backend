@@ -1,8 +1,11 @@
 package repository;
 
 import java.util.List;
+
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import model.ClinicalCenterAdministrator;
@@ -10,7 +13,8 @@ import java.lang.String;
 
 public interface ClinicalCenterAdministratorRepository extends JpaRepository<ClinicalCenterAdministrator, Long>{
 
-		List<ClinicalCenterAdministrator> findAll();
+		Page<ClinicalCenterAdministrator> findAll(Pageable page);
 		
-		List<ClinicalCenterAdministrator> findByUsername(String username);
+		ClinicalCenterAdministrator findByUsername(String username);
+		
 }
