@@ -21,7 +21,7 @@ public class ClinicalCenterAdministratorContoller {
 	
 	@Autowired
 	private ClinicalCenterAdministratorService clinicalCenterAdministratorService;
-	
+	 
 	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping(value = "/findByUsernameAndPassword")
 	public ResponseEntity<ClinicalCenterAdministratorDTO> getCCAByUsernameAndPassword(@RequestParam String username, @RequestParam String password){
