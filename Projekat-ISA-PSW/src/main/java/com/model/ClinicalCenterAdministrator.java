@@ -1,21 +1,9 @@
 package com.model;
-import java.util.Collection;
-import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import javax.persistence.*;
+import java.util.*;
 
 @Entity
 public class ClinicalCenterAdministrator implements UserDetails{
@@ -23,7 +11,10 @@ public class ClinicalCenterAdministrator implements UserDetails{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
+	public ClinicalCenterAdministrator() {
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -55,6 +46,7 @@ public class ClinicalCenterAdministrator implements UserDetails{
 	private String username;
 	@Column(name = "password", nullable = false)
 	private String password;
+
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

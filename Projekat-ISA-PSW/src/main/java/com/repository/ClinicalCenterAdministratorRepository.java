@@ -12,5 +12,7 @@ public interface ClinicalCenterAdministratorRepository extends JpaRepository<Cli
 		Page<ClinicalCenterAdministrator> findAll(Pageable page);
 		
 		ClinicalCenterAdministrator findByUsername(String username);
+
+
 		
 }

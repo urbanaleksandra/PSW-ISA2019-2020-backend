@@ -1,25 +1,33 @@
 package com.contoller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.dto.ClinicalCenterAdministratorDTO;
 import com.model.ClinicalCenter;
 import com.model.ClinicalCenterAdministrator;
+import com.model.Patient;
+import com.model.RequestUser;
 import com.service.ClinicalCenterAdministratorService;
+import com.service.PatientService;
+import com.service.RequestService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class ClinicalCenterAdministratorContoller {
 	
 	@Autowired
 	private ClinicalCenterAdministratorService clinicalCenterAdministratorService;
+
+	@Autowired
+	private RequestService requestService;
+
+	@Autowired
+	private PatientService patientService;
 	 
 	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping(value = "/findByUsernameAndPassword")
@@ -55,5 +63,37 @@ public class ClinicalCenterAdministratorContoller {
 		return new ResponseEntity<>(new ClinicalCenterAdministratorDTO(cca), HttpStatus.OK);
 		
 	}
+
+	@RequestMapping(value="/api/requests", method = RequestMethod.GET)
+	public List<RequestUser> getPatientRequests(){
+
+		List<RequestUser> requests  = requestService.findAll();
+		System.out.println(requests.size());
+		return requests;
+	}
+
+	@CrossOrigin(origins = "http://localhost:4200")
+	@RequestMapping(value="/api/deny-request", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+	public  @ResponseBody ResponseEntity<RequestUser> deletePatientRequests(@RequestBody RequestUser deleteUser){
+
+		requestService.delete(deleteUser);
+		List<RequestUser> requests  = requestService.findAll();
+
+		return new ResponseEntity<>(deleteUser, HttpStatus.OK);
+	}
+
+	@CrossOrigin(origins = "http://localhost:4200")
+	@RequestMapping(value="/api/accept-request", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+	public  @ResponseBody ResponseEntity<RequestUser> acceptPatientRequests(@RequestBody RequestUser deleteUser){
+
+		requestService.delete(deleteUser);
+		List<RequestUser> requests  = requestService.findAll();
+
+		Patient patient = new Patient(deleteUser.getUsername(), deleteUser.getPassword(), deleteUser.getFirstName(), deleteUser.getLastName(), deleteUser.getEmail(), deleteUser.getAddress(), deleteUser.getCity(), deleteUser.getCountry(), deleteUser.getMobileNumber(), deleteUser.getJmbg());
+
+		patientService.save(patient);
+		return new ResponseEntity<>(deleteUser, HttpStatus.OK);
+	}
+
 
 }
