@@ -1,10 +1,9 @@
 package com.contoller;
 
 import com.dto.ClinicalCenterAdministratorDTO;
-import com.model.ClinicalCenter;
-import com.model.ClinicalCenterAdministrator;
-import com.model.Patient;
-import com.model.RequestUser;
+import com.model.*;
+import com.security.JwtAuthenticationRequest;
+import com.security.TokenUtils;
 import com.service.ClinicalCenterAdministratorService;
 import com.service.PatientService;
 import com.service.RequestService;
@@ -12,8 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.naming.AuthenticationException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -27,19 +33,44 @@ public class ClinicalCenterAdministratorContoller {
 	private RequestService requestService;
 
 	@Autowired
+	TokenUtils tokenUtils;
+
+	@Autowired
+	private AuthenticationManager authenticationManager;
+
+	@Autowired
 	private PatientService patientService;
 	 
 	@CrossOrigin(origins = "http://localhost:4200")
-	@GetMapping(value = "/findByUsernameAndPassword")
-	public ResponseEntity<ClinicalCenterAdministratorDTO> getCCAByUsernameAndPassword(@RequestParam String username){
-		
-		ClinicalCenterAdministrator cca = clinicalCenterAdministratorService.findByUsername(username);
+	@PostMapping(value = "/findByUsernameAndPassword")
+	public ResponseEntity<?> postCCAByUsernameAndPassword(@RequestBody JwtAuthenticationRequest authenticationRequest,
+														  HttpServletResponse response) throws AuthenticationException, IOException {
+
+
+//		final Authentication authentication;
+//		authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
+//				authenticationRequest.getPassword()));
+//
+//		SecurityContextHolder.getContext().setAuthentication(authentication);
+
+//		ClinicalCenterAdministrator cca = clinicalCenterAdministratorService.findByUsername(username);
+////		if(cca == null) {
+////			System.out.println("radi molim teeee i ovako bar" + username);
+////			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+////		}
+////		System.out.println("radi molim teeee" + username);
+
+		ClinicalCenterAdministrator cca = clinicalCenterAdministratorService.findByUsername(authenticationRequest.getUsername());
 		if(cca == null) {
-			System.out.println("radi molim teeee i ovako bar" + username);
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		System.out.println("radi molim teeee" + username);
-		return new ResponseEntity<>(new ClinicalCenterAdministratorDTO(cca), HttpStatus.OK);
+
+		System.out.println(authenticationRequest.getUsername());
+		System.out.println(cca.getUsername());
+		String jwt = tokenUtils.generateToken(cca.getUsername()); //user.username
+		int expiresIn = tokenUtils.getExpiredIn();
+		System.out.println(new UserTokenState(jwt, expiresIn));
+		return ResponseEntity.ok(new UserTokenState(jwt, expiresIn));
 		
 	}
 	
