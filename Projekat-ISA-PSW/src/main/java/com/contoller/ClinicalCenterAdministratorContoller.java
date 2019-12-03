@@ -7,6 +7,7 @@ import com.repository.ClinicalCenterAdministratorRepository;
 import com.security.JwtAuthenticationRequest;
 import com.security.TokenUtils;
 import com.service.ClinicalCenterAdministratorService;
+import com.service.EmailService;
 import com.service.PatientService;
 import com.service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,9 @@ public class ClinicalCenterAdministratorContoller {
 
 	@Autowired
 	private ClinicalCenterAdministratorRepository clinicalCenterAdministratorRepository;
+
+	@Autowired
+	private EmailService emailService;
 	 
 	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping(value = "/findByUsernameAndPassword")
@@ -114,7 +118,14 @@ public class ClinicalCenterAdministratorContoller {
 
 		requestService.delete(deleteUser);
 		List<RequestUser> requests  = requestService.findAll();
-
+		Patient patient = new Patient(deleteUser.getUsername(), deleteUser.getPassword(), deleteUser.getFirstName(), deleteUser.getLastName(), deleteUser.getEmail(), deleteUser.getAddress(), deleteUser.getCity(), deleteUser.getCountry(), deleteUser.getMobileNumber(), deleteUser.getJmbg());
+		String message= "";
+		//slanje emaila
+		try {
+			emailService.sendNotificaitionAsync2(patient, message);
+		}catch( Exception e ){
+			System.out.println("nije poslata poruka");
+		}
 		return new ResponseEntity<>(deleteUser, HttpStatus.OK);
 	}
 
@@ -128,6 +139,13 @@ public class ClinicalCenterAdministratorContoller {
 		Patient patient = new Patient(deleteUser.getUsername(), deleteUser.getPassword(), deleteUser.getFirstName(), deleteUser.getLastName(), deleteUser.getEmail(), deleteUser.getAddress(), deleteUser.getCity(), deleteUser.getCountry(), deleteUser.getMobileNumber(), deleteUser.getJmbg());
 
 		patientService.save(patient);
+
+		//slanje emaila
+		try {
+			emailService.sendNotificaitionAsync(patient);
+		}catch( Exception e ){
+			System.out.println("nije poslata poruka");
+		}
 		return new ResponseEntity<>(deleteUser, HttpStatus.OK);
 	}
 
