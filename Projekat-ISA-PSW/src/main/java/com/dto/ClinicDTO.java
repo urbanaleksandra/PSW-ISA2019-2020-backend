@@ -62,4 +62,8 @@ public class ClinicDTO {
 	public void setProfit(int profit) {
 		this.profit = profit;
 	}
+
+	public Long getId() {
+		return id;
+	}
 }

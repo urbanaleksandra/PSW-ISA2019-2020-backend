@@ -2,14 +2,7 @@ package com.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 @Entity
 public class ClinicAdministrator {
@@ -22,9 +15,9 @@ public class ClinicAdministrator {
 	private String username;
 	@Column(name = "password", nullable = false)
 	private String password;
-	
-	@OneToMany(mappedBy = "clinicAdministrator", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<Clinic> clinics = new HashSet<Clinic>();
+
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Clinic clinic;
 	
 	@OneToMany(mappedBy = "clinicAdministrator", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<HolidayRequest> requests = new HashSet<HolidayRequest>();
@@ -48,6 +41,23 @@ public class ClinicAdministrator {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
+
+	public Clinic getClinic() {
+		return clinic;
+	}
+
+	public void setClinic(Clinic clinic) {
+		this.clinic = clinic;
+	}
+
+	@Override
+	public String toString() {
+		return "ClinicAdministrator{" +
+				"id=" + id +
+				", username='" + username + '\'' +
+				", password='" + password + '\'' +
+				", clinic=" + clinic +
+				", requests=" + requests +
+				'}';
+	}
 }

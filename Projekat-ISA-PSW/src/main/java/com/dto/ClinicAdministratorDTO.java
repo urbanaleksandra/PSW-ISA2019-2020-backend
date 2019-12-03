@@ -37,5 +37,12 @@ public class ClinicAdministratorDTO {
 		this.password = password;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "ClinicAdministratorDTO{" +
+				"id=" + id +
+				", password='" + password + '\'' +
+				", username='" + username + '\'' +
+				'}';
+	}
 }

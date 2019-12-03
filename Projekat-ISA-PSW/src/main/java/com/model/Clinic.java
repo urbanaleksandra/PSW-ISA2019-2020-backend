@@ -13,9 +13,12 @@ public class Clinic {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private ClinicalCenter clinicalCenter;	
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private ClinicAdministrator clinicAdministrator;	
-	
+//	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//	private ClinicAdministrator clinicAdministrator;
+
+	@OneToMany(mappedBy = "clinic", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<ClinicAdministrator> clinicAdministrator = new HashSet<ClinicAdministrator>();
+
 	@OneToMany(mappedBy = "clinic", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<HospitalRoom> hospitalRooms = new HashSet<HospitalRoom>();
 	
@@ -69,4 +72,26 @@ public class Clinic {
 		this.profit = profit;
 	}
 
+	public Set<ClinicAdministrator> getClinicAdministrator() {
+		return clinicAdministrator;
+	}
+
+	public void setClinicAdministrator(Set<ClinicAdministrator> clinicAdministrator) {
+		this.clinicAdministrator = clinicAdministrator;
+	}
+
+	@Override
+	public String toString() {
+		return "Clinic{" +
+				"id=" + id +
+				", clinicalCenter=" + clinicalCenter +
+				", clinicAdministrator=" + clinicAdministrator +
+				", hospitalRooms=" + hospitalRooms +
+				", name='" + name + '\'' +
+				", address='" + address + '\'' +
+				", pricelist=" + pricelist +
+				", description='" + description + '\'' +
+				", profit=" + profit +
+				'}';
+	}
 }

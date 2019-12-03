@@ -2,6 +2,9 @@ package com.contoller;
 
 import com.dto.ClinicDTO;
 import com.model.Clinic;
+import com.model.ClinicAdministrator;
+import com.repository.ClinicAdministratorRepository;
+import com.service.ClinicAdministratorService;
 import com.service.ClinicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +20,9 @@ public class ClinicController {
 
     @Autowired
     private ClinicService clinicService;
+
+    @Autowired
+    private ClinicAdministratorService clinicAdministratorService;
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value="/api/add-clinic", method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
@@ -39,6 +45,14 @@ public class ClinicController {
     @RequestMapping(value="/api/get-clinics", method= RequestMethod.GET)
     public List<Clinic> getClinic(){
         List<Clinic> ret = clinicService.findAll();
+        return ret;
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value="/api/get-clinicAdmins/{id}", method= RequestMethod.GET)
+    public List<ClinicAdministrator> getClinicAdmins(@PathVariable long id){
+        List<ClinicAdministrator> ret = clinicAdministratorService.findByClinicId(id);
+        System.out.println("usao i nasao");
         return ret;
     }
 }

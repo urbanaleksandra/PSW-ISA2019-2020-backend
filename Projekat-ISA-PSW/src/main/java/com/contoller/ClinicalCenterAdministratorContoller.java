@@ -2,6 +2,8 @@ package com.contoller;
 
 import com.dto.ClinicalCenterAdministratorDTO;
 import com.model.*;
+import com.repository.ClinicAdministratorRepository;
+import com.repository.ClinicalCenterAdministratorRepository;
 import com.security.JwtAuthenticationRequest;
 import com.security.TokenUtils;
 import com.service.ClinicalCenterAdministratorService;
@@ -40,6 +42,9 @@ public class ClinicalCenterAdministratorContoller {
 
 	@Autowired
 	private PatientService patientService;
+
+	@Autowired
+	private ClinicalCenterAdministratorRepository clinicalCenterAdministratorRepository;
 	 
 	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping(value = "/findByUsernameAndPassword")
@@ -124,6 +129,12 @@ public class ClinicalCenterAdministratorContoller {
 
 		patientService.save(patient);
 		return new ResponseEntity<>(deleteUser, HttpStatus.OK);
+	}
+
+	@CrossOrigin(origins = "http://localhost:4200")
+	@RequestMapping(value="/api/add-clinic-center-admin", method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+	public void addAdministrator(@RequestBody ClinicalCenterAdministrator clinicalCenterAdministrator){
+		clinicalCenterAdministratorRepository.save(clinicalCenterAdministrator);
 	}
 
 
