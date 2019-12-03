@@ -44,15 +44,17 @@ public class EmailService {
     }
 
     @Async
-    public void sendNotificaitionAsync2(Patient user, String message) throws MailException, InterruptedException {
-        System.out.println("Slanje emaila...");
+    public void sendNotificaitionAsync2(String email, String message) throws MailException, InterruptedException {
+        System.out.println("Slanje emaila2...");
 
+        String email2 = email + ".com";
+        System.out.println(email);
         SimpleMailMessage mail = new SimpleMailMessage();
-        mail.setTo(user.getEmail());
+        mail.setTo(email2);
         mail.setFrom(env.getProperty("spring.mail.username"));
         mail.setSubject("Denied request");
 
-        mail.setText("Mr/Mrs " + user.getFirstName() + ",\n\nyour request is denied.\n\n" + message);
+        mail.setText("Mr/Mrs, "  + ",\n\nyour request is denied.\n\n" + message);
         try{
             javaMailSender.send(mail);
         }

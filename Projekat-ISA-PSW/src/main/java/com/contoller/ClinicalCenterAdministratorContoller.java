@@ -21,6 +21,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.naming.AuthenticationException;
+import javax.print.DocFlavor;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
@@ -119,14 +120,20 @@ public class ClinicalCenterAdministratorContoller {
 		requestService.delete(deleteUser);
 		List<RequestUser> requests  = requestService.findAll();
 		Patient patient = new Patient(deleteUser.getUsername(), deleteUser.getPassword(), deleteUser.getFirstName(), deleteUser.getLastName(), deleteUser.getEmail(), deleteUser.getAddress(), deleteUser.getCity(), deleteUser.getCountry(), deleteUser.getMobileNumber(), deleteUser.getJmbg());
-		String message= "";
-		//slanje emaila
+
+
+		return new ResponseEntity<>(deleteUser, HttpStatus.OK);
+	}
+
+	@CrossOrigin(origins = "http://localhost:4200")
+	@RequestMapping(value="/api/deny-request-message/{email}", method=RequestMethod.POST)
+	public  void deletePatientRequests(@RequestBody String message, @PathVariable String email){
+		System.out.println("usao da salje mejl novi");
 		try {
-			emailService.sendNotificaitionAsync2(patient, message);
-		}catch( Exception e ){
+			emailService.sendNotificaitionAsync2(email, message);
+		}catch( Exception e ) {
 			System.out.println("nije poslata poruka");
 		}
-		return new ResponseEntity<>(deleteUser, HttpStatus.OK);
 	}
 
 	@CrossOrigin(origins = "http://localhost:4200")
