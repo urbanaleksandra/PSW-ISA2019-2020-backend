@@ -25,7 +25,7 @@ public class AppointmentsController {
     @RequestMapping(value="/api/add-requestApp", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody ResponseEntity<RequestAppointment> addRequestApp(@RequestBody RequestAppointment appointment){
 
-        RequestAppointment appointment1 = new RequestAppointment(appointment.getDate(),appointment.getDescription(),appointment.getDuration());
+        RequestAppointment appointment1 = new RequestAppointment(appointment.getPatient(),appointment.getDate(),appointment.getDescription(),appointment.getDuration());
         requestAppointmentService.save(appointment1);
 
         try {
