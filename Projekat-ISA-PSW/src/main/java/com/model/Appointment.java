@@ -33,7 +33,7 @@ public class Appointment {
 	 private Recipe recipe;
 	
 	@Column(name = "date", nullable = false)
-	private long date;
+	private String date;
 	
 	@Column(name = "description", nullable = false)
 	private String description;
@@ -77,10 +77,10 @@ public class Appointment {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public long getDate() {
+	public String getDate() {
 		return date;
 	}
-	public void setDate(long date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	public String getDescription() {
