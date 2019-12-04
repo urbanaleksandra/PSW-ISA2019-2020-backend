@@ -12,7 +12,7 @@ public class AppointmentDTO {
 	//private RecipeDTO recipe;
 	
 	
-	private long date;
+	private String date;
 	
 	private String description;
 
@@ -20,7 +20,7 @@ public class AppointmentDTO {
 
 	private long duration;
 
-	public long getDate() {
+	public String getDate() {
 		return date;
 	}
 
@@ -37,7 +37,7 @@ public class AppointmentDTO {
 		this.duration=appointment.getDuration();
 	}
 
-	public void setDate(long date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
