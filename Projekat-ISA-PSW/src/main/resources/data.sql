@@ -1,4 +1,4 @@
-INSERT INTO clinic_administrator (username, password) VALUES ('cadmin', 'cadmin');
+INSERT INTO clinic_administrator (username, password,email) VALUES ('cadmin', 'cadmin','zeki.sipovac@gmail.com');
 INSERT INTO clinical_center_administrator (username, password) VALUES ('ccadmin', 'ccadmin');
 
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_PATIENT');
