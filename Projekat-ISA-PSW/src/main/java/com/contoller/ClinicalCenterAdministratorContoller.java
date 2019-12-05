@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -57,27 +58,32 @@ public class ClinicalCenterAdministratorContoller {
 														  HttpServletResponse response) throws AuthenticationException, IOException {
 
 
-//		final Authentication authentication;
-//		authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
+//		final Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
 //				authenticationRequest.getPassword()));
 //
 //		SecurityContextHolder.getContext().setAuthentication(authentication);
 
-//		ClinicalCenterAdministrator cca = clinicalCenterAdministratorService.findByUsername(username);
-////		if(cca == null) {
-////			System.out.println("radi molim teeee i ovako bar" + username);
-////			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-////		}
-////		System.out.println("radi molim teeee" + username);
 
 		ClinicalCenterAdministrator cca = clinicalCenterAdministratorService.findByUsername(authenticationRequest.getUsername());
+		Patient pa = null;
+//		ClinicalCenterAdministrator cca = (ClinicalCenterAdministrator) authentication.getPrincipal();
 		if(cca == null) {
+
+			pa = patientService.findByUsername(authenticationRequest.getUsername());
+			if(pa == null){
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+
 		}
 
-		System.out.println(authenticationRequest.getUsername());
-		System.out.println(cca.getUsername());
-		String jwt = tokenUtils.generateToken(cca.getUsername()); //user.username
+		String jwt = "";
+		if(cca != null){
+			jwt = tokenUtils.generateToken(cca.getUsername()); //user.username
+		}
+		else{
+			jwt = tokenUtils.generateToken(pa.getUsername()); //user.username
+		}
+
 		int expiresIn = tokenUtils.getExpiredIn();
 		System.out.println(new UserTokenState(jwt, expiresIn));
 		return ResponseEntity.ok(new UserTokenState(jwt, expiresIn));
