@@ -1,0 +1,147 @@
+package com.model;
+
+import javax.persistence.*;
+import java.util.Objects;
+
+@Entity
+@Table(name = "requestAppointments")
+public class RequestAppointment {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Doctor doctor;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private HospitalRoom hospitalRoom;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private MedicalRecord medicalRecord;
+
+    @OneToOne(optional=true)
+    private Recipe recipe;
+
+    @Column(name = "patient", nullable = true)
+    private String patient;
+
+    @Column(name = "date", nullable = true)
+    private String date;
+
+    @Column(name = "description", nullable = true)
+    private String description;
+
+    @Column(name = "type", nullable = true)
+    private String type ;
+
+    @Column(name = "duration", nullable = true)
+    private long duration;
+
+    public RequestAppointment(String date, String description, long duration) {
+        this.date=date;
+        this.description = description;
+        this.duration = duration;
+    }
+
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
+    public HospitalRoom getHospitalRoom() {
+        return hospitalRoom;
+    }
+    public void setHospitalRoom(HospitalRoom hospitalRoom) {
+        this.hospitalRoom = hospitalRoom;
+    }
+    public MedicalRecord getMedicalRecord() {
+        return medicalRecord;
+    }
+    public void setMedicalRecord(MedicalRecord medicalRecord) {
+        this.medicalRecord = medicalRecord;
+    }
+    public Recipe getRecipe() {
+        return recipe;
+    }
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
+    }
+
+
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+    public String getDate() {
+        return date;
+    }
+    public void setDate(String date) {
+        this.date = date;
+    }
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    public String getType() {
+        return type;
+    }
+    public void setType(String type) {
+        this.type = type;
+    }
+    public long getDuration() {
+        return duration;
+    }
+    public void setDuration(long duration) {
+        this.duration = duration;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        RequestAppointment c = (RequestAppointment) o;
+        if (c.id == null || id == null) {
+            return false;
+        }
+        return Objects.equals(id, c.id);
+    }
+
+    public String getPatient() {
+        return patient;
+    }
+
+    public void setPatient(String patient) {
+        this.patient = patient;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Course [id=" + id + "]";
+    }
+
+    public RequestAppointment(String patient,String date,String description, long duration) {
+        this.patient=patient;
+        this.date=date;
+        this.description = description;
+        this.duration = duration;
+    }
+
+    public RequestAppointment() {
+    }
+}
