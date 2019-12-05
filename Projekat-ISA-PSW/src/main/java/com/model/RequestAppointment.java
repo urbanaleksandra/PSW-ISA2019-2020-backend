@@ -23,6 +23,9 @@ public class RequestAppointment {
     @OneToOne(optional=true)
     private Recipe recipe;
 
+    @Column(name = "patient", nullable = true)
+    private String patient;
+
     @Column(name = "date", nullable = true)
     private String date;
 
@@ -34,6 +37,12 @@ public class RequestAppointment {
 
     @Column(name = "duration", nullable = true)
     private long duration;
+
+    public RequestAppointment(String date, String description, long duration) {
+        this.date=date;
+        this.description = description;
+        this.duration = duration;
+    }
 
 
     public Doctor getDoctor() {
@@ -108,6 +117,14 @@ public class RequestAppointment {
         return Objects.equals(id, c.id);
     }
 
+    public String getPatient() {
+        return patient;
+    }
+
+    public void setPatient(String patient) {
+        this.patient = patient;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hashCode(id);
@@ -118,8 +135,9 @@ public class RequestAppointment {
         return "Course [id=" + id + "]";
     }
 
-    public RequestAppointment(String date,String description, long duration) {
-       this.date=date;
+    public RequestAppointment(String patient,String date,String description, long duration) {
+        this.patient=patient;
+        this.date=date;
         this.description = description;
         this.duration = duration;
     }
