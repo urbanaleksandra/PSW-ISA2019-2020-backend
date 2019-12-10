@@ -36,13 +36,16 @@ public class ClinicAdministratorController {
     @RequestMapping(value="/api/add-admin/{id}", method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
     public void addAdministrator(@RequestBody ClinicAdministrator clinicAdministrator, @PathVariable long id){
         Clinic clinic = clinicService.findById(id);
-        clinicAdministrator.setClinic(clinic);
-        //clinic.getClinicAdministrator().add(clinicAdministrator);
-        System.out.println(clinic);
-        //clinicAdministrator.setClinic();
-        System.out.println(clinicAdministrator);
-        clinicAdministratorRepository.save(clinicAdministrator);
+        clinicAdministrator= clinicAdministratorRepository.save(clinicAdministrator);
 
+        //clinicAdministrator.setClinic(clinic);
+        clinic.getClinicAdministrator().add(clinicAdministrator);
+        System.out.println(clinic);
+        //System.out.println(clinicAdministrator);
+        clinicAdministrator.setClinic(clinic);
+        System.out.println(clinicAdministrator.getClinic().getId());
+        clinicAdministratorRepository.save(clinicAdministrator);
+        clinicRepository.save(clinic);
     }
 
 }

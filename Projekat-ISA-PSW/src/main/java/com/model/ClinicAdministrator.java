@@ -1,4 +1,6 @@
 package com.model;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,7 +18,9 @@ public class ClinicAdministrator {
 	@Column(name = "password", nullable = false)
 	private String password;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+
+	@JsonBackReference
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Clinic clinic;
 	
 	@OneToMany(mappedBy = "clinicAdministrator", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
