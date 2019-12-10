@@ -66,6 +66,7 @@ public class Patient implements UserDetails {
 	private String country;
 	@Column(nullable = false)
 	private int mobileNumber;
+	@Column(nullable = false)
 	private int jmbg;
 	
 	

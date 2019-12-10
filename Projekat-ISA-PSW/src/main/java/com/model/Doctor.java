@@ -3,13 +3,10 @@ package com.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 @Entity
+@DiscriminatorValue("1")
 public class Doctor extends MedicalStaff {
 
 	public Doctor(Set<Surgery> surgeries, Set<Appointment> appointments, int review) {

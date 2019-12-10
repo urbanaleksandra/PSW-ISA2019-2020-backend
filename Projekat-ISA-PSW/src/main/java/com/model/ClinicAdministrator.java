@@ -40,9 +40,6 @@ public class ClinicAdministrator {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Clinic clinic;
 
-	@OneToMany(mappedBy = "clinicAdministrator", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<HolidayRequest> requests = new HashSet<HolidayRequest>();
-
 	public ClinicAdministrator() {
 	}
 
@@ -81,13 +78,12 @@ public class ClinicAdministrator {
 		this.email = email;
 	}
 
-	public ClinicAdministrator(Long id, String username, String password, String email, Clinic clinic, Set<HolidayRequest> requests) {
+	public ClinicAdministrator(Long id, String username, String password, String email, Clinic clinic) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.email = email;
 		this.clinic = clinic;
-		this.requests = requests;
 	}
 
 	public String getFirstName() {
