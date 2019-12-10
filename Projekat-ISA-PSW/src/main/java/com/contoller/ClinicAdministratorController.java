@@ -34,15 +34,26 @@ public class ClinicAdministratorController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value="/api/add-admin/{id}", method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
-    public void addAdministrator(@RequestBody ClinicAdministrator clinicAdministrator, @PathVariable long id){
+    public void addAdministrator(@RequestBody ClinicAdministratorDTO clinicAdministratorDTO, @PathVariable long id){
         System.out.println("usuao");
         Clinic clinic = clinicService.findById(id);
-        clinicAdministrator= clinicAdministratorRepository.save(clinicAdministrator);
-        clinic.getClinicAdministrator().add(clinicAdministrator);
+        ClinicAdministrator ca = new ClinicAdministrator();
+        ca.setUsername(clinicAdministratorDTO.getUsername());
+        ca.setPassword(clinicAdministratorDTO.getPassword());
+        ca.setEmail(clinicAdministratorDTO.getEmail());
+        ca.setAddress(clinicAdministratorDTO.getAddress());
+        ca.setCity(clinicAdministratorDTO.getCity());
+        ca.setCountry(clinicAdministratorDTO.getCountry());
+        ca.setJmbg(clinicAdministratorDTO.getJmbg());
+        ca.setFirstName(clinicAdministratorDTO.getFirstName());
+        ca.setLastName(clinicAdministratorDTO.getLastName());
+        ca.setMobileNumber(clinicAdministratorDTO.getMobileNumber());
+        ca = clinicAdministratorRepository.save(ca);
+        clinic.getClinicAdministrator().add(ca);
         System.out.println(clinic);
-        clinicAdministrator.setClinic(clinic);
-        System.out.println(clinicAdministrator.getClinic().getId());
-        clinicAdministratorRepository.save(clinicAdministrator);
+        ca.setClinic(clinic);
+        System.out.println(ca.getClinic().getId());
+        clinicAdministratorRepository.save(ca);
         clinicRepository.save(clinic);
     }
 
