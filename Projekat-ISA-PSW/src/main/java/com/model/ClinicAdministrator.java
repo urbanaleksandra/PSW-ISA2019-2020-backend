@@ -8,11 +8,11 @@ import javax.persistence.*;
 
 @Entity
 public class ClinicAdministrator {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column(name = "username", nullable = false)
 	private String username;
 	@Column(name = "password", nullable = false)
@@ -22,11 +22,11 @@ public class ClinicAdministrator {
 	@JsonBackReference
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Clinic clinic;
-	
+
 	@OneToMany(mappedBy = "clinicAdministrator", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<HolidayRequest> requests = new HashSet<HolidayRequest>();
-	
-	
+
+
 	public Long getId() {
 		return id;
 	}
@@ -52,6 +52,23 @@ public class ClinicAdministrator {
 
 	public void setClinic(Clinic clinic) {
 		this.clinic = clinic;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public ClinicAdministrator(Long id, String username, String password, String email, Clinic clinic, Set<HolidayRequest> requests) {
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.clinic = clinic;
+		this.requests = requests;
 	}
 
 	@Override
