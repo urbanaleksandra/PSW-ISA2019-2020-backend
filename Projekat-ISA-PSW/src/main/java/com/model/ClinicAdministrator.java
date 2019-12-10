@@ -18,6 +18,9 @@ public class ClinicAdministrator {
 	@Column(name = "password", nullable = false)
 	private String password;
 
+	@Column(name = "email")
+	private String email;
+
 
 	@JsonBackReference
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -26,6 +29,8 @@ public class ClinicAdministrator {
 	@OneToMany(mappedBy = "clinicAdministrator", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<HolidayRequest> requests = new HashSet<HolidayRequest>();
 
+	public ClinicAdministrator() {
+	}
 
 	public Long getId() {
 		return id;

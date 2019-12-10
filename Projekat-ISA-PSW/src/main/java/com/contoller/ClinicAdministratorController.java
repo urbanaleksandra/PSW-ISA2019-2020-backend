@@ -35,13 +35,11 @@ public class ClinicAdministratorController {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value="/api/add-admin/{id}", method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
     public void addAdministrator(@RequestBody ClinicAdministrator clinicAdministrator, @PathVariable long id){
+        System.out.println("usuao");
         Clinic clinic = clinicService.findById(id);
         clinicAdministrator= clinicAdministratorRepository.save(clinicAdministrator);
-
-        //clinicAdministrator.setClinic(clinic);
         clinic.getClinicAdministrator().add(clinicAdministrator);
         System.out.println(clinic);
-        //System.out.println(clinicAdministrator);
         clinicAdministrator.setClinic(clinic);
         System.out.println(clinicAdministrator.getClinic().getId());
         clinicAdministratorRepository.save(clinicAdministrator);
