@@ -6,10 +6,7 @@ import com.repository.ClinicAdministratorRepository;
 import com.repository.ClinicalCenterAdministratorRepository;
 import com.security.JwtAuthenticationRequest;
 import com.security.TokenUtils;
-import com.service.ClinicalCenterAdministratorService;
-import com.service.EmailService;
-import com.service.PatientService;
-import com.service.RequestService;
+import com.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -47,48 +44,93 @@ public class ClinicalCenterAdministratorContoller {
 	private PatientService patientService;
 
 	@Autowired
+	private ClinicAdministratorService clinicAdministratorService;
+
+	@Autowired
+	private DoctorService doctorService;
+
+	@Autowired
+	private NurseService nurseService;
+
+	@Autowired
 	private ClinicalCenterAdministratorRepository clinicalCenterAdministratorRepository;
 
 	@Autowired
 	private EmailService emailService;
 	 
 	@CrossOrigin(origins = "http://localhost:4200")
-	@PostMapping(value = "/findByUsernameAndPassword")
-	public ResponseEntity<?> postCCAByUsernameAndPassword(@RequestBody JwtAuthenticationRequest authenticationRequest,
+	//@PostMapping(value = "/findByUsernameAndPassword")
+	@RequestMapping(value="/findByUsernameAndPassword", method= RequestMethod.POST)
+	@ResponseBody
+	public String postCCAByUsernameAndPassword(@RequestBody JwtAuthenticationRequest authenticationRequest,
 														  HttpServletResponse response) throws AuthenticationException, IOException {
 
+		// ne brisati zakomentarisane delove!!
 
 //		final Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
 //				authenticationRequest.getPassword()));
 //
 //		SecurityContextHolder.getContext().setAuthentication(authentication);
-
-
+		System.out.println("usao");
 		ClinicalCenterAdministrator cca = clinicalCenterAdministratorService.findByUsername(authenticationRequest.getUsername());
+		String ret = "none";
 		Patient pa = null;
+		ClinicAdministrator ca = null;
+		Doctor doc = null;
+		Nurse nur = null;
 //		ClinicalCenterAdministrator cca = (ClinicalCenterAdministrator) authentication.getPrincipal();
 		if(cca == null) {
 
 			pa = patientService.findByUsername(authenticationRequest.getUsername());
 			if(pa == null){
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+					ca = clinicAdministratorService.findByUsername(authenticationRequest.getUsername());
+					if(ca == null) {
+
+						doc = doctorService.findByUsername(authenticationRequest.getUsername());
+						if(doc == null) {
+
+							nur = nurseService.findByUsername(authenticationRequest.getUsername());
+							if(nur == null){
+								ret = "none";
+							}
+							else{
+								ret = "nur";
+							}
+
+						}
+						else{
+							ret = "doc";
+						}
+					}
+					else{
+						ret = "ca";
+					}
 			}
-
-		}
-
-		String jwt = "";
-		if(cca != null){
-			jwt = tokenUtils.generateToken(cca.getUsername()); //user.username
+			else{
+				ret = "pa";
+			}
 		}
 		else{
-			jwt = tokenUtils.generateToken(pa.getUsername()); //user.username
+			ret = "cca";
 		}
 
-		int expiresIn = tokenUtils.getExpiredIn();
-		System.out.println(new UserTokenState(jwt, expiresIn));
-		return ResponseEntity.ok(new UserTokenState(jwt, expiresIn));
+//		String jwt = "";
+//		if(cca != null){
+//			jwt = tokenUtils.generateToken(cca.getUsername()); //user.username
+//		}
+//		else{
+//			jwt = tokenUtils.generateToken(pa.getUsername()); //user.username
+//		}
+//
+//		int expiresIn = tokenUtils.getExpiredIn();
+//		System.out.println(new UserTokenState(jwt, expiresIn));
+
+		// return ResponseEntity.ok(new UserTokenState(jwt, expiresIn));
+		return ret;
 		
 	}
+
 	
 	@PostMapping(consumes = "application/json")
 	public ResponseEntity<ClinicalCenterAdministratorDTO> saveCCA(@RequestBody ClinicalCenterAdministratorDTO ccaDTO){
