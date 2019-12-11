@@ -20,3 +20,7 @@ INSERT INTO patient (address, city, country, email, first_name, jmbg, last_name,
 INSERT INTO patient (address, city, country, email, first_name, jmbg, last_name, mobile_number, password, username) VALUES ('Mise Dimitrijevica 7', 'Novi Sad', 'Serbia', 'marko@gmail.com', 'Ana', 5097,'Markovic', '0640589536', 'anaM', 'anaM');
 INSERT INTO medical_staff (medical_staff_type, username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, review, role) VALUES ('2', 'nurse', '123', 'nurse@gmail.com', 'Ivana', 'Petrovic', '315787', 'Bulevar Oslobodjenja 103', 'Novi Sad', 'Serbia', '06658651', '0', 'nurse');
 INSERT INTO medical_staff (medical_staff_type, username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, review, role) VALUES ('1', 'doctor', '123', 'doctor@gmail.com', 'Djordje', 'Rakic', '6872368', 'Bulevar Kralja Petra I 2', 'Beograd', 'Serbia', '0612645665', '0', 'doctor');
+
+INSERT INTO medical_record (patient_id) VALUE (5);
+INSERT INTO medical_record (patient_id) VALUE (4);
+INSERT INTO appointments (date, description, duration, type, doctor_id, hospital_room_id, medical_record_id, recipe_id) VALUES ('11.12.2019.', 'opis1', 1, 'tip1', 2, 1, 1, 1);
