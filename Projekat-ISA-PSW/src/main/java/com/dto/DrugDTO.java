@@ -13,6 +13,9 @@ public class DrugDTO {
         this.price = price;
     }
 
+    public DrugDTO() {
+    }
+
     public Long getId() {
         return id;
     }
