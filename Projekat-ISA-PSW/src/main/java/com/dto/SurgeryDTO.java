@@ -8,7 +8,7 @@ public class SurgeryDTO {
 	private DoctorDTO doctorDTO;
 	private HospitalRoomDTO hospitalRoomDTO;
 	private MedicalRecordDTO medicalRecordDTO;
-	private long date;
+	private String date;
 	private String description;
 	public Long getId() {
 		return id;
@@ -34,10 +34,10 @@ public class SurgeryDTO {
 	public void setMedicalRecordDTO(MedicalRecordDTO medicalRecordDTO) {
 		this.medicalRecordDTO = medicalRecordDTO;
 	}
-	public long getDate() {
+	public String getDate() {
 		return date;
 	}
-	public void setDate(long date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	public String getDescription() {
@@ -48,7 +48,7 @@ public class SurgeryDTO {
 	}
 	
 	public SurgeryDTO(Long id, DoctorDTO doctorDTO, HospitalRoomDTO hospitalRoomDTO, MedicalRecordDTO medicalRecordDTO,
-			long date, String description) {
+			String date, String description) {
 		super();
 		this.id = id;
 		this.doctorDTO = doctorDTO;
