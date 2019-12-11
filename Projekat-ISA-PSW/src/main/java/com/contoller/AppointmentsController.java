@@ -28,6 +28,8 @@ public class AppointmentsController {
         RequestAppointment appointment1 = new RequestAppointment(appointment.getPatient(),appointment.getDate(),appointment.getDescription(),appointment.getDuration());
         requestAppointmentService.save(appointment1);
 
+        
+
         try {
             emailService.sendNotificaitionAsync3();
         }catch( Exception e ){
