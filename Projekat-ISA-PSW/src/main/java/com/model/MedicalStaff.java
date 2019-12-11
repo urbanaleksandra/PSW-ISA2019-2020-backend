@@ -35,8 +35,8 @@ public abstract class MedicalStaff {
 	private int mobileNumber;
 	@Column(nullable = false)
 	private int jmbg;
-//	@Column(nullable = false)
-//	private String role;
+	@Column(nullable = false)
+	private String role;
 
 	@JsonBackReference
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -120,5 +120,13 @@ public abstract class MedicalStaff {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 }

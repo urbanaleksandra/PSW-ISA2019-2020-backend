@@ -8,7 +8,7 @@ import com.model.MedicalStaff;
 
 public interface MedicalStaffRepository extends JpaRepository<MedicalStaff, Long>{
 	
-	List<MedicalStaff> findByUsername(String username);
+	MedicalStaff findByUsername(String username);
 	
 	List<MedicalStaff> findByFirstName(String firstName);
 	

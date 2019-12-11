@@ -16,6 +16,9 @@ public class Doctor extends MedicalStaff {
 		this.review = review;
 	}
 
+	public Doctor() {
+	}
+
 	@OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Surgery> surgeries = new HashSet<Surgery>();
 	

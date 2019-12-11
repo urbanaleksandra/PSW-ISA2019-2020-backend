@@ -45,6 +45,9 @@ public class LoginController {
     @Autowired
     private ClinicalCenterAdministratorRepository clinicalCenterAdministratorRepository;
 
+    @Autowired
+    private MedicalStaffService medicalStaffService;
+
     @CrossOrigin(origins = "http://localhost:4200")
     //@PostMapping(value = "/findByUsernameAndPassword")
     @RequestMapping(value="/login", method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
@@ -65,6 +68,7 @@ public class LoginController {
         ClinicAdministrator ca = null;
         Doctor doc = null;
         Nurse nur = null;
+        MedicalStaff ms = null;
 //		ClinicalCenterAdministrator cca = (ClinicalCenterAdministrator) authentication.getPrincipal();
         if(cca == null) {
 
@@ -86,40 +90,27 @@ public class LoginController {
 
                 if(ca == null) {
 
-                    try{
-                        doc = doctorService.findByUsername(user.getUsername());
-                    }catch(Exception e){
-                        doc = null;
+
+                        ms = medicalStaffService.findByUsername(user.getUsername());
+
+
+
+
+                    if(ms == null){
+                        {user.setRole("NONE");
+                        return  user;}
                     }
-
-
-                    if(doc == null) {
-
-                        try{
-                            nur = nurseService.findByUsername(user.getUsername());
-                        }catch(Exception e){
-                            nur = null;
+                    else {
+                        if (!user.getPassword().equals(ms.getPassword())) {
+                            user.setRole("NONE");
+                            return user;
                         }
-
-
-                        if(nur == null){
-                            {user.setRole("NONE");
-                            return  user;}
-                        }
-                        else{
-                            if(!user.getPassword().equals(nur.getPassword()))
-                            {user.setRole("NONE");
-                                return  user;}
+                        if (ms.getRole().equals("nurse"))
                             user.setRole("NURSE");
-                        }
+                        else if (ms.getRole().equals("doctor"))
+                            user.setRole("DOC");
+                    }
 
-                    }
-                    else{
-                        if(!user.getPassword().equals(doc.getPassword()))
-                            {user.setRole("NONE");
-                            return  user;}
-                        user.setRole("DOC");
-                    }
                 }
                 else{
                     if(!user.getPassword().equals(ca.getPassword()))
