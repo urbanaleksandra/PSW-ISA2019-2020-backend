@@ -28,3 +28,5 @@ INSERT INTO medical_record (patient_id) VALUES (4);
 INSERT INTO medical_record (patient_id) VALUES (5);
 
 INSERT INTO hospital_room (name,room_number) VALUES ('GLAVNA SALA',1);
+INSERT INTO hospital_room (name,room_number) VALUES ('Operaciona',2);
+INSERT INTO hospital_room (name,room_number) VALUES ('Operaciona sala',3);
