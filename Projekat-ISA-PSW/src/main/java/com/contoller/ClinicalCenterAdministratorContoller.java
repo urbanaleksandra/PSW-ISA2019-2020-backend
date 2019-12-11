@@ -57,6 +57,9 @@ public class ClinicalCenterAdministratorContoller {
 
 	@Autowired
 	private EmailService emailService;
+
+	@Autowired
+	private MedicalRecordService medicalRecordService;
 	 
 	@CrossOrigin(origins = "http://localhost:4200")
 	//@PostMapping(value = "/findByUsernameAndPassword")
@@ -192,8 +195,12 @@ public class ClinicalCenterAdministratorContoller {
 		List<RequestUser> requests  = requestService.findAll();
 
 		Patient patient = new Patient(deleteUser.getUsername(), deleteUser.getPassword(), deleteUser.getFirstName(), deleteUser.getLastName(), deleteUser.getEmail(), deleteUser.getAddress(), deleteUser.getCity(), deleteUser.getCountry(), deleteUser.getMobileNumber(), deleteUser.getJmbg());
-
-		patientService.save(patient);
+		MedicalRecord medicalRecord = new MedicalRecord();
+		patient.setRecord(medicalRecord);
+		patient = patientService.save(patient);
+		medicalRecord.setPatient(patient);
+		patient.setRecord(medicalRecord);
+		patient = patientService.save(patient);
 
 		//slanje emaila
 		try {

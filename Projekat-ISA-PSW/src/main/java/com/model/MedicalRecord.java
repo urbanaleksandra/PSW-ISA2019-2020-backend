@@ -1,4 +1,6 @@
 package com.model;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,7 +20,8 @@ public class MedicalRecord {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@OneToOne(optional=false)
+	@JsonBackReference
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	 private Patient patient;
 	
 	public Patient getPatient() {

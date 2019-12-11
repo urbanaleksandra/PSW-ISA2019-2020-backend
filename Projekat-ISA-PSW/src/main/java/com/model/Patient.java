@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -25,8 +26,9 @@ public class Patient implements UserDetails {
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private ClinicalCenter clinicalCenter;
-	
-	@OneToOne(optional=false, mappedBy="patient")
+
+	@JsonBackReference
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	 private MedicalRecord record;
 	
 	public ClinicalCenter getClinicalCenter() {
@@ -191,6 +193,8 @@ public class Patient implements UserDetails {
 		this.mobileNumber = mobileNumber;
 		this.jmbg = jmbg;
 	}
+
+
 	
 	
 }
