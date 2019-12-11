@@ -53,7 +53,22 @@ public class MedicalRecord {
 	
 	@OneToMany(mappedBy = "medicalRecord", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Appointment> appointments = new HashSet<>();
-	
+
+	@OneToMany(mappedBy = "medicalRecord", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<RequestAppointment> requestAppointments = new HashSet<>();
+
+	public Set<RequestAppointment> getRequestAppointments() {
+		return requestAppointments;
+	}
+
+	public void setRequestAppointments(Set<RequestAppointment> requestAppointments) {
+		this.requestAppointments = requestAppointments;
+	}
+
+	public void addRequestAppointment(RequestAppointment ra){
+		this.requestAppointments.add(ra);
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -69,6 +84,7 @@ public class MedicalRecord {
 				", patient=" + patient +
 				", surgeries=" + surgeries +
 				", appointments=" + appointments +
+				", requestAppointments=" + requestAppointments +
 				'}';
 	}
 }
