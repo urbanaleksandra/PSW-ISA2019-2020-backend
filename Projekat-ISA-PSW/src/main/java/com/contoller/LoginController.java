@@ -90,9 +90,11 @@ public class LoginController {
 
                 if(ca == null) {
 
-
+                    try{
                         ms = medicalStaffService.findByUsername(user.getUsername());
-
+                    }catch(Exception e){
+                        ms = null;
+                    }
 
 
 
