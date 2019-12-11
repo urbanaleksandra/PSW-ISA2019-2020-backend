@@ -1,7 +1,9 @@
 package com.contoller;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.model.*;
+import com.model.RequestAppointment;
 import com.service.EmailService;
 import com.service.MedicalRecordService;
 import com.service.PatientService;

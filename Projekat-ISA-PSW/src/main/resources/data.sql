@@ -27,5 +27,8 @@ INSERT INTO medical_record (patient_id) VALUES (3);
 INSERT INTO medical_record (patient_id) VALUES (4);
 INSERT INTO medical_record (patient_id) VALUES (5);
 
+
 INSERT INTO request_appointments (date, description, duration, patient, type) VALUES ('10.12.2019', 'opis1', 1, 'anaM', 'tip1');
 INSERT INTO request_appointments (date, description, duration, patient, type) VALUES ('10.12.2019', 'opis1', 1, 'markoM', 'tip1');
+INSERT INTO hospital_room (name,room_number) VALUES ('GLAVNA SALA',1);
+
