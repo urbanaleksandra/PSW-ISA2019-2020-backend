@@ -21,6 +21,20 @@ public class ClinicAdministrator {
 	@Column(name = "email")
 	private String email;
 
+	@Column(nullable = false)
+	private String firstName;
+	@Column(nullable = false)
+	private String lastName;
+	@Column(nullable = false)
+	private String address;
+	@Column(nullable = false)
+	private String city;
+	@Column(nullable = false)
+	private String country;
+	@Column(nullable = false)
+	private int mobileNumber;
+	private int jmbg;
+
 
 	@JsonBackReference
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -76,14 +90,59 @@ public class ClinicAdministrator {
 		this.requests = requests;
 	}
 
-	@Override
-	public String toString() {
-		return "ClinicAdministrator{" +
-				"id=" + id +
-				", username='" + username + '\'' +
-				", password='" + password + '\'' +
-				", clinic=" + clinic +
-				", requests=" + requests +
-				'}';
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public int getMobileNumber() {
+		return mobileNumber;
+	}
+
+	public int getJmbg() {
+		return jmbg;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public void setMobileNumber(int mobileNumber) {
+		this.mobileNumber = mobileNumber;
+	}
+
+	public void setJmbg(int jmbg) {
+		this.jmbg = jmbg;
 	}
 }
