@@ -1,12 +1,15 @@
 package com.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="medical_staff_type",
+		discriminatorType = DiscriminatorType.INTEGER)
 public abstract class MedicalStaff {
 
 	@Id
@@ -20,7 +23,25 @@ public abstract class MedicalStaff {
 	private String firstName;
 	@Column(nullable = false)
 	private String lastName;
-	
+	@Column(nullable = false)
+	private String email;
+	@Column(nullable = false)
+	private String address;
+	@Column(nullable = false)
+	private String city;
+	@Column(nullable = false)
+	private String country;
+	@Column(nullable = false)
+	private int mobileNumber;
+	@Column(nullable = false)
+	private int jmbg;
+//	@Column(nullable = false)
+//	private String role;
+
+	@JsonBackReference
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<HolidayRequest> holidayRequests = new HashSet<HolidayRequest>();
+
 	public Long getId() {
 		return id;
 	}
@@ -52,5 +73,52 @@ public abstract class MedicalStaff {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	
+
+	public String getAddress() {
+		return address;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public int getMobileNumber() {
+		return mobileNumber;
+	}
+
+	public int getJmbg() {
+		return jmbg;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public void setMobileNumber(int mobileNumber) {
+		this.mobileNumber = mobileNumber;
+	}
+
+	public void setJmbg(int jmbg) {
+		this.jmbg = jmbg;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 }
