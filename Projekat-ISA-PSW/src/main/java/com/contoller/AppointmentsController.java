@@ -1,9 +1,6 @@
 package com.contoller;
 
-import com.model.ClinicAdministrator;
-import com.model.Patient;
 import com.model.RequestAppointment;
-import com.model.RequestUser;
 import com.service.EmailService;
 import com.service.RequestAppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
