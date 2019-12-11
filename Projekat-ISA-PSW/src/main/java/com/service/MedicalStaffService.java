@@ -14,4 +14,8 @@ public class MedicalStaffService {
     public MedicalStaff findByUsername(String username){
         return medicalStaffRepository.findByUsername(username);
     }
+
+    public MedicalStaff save(MedicalStaff medicalStaff){
+        return medicalStaffRepository.save(medicalStaff);
+    }
 }

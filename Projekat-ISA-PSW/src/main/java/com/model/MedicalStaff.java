@@ -39,7 +39,7 @@ public abstract class MedicalStaff {
 	private String role;
 
 	@JsonBackReference
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<HolidayRequest> holidayRequests = new HashSet<HolidayRequest>();
 
 	public Long getId() {
@@ -128,5 +128,13 @@ public abstract class MedicalStaff {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public Set<HolidayRequest> getHolidayRequests() {
+		return holidayRequests;
+	}
+
+	public void setHolidayRequests(Set<HolidayRequest> holidayRequests) {
+		this.holidayRequests = holidayRequests;
 	}
 }

@@ -11,7 +11,9 @@ public class HolidayRequestService {
     @Autowired
     private HolidayRequestRepository holidayRequestRepository;
 
-    private HolidayRequest save(HolidayRequest holidayRequest){
-        return save(holidayRequest);
+
+
+    public HolidayRequest save(HolidayRequest holidayRequest){
+        return holidayRequestRepository.save(holidayRequest);
     }
 }

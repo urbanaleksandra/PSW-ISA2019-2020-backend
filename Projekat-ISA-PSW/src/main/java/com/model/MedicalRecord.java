@@ -46,10 +46,10 @@ public class MedicalRecord {
 	}
 
 	@OneToMany(mappedBy = "medicalRecord", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<Surgery> surgeries = new HashSet<Surgery>();
+	private Set<Surgery> surgeries = new HashSet<>();
 	
 	@OneToMany(mappedBy = "medicalRecord", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<Appointment> appointments = new HashSet<Appointment>();
+	private Set<Appointment> appointments = new HashSet<>();
 	
 	public Long getId() {
 		return id;
@@ -58,7 +58,14 @@ public class MedicalRecord {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
 
-	
+	@Override
+	public String toString() {
+		return "MedicalRecord{" +
+				"id=" + id +
+				", patient=" + patient +
+				", surgeries=" + surgeries +
+				", appointments=" + appointments +
+				'}';
+	}
 }
