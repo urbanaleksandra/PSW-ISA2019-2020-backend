@@ -27,6 +27,9 @@ INSERT INTO medical_record (patient_id) VALUES (3);
 INSERT INTO medical_record (patient_id) VALUES (4);
 INSERT INTO medical_record (patient_id) VALUES (5);
 
+INSERT INTO hospital_room (name,room_number) VALUES ('GLAVNA SALA',1);
+INSERT INTO hospital_room (name,room_number) VALUES ('Operaciona',2);
+INSERT INTO hospital_room (name,room_number) VALUES ('Operaciona sala',3);
 
 INSERT INTO surgery (date, description, patient) VALUES ("10.12.2019", 'opis1', 'anaM');
 INSERT INTO surgery (date, description, patient) VALUES ("10.12.2019", 'opis1', 'markoM');
@@ -34,5 +37,5 @@ INSERT INTO surgery (date, description, patient) VALUES ("10.12.2019", 'opis1', 
 
 INSERT INTO request_appointments (date, description, duration, patient, type) VALUES ('10.12.2019', 'opis1', 1, 'anaM', 'tip1');
 INSERT INTO request_appointments (date, description, duration, patient, type) VALUES ('10.12.2019', 'opis1', 1, 'markoM', 'tip1');
-INSERT INTO hospital_room (name,room_number) VALUES ('GLAVNA SALA',1);
+
 
