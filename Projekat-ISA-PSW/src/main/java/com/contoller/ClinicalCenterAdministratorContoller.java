@@ -214,6 +214,7 @@ public class ClinicalCenterAdministratorContoller {
 	@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value="/api/add-clinic-center-admin", method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 	public void addAdministrator(@RequestBody ClinicalCenterAdministrator clinicalCenterAdministrator){
+		System.out.println(clinicalCenterAdministrator);
 		clinicalCenterAdministratorRepository.save(clinicalCenterAdministrator);
 	}
 

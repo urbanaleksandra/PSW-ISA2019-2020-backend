@@ -26,10 +26,19 @@ public class Surgery {
 	private MedicalRecord medicalRecord;
 	
 	@Column(nullable = false)
-	private long date;
+	private String date;
 	@Column(nullable = false)
 	private String description;
-	
+	@Column(name = "patient", nullable = true)
+	private String patient;
+
+	public String getPatient() {
+		return patient;
+	}
+
+	public void setPatient(String patient) {
+		this.patient = patient;
+	}
 
 	public Doctor getDoctor() {
 		return doctor;
@@ -55,16 +64,34 @@ public class Surgery {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public long getDate() {
-		return date;
-	}
-	public void setDate(long date) {
-		this.date = date;
-	}
 	public String getDescription() {
 		return description;
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	@Override
+	public String toString() {
+		return "Surgery{" +
+				"id=" + id +
+				", doctor=" + doctor +
+				", hospitalRoom=" + hospitalRoom +
+				", medicalRecord=" + medicalRecord +
+				", date='" + date + '\'' +
+				", description='" + description + '\'' +
+				", patient='" + patient + '\'' +
+				'}';
+	}
+
+	public Surgery() {
 	}
 }

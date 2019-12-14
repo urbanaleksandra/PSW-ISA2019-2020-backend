@@ -1,5 +1,5 @@
 INSERT INTO clinic_administrator (username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number) VALUES ('cadmin', 'cadmin', 'zeki.sipovac@gmail.com', 'Zeljana', 'Sipovac', '354168465', 'Glavna 54', 'Nevesinje', 'Bosna i Hercegovina', '0645865455');
-INSERT INTO clinical_center_administrator (username, password) VALUES ('ccadmin', 'ccadmin');
+INSERT INTO clinical_center_administrator (username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, first_log) VALUES ('ccadmin', 'ccadmin', 'tacajovicic@gmail.com', 'Tamara', 'Jovicic', '58768', 'Doze Djerdja 13', 'Novi Sad', 'Srbija', '06648246', '1');
 
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_PATIENT');
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_ADMIN');
@@ -30,3 +30,12 @@ INSERT INTO medical_record (patient_id) VALUES (5);
 INSERT INTO hospital_room (name,room_number) VALUES ('GLAVNA SALA',1);
 INSERT INTO hospital_room (name,room_number) VALUES ('Operaciona',2);
 INSERT INTO hospital_room (name,room_number) VALUES ('Operaciona sala',3);
+
+INSERT INTO surgery (date, description, patient) VALUES ("10.12.2019", 'opis1', 'anaM');
+INSERT INTO surgery (date, description, patient) VALUES ("10.12.2019", 'opis1', 'markoM');
+
+
+INSERT INTO request_appointments (date, description, duration, patient, type) VALUES ('10.12.2019', 'opis1', 1, 'anaM', 'tip1');
+INSERT INTO request_appointments (date, description, duration, patient, type) VALUES ('10.12.2019', 'opis1', 1, 'markoM', 'tip1');
+
+
