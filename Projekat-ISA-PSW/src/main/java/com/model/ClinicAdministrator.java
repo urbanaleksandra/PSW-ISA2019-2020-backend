@@ -33,6 +33,7 @@ public class ClinicAdministrator {
 	private String country;
 	@Column(nullable = false)
 	private int mobileNumber;
+	@Column(nullable = false)
 	private int jmbg;
 
 

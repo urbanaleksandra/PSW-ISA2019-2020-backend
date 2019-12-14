@@ -12,6 +12,26 @@ public class ClinicalCenterAdministrator implements UserDetails{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Column(name = "email")
+	private String email;
+
+	@Column(nullable = false)
+	private String firstName;
+	@Column(nullable = false)
+	private String lastName;
+	@Column(nullable = false)
+	private String address;
+	@Column(nullable = false)
+	private String city;
+	@Column(nullable = false)
+	private String country;
+	@Column(nullable = false)
+	private int mobileNumber;
+	@Column(nullable = false)
+	private int jmbg;
+	@Column(nullable = false)
+	private int firstLog;
+
 	public ClinicalCenterAdministrator() {
 	}
 
@@ -47,6 +67,81 @@ public class ClinicalCenterAdministrator implements UserDetails{
 	@Column(name = "password", nullable = false)
 	private String password;
 
+	public String getEmail() {
+		return email;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public int getMobileNumber() {
+		return mobileNumber;
+	}
+
+	public int getJmbg() {
+		return jmbg;
+	}
+
+	public int getFirstLog() {
+		return firstLog;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public void setMobileNumber(int mobileNumber) {
+		this.mobileNumber = mobileNumber;
+	}
+
+	public void setJmbg(int jmbg) {
+		this.jmbg = jmbg;
+	}
+
+	public void setFirstLog(int firstLog) {
+		this.firstLog = firstLog;
+	}
+
+	public void setAuthorities(List<Authority> authorities) {
+		this.authorities = authorities;
+	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -79,6 +174,24 @@ public class ClinicalCenterAdministrator implements UserDetails{
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
     private List<Authority> authorities;
-	
-	
+
+	@Override
+	public String toString() {
+		return "ClinicalCenterAdministrator{" +
+				"id=" + id +
+				", email='" + email + '\'' +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", address='" + address + '\'' +
+				", city='" + city + '\'' +
+				", country='" + country + '\'' +
+				", mobileNumber=" + mobileNumber +
+				", jmbg=" + jmbg +
+				", firstLog=" + firstLog +
+				", clinicalCenter=" + clinicalCenter +
+				", username='" + username + '\'' +
+				", password='" + password + '\'' +
+				", authorities=" + authorities +
+				'}';
+	}
 }
