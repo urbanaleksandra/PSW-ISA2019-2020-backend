@@ -29,7 +29,11 @@ public class MedicalStaffController {
         Doctor md = (Doctor) medicalStaffService.findByUsername(mdNovi.getUsername());
         if(md != null){
             md.setFirstName(mdNovi.getFirstName());
-
+            md.setLastName(mdNovi.getLastName());
+            md.setCity(mdNovi.getCity());
+            md.setCountry(mdNovi.getCountry());
+            md.setEmail(mdNovi.getEmail());
+            md.setMobileNumber(mdNovi.getMobileNumber());
             medicalStaffService.save(md);
         }
         else{
