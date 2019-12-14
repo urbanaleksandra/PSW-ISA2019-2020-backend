@@ -28,6 +28,8 @@ public class MedicalStaffController {
     public @ResponseBody ResponseEntity<Doctor> changeInfo(@RequestBody Doctor mdNovi){
         Doctor md = (Doctor) medicalStaffService.findByUsername(mdNovi.getUsername());
         if(md != null){
+            md.setPassword(mdNovi.getPassword());
+            System.out.println(md.getPassword());
             md.setFirstName(mdNovi.getFirstName());
             md.setLastName(mdNovi.getLastName());
             md.setCity(mdNovi.getCity());
