@@ -62,6 +62,12 @@ public class AppointmentsController {
         return new ResponseEntity<>(appointment1, HttpStatus.OK);
 
     }
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value="/getAppointmentRequests", method= RequestMethod.GET)
+    public List<RequestAppointment> getAppointmentReq(){
+
+        return requestAppointmentService.findAll();
+    }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value="/getAppointments/{username}", method= RequestMethod.GET)

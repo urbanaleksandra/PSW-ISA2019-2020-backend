@@ -4,6 +4,7 @@ import com.dto.HolidayRequestDTO;
 import com.model.Clinic;
 import com.model.HolidayRequest;
 import com.model.MedicalStaff;
+import com.model.RequestAppointment;
 import com.repository.HolidayRequestRepository;
 import com.service.HolidayRequestService;
 import com.service.MedicalStaffService;
@@ -21,6 +22,14 @@ public class HolidayRequestController {
 
     @Autowired
     private MedicalStaffService medicalStaffService;
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value="/getHolidayRequests", method= RequestMethod.GET)
+    public List<HolidayRequest> getHolidayReq(){
+
+        return holidayRequestService.findAll();
+    }
+
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value="/api/holiday-request", method= RequestMethod.POST)
