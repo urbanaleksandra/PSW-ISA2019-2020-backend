@@ -31,11 +31,12 @@ INSERT INTO hospital_room (name,room_number) VALUES ('GLAVNA SALA',1);
 INSERT INTO hospital_room (name,room_number) VALUES ('Operaciona',2);
 INSERT INTO hospital_room (name,room_number) VALUES ('Operaciona sala',3);
 
-INSERT INTO surgery (date, description, patient) VALUES ("10.12.2019", 'opis1', 'anaM');
-INSERT INTO surgery (date, description, patient) VALUES ("10.12.2019", 'opis1', 'markoM');
+INSERT INTO surgery (date, description, patient) VALUES ("2019-12-20", 'operacija nosa', 'anaM');
+INSERT INTO surgery (date, description, patient) VALUES ("2020-3-24", 'operacija kicme', 'markoM');
 
 
 INSERT INTO request_appointments (date, description, duration, patient, type) VALUES ('10.12.2019', 'opis1', 1, 'anaM', 'tip1');
 INSERT INTO request_appointments (date, description, duration, patient, type) VALUES ('10.12.2019', 'opis1', 1, 'markoM', 'tip1');
 
+INSERT INTO medical_record_surgeries(medical_record_id, surgeries_id) VALUE (1, 1);
 
