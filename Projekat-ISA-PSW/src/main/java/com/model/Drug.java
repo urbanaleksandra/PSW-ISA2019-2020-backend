@@ -1,6 +1,11 @@
 package com.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.springframework.core.SpringVersion;
+
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Drug {
@@ -17,6 +22,10 @@ public class Drug {
 
     @Column(name = "price", nullable = false)
     private int price;
+
+    @JsonBackReference
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Recipe> recipe = new HashSet<Recipe>();
 
     public Drug() {
     }

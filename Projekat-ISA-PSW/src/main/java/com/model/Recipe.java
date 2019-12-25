@@ -1,11 +1,8 @@
 package com.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import javax.persistence.*;
 
 @Entity
 public class Recipe {
@@ -18,11 +15,16 @@ public class Recipe {
 	private boolean authenticated;
 	@Column(nullable = false)
 	private String description;
-	@Column(nullable = false)
-	private String drug;
+
+	@JsonBackReference
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Drug drug;
 	
 	@OneToOne(optional=false)
-	 private Appointment appointment;
+	private Appointment appointment;
+
+	@OneToOne(fetch = FetchType.LAZY)
+	private Nurse nurse;
 	
 	
 	
@@ -44,13 +46,20 @@ public class Recipe {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getDrug() {
+
+	public Drug getDrug() {
 		return drug;
 	}
-	public void setDrug(String drug) {
+
+	public Appointment getAppointment() {
+		return appointment;
+	}
+
+	public void setDrug(Drug drug) {
 		this.drug = drug;
 	}
-	
-	
-	
+
+	public void setAppointment(Appointment appointment) {
+		this.appointment = appointment;
+	}
 }
