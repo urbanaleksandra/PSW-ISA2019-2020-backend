@@ -40,5 +40,10 @@ INSERT INTO request_appointments (date, description, duration, patient, type) VA
 
 INSERT INTO medical_record_surgeries(medical_record_id, surgeries_id) VALUE (1, 1);
 INSERT INTO drug(name, price, quantity) VALUES ("brufen", 259, 100);
+INSERT INTO drug(name, price, quantity) VALUES ("fervex", 550, 200);
 INSERT INTO recipe(authenticated, description, drug_id) VALUES (false, "dva puta po dve tablete", 1);
+INSERT INTO recipe(authenticated, description, drug_id) VALUES (false, "tri kesice na dan", 2);
+INSERT INTO recipe(authenticated, description, drug_id) VALUES (false, "jedna kesica na dan", 2);
 INSERT INTO drug_recipe(drug_id, recipe_id) VALUE (1,1);
+INSERT INTO drug_recipe(drug_id, recipe_id) VALUE (2,2);
+INSERT INTO drug_recipe(drug_id, recipe_id) VALUE (2,3);
