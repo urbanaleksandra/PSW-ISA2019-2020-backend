@@ -20,7 +20,7 @@ public class Recipe {
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Drug drug;
 	
-	@OneToOne(optional=false)
+	@OneToOne(optional=true)
 	private Appointment appointment;
 
 	@OneToOne(fetch = FetchType.LAZY)
