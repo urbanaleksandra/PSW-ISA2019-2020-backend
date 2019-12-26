@@ -62,4 +62,24 @@ public class Recipe {
 	public void setAppointment(Appointment appointment) {
 		this.appointment = appointment;
 	}
+
+	public Nurse getNurse() {
+		return nurse;
+	}
+
+	public void setNurse(Nurse nurse) {
+		this.nurse = nurse;
+	}
+
+	@Override
+	public String toString() {
+		return "Recipe{" +
+				"id=" + id +
+				", authenticated=" + authenticated +
+				", description='" + description + '\'' +
+				", drug=" + drug +
+				", appointment=" + appointment +
+				", nurse=" + nurse +
+				'}';
+	}
 }
