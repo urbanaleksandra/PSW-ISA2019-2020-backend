@@ -35,8 +35,11 @@ INSERT INTO surgery (date, description, patient) VALUES ("2019-12-20", 'operacij
 INSERT INTO surgery (date, description, patient) VALUES ("2020-3-24", 'operacija kicme', 'markoM');
 
 
-INSERT INTO request_appointments (date, description, duration, patient, type) VALUES ('10.12.2019', 'opis1', 1, 'anaM', 'tip1');
-INSERT INTO request_appointments (date, description, duration, patient, type) VALUES ('10.12.2019', 'opis1', 1, 'markoM', 'tip1');
+INSERT INTO request_appointments (date, description, duration, patient, type) VALUES ('2020-01-27T16:30', 'opis1', 1, 'anaM', 'tip1');
+INSERT INTO request_appointments (date, description, duration, patient, type) VALUES ('2020-01-23T10:00', 'opis1', 2, 'markoM', 'tip1');
+
+INSERT INTO appointments (date, description, duration, patient, type) VALUES ('2020-01-20T16:30', 'cold', 1, 'anaM', 'appointment');
+INSERT INTO appointments (date, description, duration, patient, type) VALUES ('2020-02-25T11:30', 'broken leg', 3, 'anaM', 'surgery');
 
 INSERT INTO medical_record_surgeries(medical_record_id, surgeries_id) VALUE (1, 1);
 INSERT INTO drug(name, price, quantity) VALUES ("brufen", 259, 100);

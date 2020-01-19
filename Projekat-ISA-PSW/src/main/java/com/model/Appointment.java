@@ -31,6 +31,9 @@ public class Appointment {
 	
 	@OneToOne(optional=true)
 	 private Recipe recipe;
+
+	@Column(name = "patient", nullable = true)
+	private String patient;
 	
 	@Column(name = "date", nullable = false)
 	private String date;
@@ -43,9 +46,17 @@ public class Appointment {
 	
 	@Column(name = "duration", nullable = false)
 	private long duration;
-	
-	
-	public Doctor getDoctor() {
+
+
+    public String getPatient() {
+        return patient;
+    }
+
+    public void setPatient(String patient) {
+        this.patient = patient;
+    }
+
+    public Doctor getDoctor() {
 		return doctor;
 	}
 	public void setDoctor(Doctor doctor) {
