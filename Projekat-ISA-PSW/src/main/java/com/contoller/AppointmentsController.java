@@ -36,8 +36,7 @@ public class AppointmentsController {
     @Autowired
     private EmailService emailService;
 
-    @Autowired
-    private AppointmentService appointmentService;
+
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value="/api/add-requestApp", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)

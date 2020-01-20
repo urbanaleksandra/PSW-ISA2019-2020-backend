@@ -53,14 +53,6 @@ public class Appointment {
 
 
 
-    public String getPatient() {
-        return patient;
-    }
-
-    public void setPatient(String patient) {
-        this.patient = patient;
-    }
-
     public Doctor getDoctor() {
 		return doctor;
 	}
