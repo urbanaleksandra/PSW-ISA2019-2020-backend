@@ -28,6 +28,11 @@ public class Clinic {
     //@JoinColumn(name="clinicAdministrator_id")
     private Set<ClinicAdministrator> clinicAdministrator = new HashSet<ClinicAdministrator>();
 
+    @JsonBackReference
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    //@JoinColumn(name="clinicAdministrator_id")
+    private Set<Doctor> doctors = new HashSet<Doctor>();
+
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<HospitalRoom> hospitalRooms = new HashSet<HospitalRoom>();
 
@@ -94,6 +99,14 @@ public class Clinic {
 
     public Set<ClinicAdministrator> getClinicAdministrator() {
         return clinicAdministrator;
+    }
+
+    public Set<Doctor> getDoctors() {
+        return doctors;
+    }
+
+    public void setDoctors(Set<Doctor> doctors) {
+        this.doctors = doctors;
     }
 
     public void setClinicAdministrator(Set<ClinicAdministrator> clinicAdministrator) {

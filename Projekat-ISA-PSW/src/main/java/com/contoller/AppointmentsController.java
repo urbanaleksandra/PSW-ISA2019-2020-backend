@@ -4,10 +4,7 @@ package com.contoller;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.model.*;
 import com.model.RequestAppointment;
-import com.service.EmailService;
-import com.service.MedicalRecordService;
-import com.service.PatientService;
-import com.service.RequestAppointmentService;
+import com.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,6 +22,9 @@ public class AppointmentsController {
 
     @Autowired
     private RequestAppointmentService requestAppointmentService;
+
+    @Autowired
+    private AppointmentService appointmentService;
 
     @Autowired
     private PatientService patientService;
@@ -71,8 +71,8 @@ public class AppointmentsController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value="/getAppointments/{username}", method= RequestMethod.GET)
-    public List<RequestAppointment> getAppointments(@PathVariable String username){
+    public List<Appointment> getAppointments(@PathVariable String username){
 
-        return requestAppointmentService.findAll();
+        return appointmentService.findAll();
     }
 }

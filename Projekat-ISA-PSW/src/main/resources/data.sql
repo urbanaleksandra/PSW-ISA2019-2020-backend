@@ -38,6 +38,10 @@ INSERT INTO surgery (date, description, patient) VALUES ("2020-3-24", 'operacija
 INSERT INTO request_appointments (date, description, duration, patient, type) VALUES ('10.12.2019', 'opis1', 1, 'anaM', 'tip1');
 INSERT INTO request_appointments (date, description, duration, patient, type) VALUES ('10.12.2019', 'opis1', 1, 'markoM', 'tip1');
 
+INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id) VALUES ('2020-01-03T16:15', 'pregled ledja', 1, 'anaM', 'tip pregleda', true, 2);
+INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id) VALUES ('2019-12-15T12:00', 'opis pregleda', 1, 'markoM', 'tip2', true, 2);
+INSERT INTO clinic_doctors(clinic_id, doctors_id) VALUES (1,2);
+
 INSERT INTO medical_record_surgeries(medical_record_id, surgeries_id) VALUE (1, 1);
 INSERT INTO drug(name, price, quantity) VALUES ("brufen", 259, 100);
 INSERT INTO drug(name, price, quantity) VALUES ("fervex", 550, 200);

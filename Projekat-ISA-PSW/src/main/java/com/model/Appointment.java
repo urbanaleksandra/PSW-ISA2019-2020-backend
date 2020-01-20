@@ -31,6 +31,9 @@ public class Appointment {
 	
 	@OneToOne(optional=true)
 	 private Recipe recipe;
+
+	@Column(name = "patient", nullable = true)
+	private String patient;
 	
 	@Column(name = "date", nullable = false)
 	private String date;
@@ -43,6 +46,9 @@ public class Appointment {
 	
 	@Column(name = "duration", nullable = false)
 	private long duration;
+
+	@Column(name = "finished", nullable = false)
+	private boolean finished;
 	
 	
 	public Doctor getDoctor() {
@@ -101,7 +107,23 @@ public class Appointment {
 	public void setDuration(long duration) {
 		this.duration = duration;
 	}
-	
+
+	public String getPatient() {
+		return patient;
+	}
+
+	public void setPatient(String patient) {
+		this.patient = patient;
+	}
+
+	public boolean isFinished() {
+		return finished;
+	}
+
+	public void setFinished(boolean finished) {
+		this.finished = finished;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {
