@@ -48,6 +48,11 @@ public class Appointment {
 	private long duration;
 
 
+	@Column(name = "finished", nullable = false)
+	private boolean finished;
+
+
+
     public String getPatient() {
         return patient;
     }
@@ -112,7 +117,23 @@ public class Appointment {
 	public void setDuration(long duration) {
 		this.duration = duration;
 	}
-	
+
+	public String getPatient() {
+		return patient;
+	}
+
+	public void setPatient(String patient) {
+		this.patient = patient;
+	}
+
+	public boolean isFinished() {
+		return finished;
+	}
+
+	public void setFinished(boolean finished) {
+		this.finished = finished;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {

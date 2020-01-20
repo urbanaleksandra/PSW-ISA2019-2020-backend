@@ -25,6 +25,9 @@ public class AppointmentsController {
     private RequestAppointmentService requestAppointmentService;
 
     @Autowired
+    private AppointmentService appointmentService;
+
+    @Autowired
     private PatientService patientService;
 
     @Autowired
@@ -72,9 +75,9 @@ public class AppointmentsController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value="/getAppointments/{username}", method= RequestMethod.GET)
-    public List<RequestAppointment> getAppointments(@PathVariable String username){
+    public List<Appointment> getAppointments(@PathVariable String username){
 
-        return requestAppointmentService.findAll();
+        return appointmentService.findAll();
     }
 
     //preuzimanje svih appointmenta za kalendar
