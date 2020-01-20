@@ -6,7 +6,25 @@ public class HospitalRoomDTO {
 
 	private Long id;
 	private ClinicDTO clinicDTO;
-	
+	private String name;
+	private int number;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getNumber() {
+		return number;
+	}
+
+	public void setNumber(int number) {
+		this.number = number;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -19,6 +37,20 @@ public class HospitalRoomDTO {
 	public void setClinicDTO(ClinicDTO clinicDTO) {
 		this.clinicDTO = clinicDTO;
 	}
+
+
+	public HospitalRoomDTO(String name, int number) {
+		this.name = name;
+		this.number = number;
+	}
+
+	public HospitalRoomDTO(Long id, ClinicDTO clinicDTO, String name, int number) {
+		this.id = id;
+		this.clinicDTO = clinicDTO;
+		this.name = name;
+		this.number = number;
+	}
+
 	public HospitalRoomDTO(Long id, ClinicDTO clinicDTO) {
 		super();
 		this.id = id;

@@ -1,5 +1,7 @@
 package com.model;
 
+import com.dto.HospitalRoomDTO;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,6 +29,11 @@ public class HospitalRoom {
 
 	@Column(nullable = false)
 	private int room_number;
+
+	public HospitalRoom(HospitalRoomDTO hospitalRoom) {
+		this.name = hospitalRoom.getName();
+		this.room_number = hospitalRoom.getNumber();
+	}
 
 	public String getName() {
 		return name;

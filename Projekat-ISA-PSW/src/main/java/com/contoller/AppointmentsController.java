@@ -58,11 +58,12 @@ public class AppointmentsController {
         requestAppointmentService.save(appointment1);
 
 
-//        try {
-//            emailService.sendNotificaitionAsync3();
-//        }catch( Exception e ){
-//            System.out.println("nije poslata poruka");
-//        }
+        try {
+            emailService.sendNotificaitionAsync3();
+        }catch( Exception e ){
+            System.out.println("nije poslata poruka");
+        }
+
         return new ResponseEntity<>(appointment1, HttpStatus.OK);
 
     }
