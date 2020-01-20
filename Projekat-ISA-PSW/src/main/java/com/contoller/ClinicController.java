@@ -3,9 +3,11 @@ package com.contoller;
 import com.dto.ClinicDTO;
 import com.model.Clinic;
 import com.model.ClinicAdministrator;
+import com.model.MedicalStaff;
 import com.repository.ClinicAdministratorRepository;
 import com.service.ClinicAdministratorService;
 import com.service.ClinicService;
+import com.service.MedicalStaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,6 +25,9 @@ public class ClinicController {
 
     @Autowired
     private ClinicAdministratorService clinicAdministratorService;
+
+    @Autowired
+    MedicalStaffService medicalStaffService;
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value="/api/add-clinic", method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
@@ -44,6 +49,23 @@ public class ClinicController {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value="/api/get-clinics", method= RequestMethod.GET)
     public List<Clinic> getClinic(){
+        List<Clinic> ret = clinicService.findAll();
+        return ret;
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value="/api/get-search-clinics/{date}", method= RequestMethod.GET)
+    public List<Clinic> getSearchClinic(@PathVariable String date){
+        //System.out.println("usao565656565"+date);
+
+//        List<MedicalStaff> doctors = medicalStaffService.findByRole("doctor");
+//        List<Long> doctorsId = null;
+//        for (MedicalStaff doctor:doctors) {
+//            doctorsId.add(doctor.getId());
+//        }
+
+        System.out.println(medicalStaffService.findByRole("doctor").get(0).getId());
+
         List<Clinic> ret = clinicService.findAll();
         return ret;
     }

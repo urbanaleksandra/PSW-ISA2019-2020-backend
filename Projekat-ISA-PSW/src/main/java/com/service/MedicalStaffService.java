@@ -5,6 +5,8 @@ import com.repository.MedicalStaffRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MedicalStaffService {
 
@@ -17,5 +19,9 @@ public class MedicalStaffService {
 
     public MedicalStaff save(MedicalStaff medicalStaff){
         return medicalStaffRepository.save(medicalStaff);
+    }
+
+    public List<MedicalStaff> findByRole(String role) {
+        return medicalStaffRepository.findByRole(role);
     }
 }
