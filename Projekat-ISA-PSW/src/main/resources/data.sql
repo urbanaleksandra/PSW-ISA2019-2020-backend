@@ -35,8 +35,11 @@ INSERT INTO surgery (date, description, patient) VALUES ("2019-12-20", 'operacij
 INSERT INTO surgery (date, description, patient) VALUES ("2020-3-24", 'operacija kicme', 'markoM');
 
 
-INSERT INTO request_appointments (date, description, duration, patient, type) VALUES ('10.12.2019', 'opis1', 1, 'anaM', 'tip1');
-INSERT INTO request_appointments (date, description, duration, patient, type) VALUES ('10.12.2019', 'opis1', 1, 'markoM', 'tip1');
+INSERT INTO request_appointments (date, description, duration, patient, type) VALUES ('2020-01-27T16:30', 'opis1', 1, 'anaM', 'tip1');
+INSERT INTO request_appointments (date, description, duration, patient, type) VALUES ('2020-01-23T10:00', 'opis1', 2, 'markoM', 'tip1');
+
+INSERT INTO appointments (date, description, duration, patient, type) VALUES ('2020-01-20T16:30', 'cold', 1, 'anaM', 'appointment');
+INSERT INTO appointments (date, description, duration, patient, type) VALUES ('2020-02-25T11:30', 'broken leg', 3, 'anaM', 'surgery');
 
 INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id) VALUES ('2020-01-03T16:15', 'pregled ledja', 1, 'anaM', 'tip pregleda', true, 2);
 INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id) VALUES ('2019-12-15T12:00', 'opis pregleda', 1, 'markoM', 'tip2', true, 2);

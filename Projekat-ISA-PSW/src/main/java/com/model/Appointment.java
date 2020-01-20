@@ -47,11 +47,21 @@ public class Appointment {
 	@Column(name = "duration", nullable = false)
 	private long duration;
 
+
 	@Column(name = "finished", nullable = false)
 	private boolean finished;
-	
-	
-	public Doctor getDoctor() {
+
+
+
+    public String getPatient() {
+        return patient;
+    }
+
+    public void setPatient(String patient) {
+        this.patient = patient;
+    }
+
+    public Doctor getDoctor() {
 		return doctor;
 	}
 	public void setDoctor(Doctor doctor) {

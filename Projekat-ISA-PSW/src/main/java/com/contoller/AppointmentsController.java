@@ -1,6 +1,7 @@
 package com.contoller;
 
 
+import com.dto.CalendarEventsDTO;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.model.*;
 import com.model.RequestAppointment;
@@ -11,9 +12,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @CrossOrigin(origins = "http://localhost:4200")
@@ -34,6 +35,9 @@ public class AppointmentsController {
 
     @Autowired
     private EmailService emailService;
+
+    @Autowired
+    private AppointmentService appointmentService;
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value="/api/add-requestApp", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
@@ -74,5 +78,34 @@ public class AppointmentsController {
     public List<Appointment> getAppointments(@PathVariable String username){
 
         return appointmentService.findAll();
+    }
+
+    //preuzimanje svih appointmenta za kalendar
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value="/api/getAllAppointments", method= RequestMethod.GET)
+    public List<CalendarEventsDTO> getAllAppointments() throws ParseException {
+        List<Appointment> lista = appointmentService.findAll();
+        List<CalendarEventsDTO> eventsDTOS = new ArrayList<CalendarEventsDTO>();
+
+        for (Appointment app: lista) {
+            Patient patient = patientService.findByUsername(app.getPatient());
+            String title = app.getDescription() + "\n" + patient.getFirstName() + " " + patient.getLastName();
+            String color = "";
+            if(app.getType().equals("appointment"))
+                color = "purple";
+            else
+                color = "green";
+
+            //dodavanje duration
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+            Date date = dateFormat.parse(app.getDate());
+            long millis = date.getTime();
+            millis += app.getDuration() * 60 * 60 * 1000;
+            String endDate = dateFormat.format(millis);
+
+            CalendarEventsDTO eventsDTO = new CalendarEventsDTO(title, app.getDate(), endDate, app.getId(), color);
+            eventsDTOS.add(eventsDTO);
+        }
+        return eventsDTOS;
     }
 }
