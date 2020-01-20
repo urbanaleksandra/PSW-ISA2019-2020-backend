@@ -1,12 +1,6 @@
 package com.model;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Surgery {
@@ -14,10 +8,9 @@ public class Surgery {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Doctor doctor;
+
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<Doctor> doctor;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private HospitalRoom hospitalRoom;
@@ -27,10 +20,24 @@ public class Surgery {
 	
 	@Column(nullable = false)
 	private String date;
+
 	@Column(nullable = false)
 	private String description;
+
 	@Column(name = "patient", nullable = true)
 	private String patient;
+
+	@Column(name = "duration", nullable = false)
+	private long duration;
+
+
+	public long getDuration() {
+		return duration;
+	}
+
+	public void setDuration(long duration) {
+		this.duration = duration;
+	}
 
 	public String getPatient() {
 		return patient;
@@ -40,12 +47,14 @@ public class Surgery {
 		this.patient = patient;
 	}
 
-	public Doctor getDoctor() {
-		return doctor;
-	}
-	public void setDoctor(Doctor doctor) {
+	public void setDoctor(Set<Doctor> doctor) {
 		this.doctor = doctor;
 	}
+
+	public Set<Doctor> getDoctor() {
+		return doctor;
+	}
+
 	public HospitalRoom getHospitalRoom() {
 		return hospitalRoom;
 	}
@@ -79,6 +88,20 @@ public class Surgery {
 		this.date = date;
 	}
 
+	public Surgery(Long id, Set<Doctor> doctor, HospitalRoom hospitalRoom, MedicalRecord medicalRecord, String date, String description, String patient, long duration) {
+		this.id = id;
+		this.doctor = doctor;
+		this.hospitalRoom = hospitalRoom;
+		this.medicalRecord = medicalRecord;
+		this.date = date;
+		this.description = description;
+		this.patient = patient;
+		this.duration = duration;
+	}
+
+	public Surgery() {
+	}
+
 	@Override
 	public String toString() {
 		return "Surgery{" +
@@ -89,9 +112,7 @@ public class Surgery {
 				", date='" + date + '\'' +
 				", description='" + description + '\'' +
 				", patient='" + patient + '\'' +
+				", duration=" + duration +
 				'}';
-	}
-
-	public Surgery() {
 	}
 }

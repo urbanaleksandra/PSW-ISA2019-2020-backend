@@ -31,8 +31,8 @@ INSERT INTO hospital_room (name,room_number) VALUES ('GLAVNA SALA',1);
 INSERT INTO hospital_room (name,room_number) VALUES ('Operaciona',2);
 INSERT INTO hospital_room (name,room_number) VALUES ('Operaciona sala',3);
 
-INSERT INTO surgery (date, description, patient) VALUES ("2019-12-20", 'operacija nosa', 'anaM');
-INSERT INTO surgery (date, description, patient) VALUES ("2020-3-24", 'operacija kicme', 'markoM');
+INSERT INTO surgery (date, description, patient, duration) VALUES ("2020-01-14T16:30", 'operacija nosa', 'anaM', 2);
+INSERT INTO surgery (date, description, patient, duration) VALUES ("2020-01-19T16:30", 'operacija kicme', 'markoM', 3);
 
 
 INSERT INTO request_appointments (date, description, duration, patient, type) VALUES ('2020-01-27T16:30', 'opis1', 1, 'anaM', 'tip1');
