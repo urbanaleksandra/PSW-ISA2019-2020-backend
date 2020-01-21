@@ -56,3 +56,5 @@ INSERT INTO drug_recipe(drug_id, recipe_id) VALUE (1,1);
 INSERT INTO drug_recipe(drug_id, recipe_id) VALUE (2,2);
 INSERT INTO drug_recipe(drug_id, recipe_id) VALUE (2,3);
 INSERT INTO drug_recipe(drug_id, recipe_id) VALUE (2,4);
+
+INSERT INTO appointment_type(name) VALUE ("kardioloski");
