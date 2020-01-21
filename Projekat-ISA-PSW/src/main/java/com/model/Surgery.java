@@ -1,4 +1,6 @@
 package com.model;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -9,6 +11,7 @@ public class Surgery {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+    @JsonBackReference
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Doctor> doctor;
 	

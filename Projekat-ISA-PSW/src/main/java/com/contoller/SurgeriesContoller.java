@@ -41,10 +41,24 @@ public class SurgeriesContoller {
     @RequestMapping(value = "/api/surgeries-res-rooms/{cadmin}", method = RequestMethod.GET)
     public List<Surgery> getSurgeriesInClinic(@PathVariable String cadmin){
         System.out.println("usao");
-        ClinicAdministrator ca = clinicAdministratorService.findByUsername(cadmin);
-        System.out.println(ca.getClinic().getId());
-        List<Surgery> surgeries = surgeryService.findByClinicId(ca.getClinic().getId());
+        List<Surgery> surgeries = new ArrayList<>();
+        List<Surgery> ret = new ArrayList<Surgery>();
+        ClinicAdministrator ca;
+        try{
+            ca = clinicAdministratorService.findByUsername(cadmin);
+        } catch (Exception e){
+            System.out.println("nije ulogovan cadmin");
+            return null;
+        }
 
-        return surgeries;
+        surgeries = surgeryService.findByClinicId(ca.getClinic().getId());
+        for (Surgery s:surgeries) {
+            if(s.getHospitalRoom() == null)
+                ret.add(s);
+
+
+        }
+
+        return ret;
     }
 }
