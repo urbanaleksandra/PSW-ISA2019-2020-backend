@@ -9,9 +9,9 @@ INSERT INTO AUTHORITY (name) VALUES ('ROLE_DOCTOR');
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_NURSE');
 
 
-INSERT INTO clinic (address, description, name, pricelist, profit) VALUES ('New York, NY 10011', '7 days a week | Your health is our priority', 'NYC Free Clinic', 0, 0);
+INSERT INTO clinic (address, description, name, pricelist, profit, rating) VALUES ('New York, NY 10011', '7 days a week | Your health is our priority', 'NYC Free Clinic', 0, 0, 3);
 
-INSERT INTO clinic (address, description, name, pricelist, profit) VALUES ('New York, NY 1541', 'New York City Health Department clinics offer patients health', 'NYC Health Clinic', 0, 0);
+INSERT INTO clinic (address, description, name, pricelist, profit, rating) VALUES ('New York, NY 1541', 'New York City Health Department clinics offer patients health', 'NYC Health Clinic', 0, 0, 4);
 INSERT INTO patient (address, city, country, email, first_name, jmbg, last_name, mobile_number, password, username, record_id) VALUES ('Beogradska 6', 'Bileca', 'Bosnia and Herzegovina', 'masa@gmail.com', 'Marija', 1497,'Gutic', '0640589536', 'masa', 'masa', '1');
 INSERT INTO patient (address, city, country, email, first_name, jmbg, last_name, mobile_number, password, username, record_id) VALUES ('Mise Dimitrijevica 7', 'Novi Sad', 'Serbia', 'ana@gmail.com', 'Ana', 5097,'Nikolic', '0640589536', 'anaN', 'ana', '2');
 
@@ -19,7 +19,8 @@ INSERT INTO patient (address, city, country, email, first_name, jmbg, last_name,
 INSERT INTO patient (address, city, country, email, first_name, jmbg, last_name, mobile_number, password, username, record_id) VALUES ('Mise Dimitrijevica 7', 'Novi Sad', 'Serbia', 'marko@gmail.com', 'Marko2', 1497,'Markovic2', '0640589536', 'marko', 'marko1', '4');
 INSERT INTO patient (address, city, country, email, first_name, jmbg, last_name, mobile_number, password, username, record_id) VALUES ('Mise Dimitrijevica 7', 'Novi Sad', 'Serbia', 'marko@gmail.com', 'Ana', 5097,'Markovic', '0640589536', 'anaM', 'anaM', '5');
 INSERT INTO medical_staff (medical_staff_type, username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, review, role) VALUES ('2', 'nurse', '123', 'nurse@gmail.com', 'Ivana', 'Petrovic', '315787', 'Bulevar Oslobodjenja 103', 'Novi Sad', 'Serbia', '06658651', '0', 'nurse');
-INSERT INTO medical_staff (medical_staff_type, username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, review, role) VALUES ('1', 'doctor', '123', 'doctor@gmail.com', 'Djordje', 'Rakic', '6872368', 'Bulevar Kralja Petra I 2', 'Beograd', 'Serbia', '0612645665', '0', 'doctor');
+INSERT INTO medical_staff (medical_staff_type, username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, review, role, clinic_id) VALUES ('1', 'doctor', '123', 'doctor@gmail.com', 'Djordje', 'Rakic', '6872368', 'Bulevar Kralja Petra I 2', 'Beograd', 'Serbia', '0612645665', '0', 'doctor', 1);
+INSERT INTO medical_staff (medical_staff_type, username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, review, role, clinic_id) VALUES ('1', 'doctorJovan', '123', 'doctorJovan@gmail.com', 'Jovan', 'Jovic', '2855558', 'Bulevar Cara Dusana 5', 'Novi Sad', 'Serbia', '0655555565', '0', 'doctor', 2);
 
 INSERT INTO medical_record (patient_id) VALUES (1);
 INSERT INTO medical_record (patient_id) VALUES (2);
@@ -38,12 +39,13 @@ INSERT INTO surgery (date, description, patient) VALUES ("2020-3-24", 'operacija
 INSERT INTO request_appointments (date, description, duration, patient, type) VALUES ('2020-01-27T16:30', 'opis1', 1, 'anaM', 'tip1');
 INSERT INTO request_appointments (date, description, duration, patient, type) VALUES ('2020-01-23T10:00', 'opis1', 2, 'markoM', 'tip1');
 
-INSERT INTO appointments (date, description, duration, patient,finished, type) VALUES ('2020-01-20T16:30', 'cold', 1, 'anaM', true,'appointment');
-INSERT INTO appointments (date, description, duration, patient,finished, type) VALUES ('2020-02-25T11:30', 'broken leg', 3, 'anaM',true, 'surgery');
+INSERT INTO appointments (date, description, duration, patient,finished, type, doctor_id) VALUES ('2020-01-20T16:30', 'cold', 1, 'anaM', true,'appointment', 2);
+INSERT INTO appointments (date, description, duration, patient,finished, type, doctor_id) VALUES ('2020-02-25T11:30', 'broken leg', 3, 'anaM',true, 'surgery', 2);
 
-INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id) VALUES ('2020-01-03T16:15', 'pregled ledja', 1, 'anaM', 'tip pregleda', true, 2);
-INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id) VALUES ('2019-12-15T12:00', 'opis pregleda', 1, 'markoM', 'tip2', true, 2);
+INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id) VALUES ('2020-01-30T09:15', 'pregled ledja', 1, 'anaM', 'tip pregleda', false, 3);
+INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id) VALUES ('2020-12-15T08:00', 'opis pregleda', 1, 'markoM', 'tip2', false, 2);
 INSERT INTO clinic_doctors(clinic_id, doctors_id) VALUES (1,2);
+INSERT INTO clinic_doctors(clinic_id, doctors_id) VALUES (2,3);
 
 INSERT INTO medical_record_surgeries(medical_record_id, surgeries_id) VALUE (1, 1);
 INSERT INTO drug(name, price, quantity) VALUES ("brufen", 259, 100);
