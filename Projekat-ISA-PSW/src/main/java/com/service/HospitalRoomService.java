@@ -19,6 +19,12 @@ public class HospitalRoomService {
 
     }
 
+    public HospitalRoom findByName(String name) {
+        return hospitalRoomRepository.findByName(name);
+    }
+
+    public  void delete(HospitalRoom room) { hospitalRoomRepository.delete(room);}
+
     public HospitalRoom save(HospitalRoom room){
         return hospitalRoomRepository.save(room);
     }

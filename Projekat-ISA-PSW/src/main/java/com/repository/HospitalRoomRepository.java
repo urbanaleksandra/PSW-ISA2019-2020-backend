@@ -11,5 +11,5 @@ import com.model.Surgery;
 public interface HospitalRoomRepository extends JpaRepository<HospitalRoom, Long>{
 
 
-	
+    HospitalRoom findByName(String name);
 }

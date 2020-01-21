@@ -32,7 +32,7 @@ public class HospitalRoom {
 
 	public HospitalRoom(HospitalRoomDTO hospitalRoom) {
 		this.name = hospitalRoom.getName();
-		this.room_number = hospitalRoom.getNumber();
+		this.room_number = hospitalRoom.getRoom_number();
 	}
 
 	public String getName() {
