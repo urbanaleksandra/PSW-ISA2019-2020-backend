@@ -63,9 +63,13 @@ INSERT INTO recipe(authenticated, description, drug_id) VALUES (false, "dva puta
 INSERT INTO recipe(authenticated, description, drug_id) VALUES (false, "tri kesice na dan", 2);
 INSERT INTO recipe(authenticated, description, drug_id) VALUES (false, "jedna kesica na dan", 2);
 INSERT INTO recipe(authenticated, description, drug_id) VALUES (true, "dve kesice na dan", 2);
-INSERT INTO drug_recipe(drug_id, recipe_id) VALUES (1,1);
-INSERT INTO drug_recipe(drug_id, recipe_id) VALUES (2,2);
-INSERT INTO drug_recipe(drug_id, recipe_id) VALUES (2,3);
-INSERT INTO drug_recipe(drug_id, recipe_id) VALUES (2,4);
+INSERT INTO drug_recipe(drug_id, recipe_id) VALUE (1,1);
+INSERT INTO drug_recipe(drug_id, recipe_id) VALUE (2,2);
+INSERT INTO drug_recipe(drug_id, recipe_id) VALUE (2,3);
+INSERT INTO drug_recipe(drug_id, recipe_id) VALUE (2,4);
+
+INSERT INTO appointment_type(name) VALUE ("kardioloski");
+
 
 INSERT INTO clinic_clinic_administrator(clinic_id, clinic_administrator_id) VALUES (1,1);
+
