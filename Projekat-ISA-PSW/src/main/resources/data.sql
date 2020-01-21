@@ -1,4 +1,4 @@
-INSERT INTO clinic_administrator (username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number) VALUES ('cadmin', 'cadmin', 'zeki.sipovac@gmail.com', 'Zeljana', 'Sipovac', '354168465', 'Glavna 54', 'Nevesinje', 'Bosna i Hercegovina', '0645865455');
+INSERT INTO clinic_administrator (username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, clinic_id) VALUES ('cadmin', 'cadmin', 'zeki.sipovac@gmail.com', 'Zeljana', 'Sipovac', '354168465', 'Glavna 54', 'Nevesinje', 'Bosna i Hercegovina', '0645865455', 1);
 INSERT INTO clinical_center_administrator (username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, first_log) VALUES ('ccadmin', 'ccadmin', 'tacajovicic@gmail.com', 'Tamara', 'Jovicic', '58768', 'Doze Djerdja 13', 'Novi Sad', 'Srbija', '06648246', '1');
 
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_PATIENT');
@@ -28,13 +28,22 @@ INSERT INTO medical_record (patient_id) VALUES (3);
 INSERT INTO medical_record (patient_id) VALUES (4);
 INSERT INTO medical_record (patient_id) VALUES (5);
 
-INSERT INTO hospital_room (name,room_number) VALUES ('GLAVNA SALA',1);
-INSERT INTO hospital_room (name,room_number) VALUES ('Operaciona',2);
-INSERT INTO hospital_room (name,room_number) VALUES ('Operaciona sala',3);
+INSERT INTO hospital_room (name,room_number,clinic_id) VALUES ('GLAVNA SALA',1, 1);
+INSERT INTO hospital_room (name,room_number,clinic_id) VALUES ('Operaciona',2, 1);
+INSERT INTO hospital_room (name,room_number,clinic_id) VALUES ('Operaciona sala',3, 1);
 
-INSERT INTO surgery (date, description, patient) VALUES ("2019-12-20", 'operacija nosa', 'anaM');
-INSERT INTO surgery (date, description, patient) VALUES ("2020-3-24", 'operacija kicme', 'markoM');
+INSERT INTO surgery (date, description, patient, duration, clinic_id) VALUES ("2020-01-14T16:30", 'operacija nosa', 'anaM', 2, 1);
+INSERT INTO surgery (date, description, patient, duration, clinic_id) VALUES ("2020-01-19T16:30", 'operacija kicme', 'markoM', 2, 1);
+INSERT INTO surgery (date, description, patient, duration, clinic_id) VALUES ("2020-01-02T16:30", 'operacija jetre', 'masa', 1, 1);
+INSERT INTO surgery (date, description, patient, duration, clinic_id, hospital_room_id) VALUES ("2020-01-22T16:30", 'operacija mozga', 'marko1', 3, 1, 2);
+INSERT INTO surgery (date, description, patient, duration, clinic_id, hospital_room_id) VALUES ("2020-01-23T16:30", 'operacija prsta', 'ana', 3, 1, 3);
 
+
+INSERT INTO clinic_surgeries (clinic_id, surgeries_id) VALUES (1,1);
+INSERT INTO clinic_surgeries (clinic_id, surgeries_id) VALUES (1,2);
+INSERT INTO clinic_surgeries (clinic_id, surgeries_id) VALUES (1,3);
+INSERT INTO clinic_surgeries (clinic_id, surgeries_id) VALUES (1,4);
+INSERT INTO clinic_surgeries (clinic_id, surgeries_id) VALUES (1,5);
 
 INSERT INTO request_appointments (date, description, duration, patient, type) VALUES ('2020-01-27T16:30', 'opis1', 1, 'anaM', 'tip1');
 INSERT INTO request_appointments (date, description, duration, patient, type) VALUES ('2020-01-23T10:00', 'opis1', 2, 'markoM', 'tip1');
@@ -54,7 +63,9 @@ INSERT INTO recipe(authenticated, description, drug_id) VALUES (false, "dva puta
 INSERT INTO recipe(authenticated, description, drug_id) VALUES (false, "tri kesice na dan", 2);
 INSERT INTO recipe(authenticated, description, drug_id) VALUES (false, "jedna kesica na dan", 2);
 INSERT INTO recipe(authenticated, description, drug_id) VALUES (true, "dve kesice na dan", 2);
-INSERT INTO drug_recipe(drug_id, recipe_id) VALUE (1,1);
-INSERT INTO drug_recipe(drug_id, recipe_id) VALUE (2,2);
-INSERT INTO drug_recipe(drug_id, recipe_id) VALUE (2,3);
-INSERT INTO drug_recipe(drug_id, recipe_id) VALUE (2,4);
+INSERT INTO drug_recipe(drug_id, recipe_id) VALUES (1,1);
+INSERT INTO drug_recipe(drug_id, recipe_id) VALUES (2,2);
+INSERT INTO drug_recipe(drug_id, recipe_id) VALUES (2,3);
+INSERT INTO drug_recipe(drug_id, recipe_id) VALUES (2,4);
+
+INSERT INTO clinic_clinic_administrator(clinic_id, clinic_administrator_id) VALUES (1,1);

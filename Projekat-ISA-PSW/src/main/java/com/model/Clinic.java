@@ -1,7 +1,9 @@
 package com.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -30,10 +32,11 @@ public class Clinic {
     private Set<ClinicAdministrator> clinicAdministrator = new HashSet<ClinicAdministrator>();
 
     @JsonBackReference
+
     @OneToMany(cascade = CascadeType.ALL)
-    //@JoinColumn(name="clinicAdministrator_id")
     private Set<Doctor> doctors = new HashSet<Doctor>();
 
+    @JsonBackReference
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<HospitalRoom> hospitalRooms = new HashSet<HospitalRoom>();
 
@@ -55,9 +58,13 @@ public class Clinic {
         return rating;
     }
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Surgery> surgeries;
+
     public void setRating(int rating) {
         this.rating = rating;
     }
+
 
     public Long getId() {
         return id;

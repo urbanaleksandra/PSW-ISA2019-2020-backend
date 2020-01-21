@@ -36,6 +36,13 @@ public class Doctor extends MedicalStaff {
 	@Column(name = "review", nullable = false)
 	private int review;
 
+	public void setClinic(Clinic clinic) {
+		this.clinic = clinic;
+	}
+
+	public Clinic getClinic() {
+		return clinic;
+    
 	@Column(name = "rating", nullable = false)
 	private int rating;
 

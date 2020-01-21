@@ -65,7 +65,6 @@ public class SurgeryDTO {
 	public SurgeryDTO(Surgery surgery) {
 		super();
 		this.id = surgery.getId();
-		this.doctorDTO = new DoctorDTO(surgery.getDoctor());
 		this.hospitalRoomDTO =new HospitalRoomDTO(surgery.getHospitalRoom());
 		this.medicalRecordDTO =new  MedicalRecordDTO(surgery.getMedicalRecord());
 		this.date = surgery.getDate();
