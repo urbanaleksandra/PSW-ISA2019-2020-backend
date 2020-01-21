@@ -15,7 +15,7 @@ public class ClinicAdministratorService {
     private ClinicAdministratorRepository clinicAdministratorRepository;
 
     public ClinicAdministrator findByUsername(String username) {
-        return (ClinicAdministrator) clinicAdministratorRepository.findByUsername(username);
+        return  clinicAdministratorRepository.findByUsername(username);
     }
 
     public ClinicAdministrator save(ClinicAdministrator clinicAdministrator){

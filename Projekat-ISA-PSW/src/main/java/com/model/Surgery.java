@@ -30,6 +30,8 @@ public class Surgery {
 	@Column(name = "duration", nullable = false)
 	private long duration;
 
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Clinic clinic;
 
 	public long getDuration() {
 		return duration;

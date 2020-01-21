@@ -30,17 +30,16 @@ public class Doctor extends MedicalStaff {
 
 	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	//@JoinColumn(name="clinicAdministrator_id")
-	private Doctor doctor;
+	private Clinic clinic;
 	
 	@Column(name = "review", nullable = false)
 	private int review;
 
-	public Doctor getDoctor() {
-		return doctor;
+	public void setClinic(Clinic clinic) {
+		this.clinic = clinic;
 	}
 
-	public void setDoctor(Doctor doctor) {
-		this.doctor = doctor;
+	public Clinic getClinic() {
+		return clinic;
 	}
 }

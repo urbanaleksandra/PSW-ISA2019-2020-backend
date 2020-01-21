@@ -48,6 +48,8 @@ public class Clinic {
     @Column(name = "profit", nullable = false)
     private int profit;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Surgery> surgeries;
 
     public Long getId() {
         return id;

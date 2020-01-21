@@ -142,4 +142,6 @@ public class ClinicAdministrator {
 	public void setJmbg(int jmbg) {
 		this.jmbg = jmbg;
 	}
+
+
 }
