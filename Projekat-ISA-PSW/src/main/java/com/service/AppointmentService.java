@@ -20,4 +20,8 @@ public class AppointmentService {
     public List<Appointment> findAll(){
         return appointmentRepository.findAll();
     }
+
+    public List<Appointment> findByFinished(Boolean finished){ return appointmentRepository.findByFinished(finished); }
+
+    public List<Appointment> findByDate(String date){ return appointmentRepository.findByDate(date); }
 }
