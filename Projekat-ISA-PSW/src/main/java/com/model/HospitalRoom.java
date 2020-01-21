@@ -1,6 +1,8 @@
 package com.model;
 
 import com.dto.HospitalRoomDTO;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,13 +16,15 @@ public class HospitalRoom {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-
+	@JsonBackReference
 	@OneToMany(mappedBy = "hospitalRoom", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Surgery> surgeries = new HashSet<Surgery>();
-	
+
+	@JsonBackReference
 	@OneToMany(mappedBy = "hospitalRoom", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Appointment> appointments = new HashSet<Appointment>();
-	
+
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Clinic clinic;
 

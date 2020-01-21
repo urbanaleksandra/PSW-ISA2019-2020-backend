@@ -1,6 +1,7 @@
 package com.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -29,18 +30,19 @@ public class Doctor extends MedicalStaff {
 
 
 	@JsonBackReference
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	//@JoinColumn(name="clinicAdministrator_id")
-	private Doctor doctor;
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Clinic clinic;
 	
 	@Column(name = "review", nullable = false)
 	private int review;
 
-	public Doctor getDoctor() {
-		return doctor;
+
+
+	public Clinic getClinic() {
+		return clinic;
 	}
 
-	public void setDoctor(Doctor doctor) {
-		this.doctor = doctor;
+	public void setClinic(Clinic clinic) {
+		this.clinic = clinic;
 	}
 }

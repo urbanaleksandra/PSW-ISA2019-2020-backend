@@ -21,4 +21,8 @@ public class SurgeryService {
     public List<Surgery> findByMedicalRecordId(Long id){
         return surgeryRepository.findByMedicalRecordId(id);
     }
+
+    public List<Surgery> findByClinicId(Long id){
+        return surgeryRepository.findByClinicId(id);
+    }
 }
