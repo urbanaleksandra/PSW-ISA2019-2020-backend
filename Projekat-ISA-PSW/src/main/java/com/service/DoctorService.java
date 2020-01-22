@@ -15,6 +15,8 @@ public class DoctorService {
         return (Doctor) doctorRepository.findByUsername(username);
     }
 
+    public Doctor findAll(){ return (Doctor) doctorRepository.findAll();}
+
     public Doctor save(Doctor patient) {
         return doctorRepository.save(patient);
 
