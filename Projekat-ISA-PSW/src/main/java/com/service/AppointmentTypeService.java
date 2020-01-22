@@ -21,4 +21,9 @@ public class AppointmentTypeService {
     public List<AppointmentType> findAll(){
         return repository.findAll();
     }
+
+    public AppointmentType findByName(String name) {
+        return repository.findByName(name);
+    }
+    public  void delete(AppointmentType type) { repository.delete(type);}
 }
