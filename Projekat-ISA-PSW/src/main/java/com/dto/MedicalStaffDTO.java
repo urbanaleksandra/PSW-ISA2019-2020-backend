@@ -10,6 +10,114 @@ public class MedicalStaffDTO {
 	private String password;
 	private String firstName;
 	private String lastName;
+	private String email;
+
+	private String address;
+
+	private String city;
+
+	private String country;
+
+	private int mobileNumber;
+
+	private int jmbg;
+
+	private String role;
+
+
+	private int pocetakRadnogVremena;
+
+
+	private int krajRadnogVremena;
+
+	public MedicalStaffDTO(String username, String password, String firstName, String lastName, String email, String address, String city, String country, int mobileNumber, int jmbg, String role, int pocetakRadnogVremena, int krajRadnogVremena) {
+		this.username = username;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.address = address;
+		this.city = city;
+		this.country = country;
+		this.mobileNumber = mobileNumber;
+		this.jmbg = jmbg;
+		this.role = role;
+		this.pocetakRadnogVremena = pocetakRadnogVremena;
+		this.krajRadnogVremena = krajRadnogVremena;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public int getMobileNumber() {
+		return mobileNumber;
+	}
+
+	public void setMobileNumber(int mobileNumber) {
+		this.mobileNumber = mobileNumber;
+	}
+
+	public int getJmbg() {
+		return jmbg;
+	}
+
+	public void setJmbg(int jmbg) {
+		this.jmbg = jmbg;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public int getPocetakRadnogVremena() {
+		return pocetakRadnogVremena;
+	}
+
+	public void setPocetakRadnogVremena(int pocetakRadnogVremena) {
+		this.pocetakRadnogVremena = pocetakRadnogVremena;
+	}
+
+	public int getKrajRadnogVremena() {
+		return krajRadnogVremena;
+	}
+
+	public void setKrajRadnogVremena(int krajRadnogVremena) {
+		this.krajRadnogVremena = krajRadnogVremena;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -40,6 +148,9 @@ public class MedicalStaffDTO {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+
+
+
 	public MedicalStaffDTO(Long id, String username, String password, String firstName, String lastName) {
 		super();
 		this.id = id;

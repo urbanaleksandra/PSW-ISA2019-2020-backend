@@ -1,7 +1,6 @@
 package com.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -9,8 +8,11 @@ import java.util.Set;
 import javax.persistence.*;
 
 @Entity
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 @DiscriminatorValue("1")
 public class Doctor extends MedicalStaff {
+
+
 
 	public Doctor(Set<Surgery> surgeries, Set<Appointment> appointments, int review) {
 		super();
@@ -29,14 +31,20 @@ public class Doctor extends MedicalStaff {
 	private Set<Appointment> appointments = new HashSet<Appointment>();
 
 
-	@JsonBackReference
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Clinic clinic;
 	
 	@Column(name = "review", nullable = false)
 	private int review;
 
+	public int getReview() {
+		return review;
+	}
 
+	public void setReview(int review) {
+		this.review = review;
+	}
 
 	public Clinic getClinic() {
 		return clinic;

@@ -26,4 +26,8 @@ public class ClinicService {
         return clinicRepository.findById(id).get();
     }
 
+    public Clinic findByName(String name) {
+        return clinicRepository.findByName(name);
+    }
+
 }
