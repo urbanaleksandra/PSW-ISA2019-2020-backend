@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -67,10 +68,10 @@ public class ClinicController {
         //System.out.println(doctors);
         for (MedicalStaff doctor:doctors) {
             //System.out.println(doctor.getId());
-            doctorsId.add(doctor.getId());
+            doctorsId.add(doctor.getId()); //id svih doktora
         }
 
-        System.out.println(doctorsId);
+//        System.out.println(doctorsId);
 //        System.out.println(appointmentService.findByFinished(false));
         List<Long> doctoriKojiSuZauzeti = new ArrayList<>(); //zauzeti doktori za taj datum(njihov id)
         for(Appointment app:appointmentService.findByFinished(false)){
@@ -82,14 +83,14 @@ public class ClinicController {
             }
         }
 
-        System.out.println(doctoriKojiSuZauzeti);
+//        System.out.println(doctoriKojiSuZauzeti);
 
         if(doctoriKojiSuZauzeti.size() != 0){
             for (Long id:doctoriKojiSuZauzeti) {
-                doctorsId.remove(id);
+                doctorsId.remove(id); //obrisem id doktora koji su zauzeti, ostanu samo slobodni u doctorsId
             }
         }
-        System.out.println(doctorsId);
+//        System.out.println(doctorsId);
 
         List<Clinic> clinics = new ArrayList<>();
         for(MedicalStaff doctor : doctors){
@@ -108,6 +109,56 @@ public class ClinicController {
 //        System.out.println(medicalStaffService.findByRole("doctor").get(0).getId());
 
         return clinics;
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value="/api/get-search-doctors/{date}/{imeKlinike}", method= RequestMethod.GET)
+    public List<Doctor> getSearchDoctors(@PathVariable("date") String date, @PathVariable("imeKlinike") String imeKlinike){
+//        System.out.println("usao565656565"+date);
+
+        List<MedicalStaff> doctors = medicalStaffService.findByRole("doctor");
+        List<Long> doctorsId = new ArrayList<>();
+        //System.out.println(doctors);
+        for (MedicalStaff doctor:doctors) {
+            //System.out.println(doctor.getId());
+            doctorsId.add(doctor.getId()); //id svih doktora
+        }
+
+        List<Long> doctoriKojiSuZauzeti = new ArrayList<>(); //zauzeti doktori za taj datum(njihov id)
+        for(Appointment app:appointmentService.findByFinished(false)){
+            if(app.getDate().equals(date)){
+//                System.out.println(app.getDoctor().getId());
+                if(!doctoriKojiSuZauzeti.contains(app.getDoctor().getId())){
+                    doctoriKojiSuZauzeti.add(app.getDoctor().getId());
+                }
+            }
+        }
+
+//        System.out.println(doctoriKojiSuZauzeti);
+
+        if(doctoriKojiSuZauzeti.size() != 0){
+            for (Long id:doctoriKojiSuZauzeti) {
+                doctorsId.remove(id); //obrisem id doktora koji su zauzeti, ostanu samo slobodni u doctorsId
+            }
+        }
+//        System.out.println(doctorsId);
+
+        Clinic klinika = clinicService.findByName(imeKlinike);
+        Set<Doctor> doctorsInClinic = klinika.getDoctors();
+
+        List<Doctor> ret = new ArrayList<>();
+        for(Doctor doc : doctorsInClinic){
+            for(Long id : doctorsId){
+                if(doc.getId() == id){
+                    ret.add(doc);
+                }
+            }
+        }
+
+
+        //System.out.println(ret);
+
+        return ret;
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
