@@ -17,11 +17,11 @@ public class HospitalRoom {
 	private Long id;
 
 	@JsonBackReference
-	@OneToMany(mappedBy = "hospitalRoom", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Surgery> surgeries = new HashSet<Surgery>();
 
 	@JsonBackReference
-	@OneToMany(mappedBy = "hospitalRoom", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Appointment> appointments = new HashSet<Appointment>();
 
 	@JsonIgnore
@@ -97,5 +97,17 @@ public class HospitalRoom {
 		this.clinic = clinic;
 		this.name = name;
 		this.room_number = room_number;
+	}
+
+	@Override
+	public String toString() {
+		return "HospitalRoom{" +
+				"id=" + id +
+				", surgeries=" + surgeries +
+				", appointments=" + appointments +
+				", clinic=" + clinic +
+				", name='" + name + '\'' +
+				", room_number=" + room_number +
+				'}';
 	}
 }

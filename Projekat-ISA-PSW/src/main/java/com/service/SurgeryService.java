@@ -25,4 +25,7 @@ public class SurgeryService {
     public List<Surgery> findByClinicId(Long id){
         return surgeryRepository.findByClinicId(id);
     }
+    public List<Surgery> findByHospitalId(Long id){
+        return surgeryRepository.findByHospitalRoomId(id);
+    }
 }

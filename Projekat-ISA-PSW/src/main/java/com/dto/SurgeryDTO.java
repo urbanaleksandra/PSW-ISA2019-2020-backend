@@ -10,6 +10,25 @@ public class SurgeryDTO {
 	private MedicalRecordDTO medicalRecordDTO;
 	private String date;
 	private String description;
+	private String patient;
+	private int duration;
+
+	public String getPatient() {
+		return patient;
+	}
+
+	public int getDuration() {
+		return duration;
+	}
+
+	public void setPatient(String patient) {
+		this.patient = patient;
+	}
+
+	public void setDuration(int duration) {
+		this.duration = duration;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -70,5 +89,15 @@ public class SurgeryDTO {
 		this.date = surgery.getDate();
 		this.description = surgery.getDescription();
 	}
-	
+
+	@Override
+	public String toString() {
+		return "SurgeryDTO{" +
+				"id=" + id +
+				", date='" + date + '\'' +
+				", description='" + description + '\'' +
+				", patient='" + patient + '\'' +
+				", duration=" + duration +
+				'}';
+	}
 }

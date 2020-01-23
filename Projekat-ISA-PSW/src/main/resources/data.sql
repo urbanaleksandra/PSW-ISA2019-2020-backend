@@ -33,11 +33,13 @@ INSERT INTO hospital_room (name,room_number,clinic_id) VALUES ('Operaciona',2, 1
 INSERT INTO hospital_room (name,room_number,clinic_id) VALUES ('Operaciona sala',3, 1);
 
 INSERT INTO surgery (date, description, patient, duration, clinic_id) VALUES ("2020-01-14T16:30", 'operacija nosa', 'anaM', 2, 1);
-INSERT INTO surgery (date, description, patient, duration, clinic_id) VALUES ("2020-01-19T16:30", 'operacija kicme', 'markoM', 2, 1);
+INSERT INTO surgery (date, description, patient, duration, clinic_id) VALUES ("2020-01-22T18:10", 'operacija kicme', 'markoM', 2, 1);
 INSERT INTO surgery (date, description, patient, duration, clinic_id) VALUES ("2020-01-02T16:30", 'operacija jetre', 'masa', 1, 1);
 INSERT INTO surgery (date, description, patient, duration, clinic_id, hospital_room_id) VALUES ("2020-01-22T16:30", 'operacija mozga', 'marko1', 3, 1, 2);
 INSERT INTO surgery (date, description, patient, duration, clinic_id, hospital_room_id) VALUES ("2020-01-23T16:30", 'operacija prsta', 'ana', 3, 1, 3);
 
+INSERT INTO hospital_room_surgeries(hospital_room_id, surgeries_id) VALUES (4,2);
+INSERT INTO hospital_room_surgeries(hospital_room_id, surgeries_id) VALUES (5,3);
 
 INSERT INTO clinic_surgeries (clinic_id, surgeries_id) VALUES (1,1);
 INSERT INTO clinic_surgeries (clinic_id, surgeries_id) VALUES (1,2);

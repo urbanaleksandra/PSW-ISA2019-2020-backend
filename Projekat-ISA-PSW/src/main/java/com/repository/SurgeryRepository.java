@@ -10,5 +10,6 @@ public interface SurgeryRepository extends JpaRepository<Surgery, Long>{
 
     List<Surgery> findByMedicalRecordId(Long id);
     List<Surgery> findByClinicId(Long id);
+    List<Surgery> findByHospitalRoomId(Long id);
 
 }
