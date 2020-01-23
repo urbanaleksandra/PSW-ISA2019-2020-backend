@@ -1,12 +1,16 @@
 package com.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="medical_staff_type",
 		discriminatorType = DiscriminatorType.INTEGER)
@@ -37,6 +41,12 @@ public abstract class MedicalStaff {
 	private int jmbg;
 	@Column(nullable = false)
 	private String role;
+
+	@Column(nullable = true)
+	private int pocetakRadnogVremena;
+
+	@Column(nullable = true)
+	private int krajRadnogVremena;
 
 	@JsonBackReference
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -137,4 +147,21 @@ public abstract class MedicalStaff {
 	public void setHolidayRequests(Set<HolidayRequest> holidayRequests) {
 		this.holidayRequests = holidayRequests;
 	}
+
+	public int getPocetakRadnogVremena() {
+		return pocetakRadnogVremena;
+	}
+
+	public void setPocetakRadnogVremena(int pocetakRadnogVremena) {
+		this.pocetakRadnogVremena = pocetakRadnogVremena;
+	}
+
+	public int getKrajRadnogVremena() {
+		return krajRadnogVremena;
+	}
+
+	public void setKrajRadnogVremena(int krajRadnogVremena) {
+		this.krajRadnogVremena = krajRadnogVremena;
+	}
+
 }

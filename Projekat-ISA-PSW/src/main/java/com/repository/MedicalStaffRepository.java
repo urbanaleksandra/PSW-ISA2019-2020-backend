@@ -13,4 +13,6 @@ public interface MedicalStaffRepository extends JpaRepository<MedicalStaff, Long
 	List<MedicalStaff> findByFirstName(String firstName);
 
 	List<MedicalStaff> findByRole(String role);
+
+
 }
