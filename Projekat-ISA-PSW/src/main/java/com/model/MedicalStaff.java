@@ -43,10 +43,10 @@ public abstract class MedicalStaff {
 	private String role;
 
 	@Column(nullable = true)
-	private int pocetakRadnogVremena;
+	private String pocetakRadnogVremena;
 
 	@Column(nullable = true)
-	private int krajRadnogVremena;
+	private String krajRadnogVremena;
 
 	@JsonBackReference
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -148,19 +148,19 @@ public abstract class MedicalStaff {
 		this.holidayRequests = holidayRequests;
 	}
 
-	public int getPocetakRadnogVremena() {
+	public String getPocetakRadnogVremena() {
 		return pocetakRadnogVremena;
 	}
 
-	public void setPocetakRadnogVremena(int pocetakRadnogVremena) {
+	public void setPocetakRadnogVremena(String pocetakRadnogVremena) {
 		this.pocetakRadnogVremena = pocetakRadnogVremena;
 	}
 
-	public int getKrajRadnogVremena() {
+	public String getKrajRadnogVremena() {
 		return krajRadnogVremena;
 	}
 
-	public void setKrajRadnogVremena(int krajRadnogVremena) {
+	public void setKrajRadnogVremena(String krajRadnogVremena) {
 		this.krajRadnogVremena = krajRadnogVremena;
 	}
 

@@ -25,12 +25,12 @@ public class MedicalStaffDTO {
 	private String role;
 
 
-	private int pocetakRadnogVremena;
+	private String pocetakRadnogVremena;
 
 
-	private int krajRadnogVremena;
+	private String krajRadnogVremena;
 
-	public MedicalStaffDTO(String username, String password, String firstName, String lastName, String email, String address, String city, String country, int mobileNumber, int jmbg, String role, int pocetakRadnogVremena, int krajRadnogVremena) {
+	public MedicalStaffDTO(String username, String password, String firstName, String lastName, String email, String address, String city, String country, int mobileNumber, int jmbg, String role, String pocetakRadnogVremena, String krajRadnogVremena) {
 		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
@@ -102,19 +102,19 @@ public class MedicalStaffDTO {
 		this.role = role;
 	}
 
-	public int getPocetakRadnogVremena() {
+	public String getPocetakRadnogVremena() {
 		return pocetakRadnogVremena;
 	}
 
-	public void setPocetakRadnogVremena(int pocetakRadnogVremena) {
+	public void setPocetakRadnogVremena(String pocetakRadnogVremena) {
 		this.pocetakRadnogVremena = pocetakRadnogVremena;
 	}
 
-	public int getKrajRadnogVremena() {
+	public String getKrajRadnogVremena() {
 		return krajRadnogVremena;
 	}
 
-	public void setKrajRadnogVremena(int krajRadnogVremena) {
+	public void setKrajRadnogVremena(String krajRadnogVremena) {
 		this.krajRadnogVremena = krajRadnogVremena;
 	}
 

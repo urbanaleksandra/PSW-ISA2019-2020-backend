@@ -13,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.print.Doc;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -71,11 +72,13 @@ public class ClinicController {
             doctorsId.add(doctor.getId()); //id svih doktora
         }
 
-//        System.out.println(doctorsId);
+        System.out.println(doctorsId);
 //        System.out.println(appointmentService.findByFinished(false));
         List<Long> doctoriKojiSuZauzeti = new ArrayList<>(); //zauzeti doktori za taj datum(njihov id)
         for(Appointment app:appointmentService.findByFinished(false)){
-            if(app.getDate().equals(date)){
+            System.out.println(app.getDate().split("T")[0]);
+            System.out.println(date);
+            if(app.getDate().split("T")[0].equals(date)){
 //                System.out.println(app.getDoctor().getId());
                 if(!doctoriKojiSuZauzeti.contains(app.getDoctor().getId())){
                     doctoriKojiSuZauzeti.add(app.getDoctor().getId());
@@ -83,14 +86,14 @@ public class ClinicController {
             }
         }
 
-//        System.out.println(doctoriKojiSuZauzeti);
+        System.out.println(doctoriKojiSuZauzeti);
 
         if(doctoriKojiSuZauzeti.size() != 0){
             for (Long id:doctoriKojiSuZauzeti) {
                 doctorsId.remove(id); //obrisem id doktora koji su zauzeti, ostanu samo slobodni u doctorsId
             }
         }
-//        System.out.println(doctorsId);
+        System.out.println(doctorsId);
 
         List<Clinic> clinics = new ArrayList<>();
         for(MedicalStaff doctor : doctors){
@@ -98,7 +101,7 @@ public class ClinicController {
                 if(doctor.getId() == id){
                     if(!clinics.contains(clinicService.findById(((Doctor)doctor).getClinic().getId()))){
                         clinics.add(clinicService.findById(((Doctor)doctor).getClinic().getId()));
-                        System.out.println(clinics.get(0).getName());
+                        //System.out.println(clinics.get(0).getName());
                     }
 
                 }
@@ -126,7 +129,7 @@ public class ClinicController {
 
         List<Long> doctoriKojiSuZauzeti = new ArrayList<>(); //zauzeti doktori za taj datum(njihov id)
         for(Appointment app:appointmentService.findByFinished(false)){
-            if(app.getDate().equals(date)){
+            if(app.getDate().split("T")[0].equals(date)){
 //                System.out.println(app.getDoctor().getId());
                 if(!doctoriKojiSuZauzeti.contains(app.getDoctor().getId())){
                     doctoriKojiSuZauzeti.add(app.getDoctor().getId());
@@ -168,4 +171,6 @@ public class ClinicController {
         System.out.println("usao i nasao");
         return ret;
     }
+
+
 }
