@@ -1,6 +1,7 @@
 package com.contoller;
 
 
+import com.dto.AppointmentDTO;
 import com.dto.CalendarEventsDTO;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.model.*;
@@ -39,8 +40,8 @@ public class AppointmentsController {
 
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value="/api/add-requestApp", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody ResponseEntity<RequestAppointment> addRequestApp(@RequestBody RequestAppointment appointment){
+    @RequestMapping(value="/api/add-requestApp", method=RequestMethod.POST,  produces=MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody ResponseEntity<RequestAppointment> addRequestApp(@RequestBody AppointmentDTO appointment){
 
         RequestAppointment appointment1 = new RequestAppointment(appointment.getPatient(),appointment.getDate(),appointment.getDescription(),appointment.getDuration());
         //requestAppointmentService.save(appointment1);
