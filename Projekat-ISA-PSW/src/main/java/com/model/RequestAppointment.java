@@ -31,6 +31,9 @@ public class RequestAppointment {
     @Column(name = "patient", nullable = true)
     private String patient;
 
+    @Column(name = "doctorUsername", nullable = true)
+    private String doctorUsername;
+
     @Column(name = "date", nullable = true)
     private String date;
 
@@ -49,6 +52,13 @@ public class RequestAppointment {
         this.duration = duration;
     }
 
+    public String getDoctorUsername() {
+        return doctorUsername;
+    }
+
+    public void setDoctorUsername(String doctorUsername) {
+        this.doctorUsername = doctorUsername;
+    }
 
     public Doctor getDoctor() {
         return doctor;

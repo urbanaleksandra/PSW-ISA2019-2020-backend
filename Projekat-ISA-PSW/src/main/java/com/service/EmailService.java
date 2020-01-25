@@ -80,6 +80,23 @@ public class EmailService {
         }
     }
 
+    @Async
+    public void sendNotificaitionAsync4() throws MailException, InterruptedException {
+        System.out.println("Slanje emaila...");
+
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setTo("urb.saska@gmail.com");
+        mail.setFrom(env.getProperty("spring.mail.username"));
+        mail.setSubject("New request");
+        mail.setText("Mr/Mrs, you have a new request to make a new appointment. Please check your list with requests. ");
+        try{
+            javaMailSender.send(mail);
+        }
+        catch( Exception e ){
+            System.out.println("nije javaMailSender.send(mail); prosao");
+        }
+    }
+
 
 
 }

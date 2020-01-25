@@ -22,6 +22,15 @@ public class AppointmentDTO {
 
 	private String patient;
 
+	private String doctorUsername;
+
+	public String getDoctorUsername() {
+		return doctorUsername;
+	}
+
+	public void setDoctorUsername(String doctorUsername) {
+		this.doctorUsername = doctorUsername;
+	}
 
 	public String getDate() {
 		return date;
