@@ -28,4 +28,6 @@ public class SurgeryService {
     public List<Surgery> findByHospitalId(Long id){
         return surgeryRepository.findByHospitalRoomId(id);
     }
+
+    public Surgery save(Surgery surgery) { return surgeryRepository.save(surgery); }
 }

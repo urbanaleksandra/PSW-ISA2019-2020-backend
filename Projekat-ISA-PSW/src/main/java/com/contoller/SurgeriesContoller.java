@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.model.*;
 import com.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.swing.plaf.SeparatorUI;
@@ -37,12 +40,41 @@ public class SurgeriesContoller {
     @Autowired
     private DoctorService doctorService;
 
+    @Autowired
+    private MedicalStaffService medicalStaffService;
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value="/getSurgeries/{username}", method= RequestMethod.GET)
     public List<Surgery> getSurgeries(@PathVariable String username){
 
         return surgeryService.findAll();
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value="/api/new-surgery", method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+    ResponseEntity<SurgeryDTO> addSurgery(@RequestBody SurgeryDTO surgeryDTO){
+            System.out.println(surgeryDTO);
+            Surgery surgery = new Surgery();
+            surgery.setDate(surgeryDTO.getDate());
+            surgery.setPatient(surgeryDTO.getPatient());
+            surgery.setDescription(surgeryDTO.getDescription());
+            Doctor doctor = null;
+            Clinic clinic = null;
+            try {
+                doctor = doctorService.findByUsername(surgeryDTO.getDoctor());
+                System.out.println(doctor.getUsername());
+                clinic = doctor.getClinic();
+                System.out.println(clinic.getAddress());
+            }
+            catch (Exception e){
+
+            }
+            if(doctor != null) {
+                surgery.setClinic(clinic);
+                Surgery surgeries = surgeryService.save(surgery);
+            }
+        return new ResponseEntity<>(surgeryDTO, HttpStatus.OK);
     }
 
 

@@ -14,7 +14,7 @@ public class DoctorService {
     private DoctorRepository doctorRepository;
 
     public Doctor findByUsername(String username) {
-        return (Doctor) doctorRepository.findByUsername(username);
+        return doctorRepository.findByUsername(username);
     }
 
     public List<Doctor> findAll(){ return doctorRepository.findAll();}

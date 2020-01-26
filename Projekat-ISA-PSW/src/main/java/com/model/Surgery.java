@@ -94,7 +94,13 @@ public class Surgery {
 		this.date = date;
 	}
 
+	public Clinic getClinic() {
+		return clinic;
+	}
 
+	public void setClinic(Clinic clinic) {
+		this.clinic = clinic;
+	}
 
 	public Surgery(Long id, Set<Doctor> doctor, HospitalRoom hospitalRoom, MedicalRecord medicalRecord, String date, String description, String patient, long duration) {
 		this.id = id;
