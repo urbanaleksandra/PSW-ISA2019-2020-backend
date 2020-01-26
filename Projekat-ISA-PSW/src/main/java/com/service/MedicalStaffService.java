@@ -25,4 +25,5 @@ public class MedicalStaffService {
     public List<MedicalStaff> findByRole(String role) {
         return medicalStaffRepository.findByRole(role);
     }
+
 }

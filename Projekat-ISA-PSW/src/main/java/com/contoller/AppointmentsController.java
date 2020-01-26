@@ -1,6 +1,7 @@
 package com.contoller;
 
 
+import com.dto.AppointmentDTO;
 import com.dto.CalendarEventsDTO;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.model.*;
@@ -39,8 +40,8 @@ public class AppointmentsController {
 
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value="/api/add-requestApp", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody ResponseEntity<RequestAppointment> addRequestApp(@RequestBody RequestAppointment appointment){
+    @RequestMapping(value="/api/add-requestApp", method=RequestMethod.POST,  produces=MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody ResponseEntity<RequestAppointment> addRequestApp(@RequestBody AppointmentDTO appointment){
 
         RequestAppointment appointment1 = new RequestAppointment(appointment.getPatient(),appointment.getDate(),appointment.getDescription(),appointment.getDuration());
         //requestAppointmentService.save(appointment1);
@@ -66,6 +67,38 @@ public class AppointmentsController {
         return new ResponseEntity<>(appointment1, HttpStatus.OK);
 
     }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value="/api/add-requestApp-from-patient", method=RequestMethod.POST,  produces=MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody ResponseEntity<RequestAppointment> addRequestAppFromPatient(@RequestBody AppointmentDTO appointment){
+
+        RequestAppointment appointment1 = new RequestAppointment(appointment.getPatient(),appointment.getDate(),appointment.getDescription(),appointment.getDuration());
+        //requestAppointmentService.save(appointment1);
+
+        Patient pa = patientService.findByUsername(appointment.getPatient());
+        System.out.println(pa.getUsername());
+        Long paID = pa.getId();
+
+        MedicalRecord mr = medicalRecordService.findByPatientId(paID);
+//        mr.addRequestAppointment(appointment1);
+//        medicalRecordService.save(mr);
+//        System.out.println(mr.getId());
+        appointment1.setMedicalRecord(mr);
+        appointment1.setDoctorUsername(appointment.getDoctorUsername());
+        appointment1.setType(appointment.getType());
+        requestAppointmentService.save(appointment1);
+
+
+        try {
+            emailService.sendNotificaitionAsync4();
+        }catch( Exception e ){
+            System.out.println("nije poslata poruka");
+        }
+
+        return new ResponseEntity<>(appointment1, HttpStatus.OK);
+
+    }
+
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value="/getAppointmentRequests", method= RequestMethod.GET)
     public List<RequestAppointment> getAppointmentReq(){

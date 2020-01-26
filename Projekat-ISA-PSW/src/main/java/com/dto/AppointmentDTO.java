@@ -20,6 +20,18 @@ public class AppointmentDTO {
 
 	private long duration;
 
+	private String patient;
+
+	private String doctorUsername;
+
+	public String getDoctorUsername() {
+		return doctorUsername;
+	}
+
+	public void setDoctorUsername(String doctorUsername) {
+		this.doctorUsername = doctorUsername;
+	}
+
 	public String getDate() {
 		return date;
 	}
@@ -35,6 +47,15 @@ public class AppointmentDTO {
 		this.description=appointment.getDescription();
 		this.type=appointment.getType();
 		this.duration=appointment.getDuration();
+		this.patient=appointment.getPatient();
+	}
+
+	public String getPatient() {
+		return patient;
+	}
+
+	public void setPatient(String patient) {
+		this.patient = patient;
 	}
 
 	public void setDate(String date) {
