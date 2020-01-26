@@ -24,7 +24,8 @@ public class Doctor extends MedicalStaff {
 	public Doctor() {
 	}
 
-	@OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonBackReference
+	@ManyToMany(mappedBy = "surgeries", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Surgery> surgeries = new HashSet<Surgery>();
 	
 	@OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -52,5 +53,31 @@ public class Doctor extends MedicalStaff {
 
 	public void setClinic(Clinic clinic) {
 		this.clinic = clinic;
+	}
+
+	public Set<Surgery> getSurgeries() {
+		return surgeries;
+	}
+
+	public void setSurgeries(Set<Surgery> surgeries) {
+		this.surgeries = surgeries;
+	}
+
+	public Set<Appointment> getAppointments() {
+		return appointments;
+	}
+
+	public void setAppointments(Set<Appointment> appointments) {
+		this.appointments = appointments;
+	}
+
+	@Override
+	public String toString() {
+		return "Doctor{" +
+				"surgeries=" + surgeries +
+				", appointments=" + appointments +
+				", clinic=" + clinic +
+				", review=" + review +
+				'}';
 	}
 }
