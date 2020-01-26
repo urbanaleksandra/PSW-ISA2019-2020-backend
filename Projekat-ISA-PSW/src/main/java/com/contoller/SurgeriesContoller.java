@@ -3,10 +3,7 @@ package com.contoller;
 import com.dto.SurgeryDTO;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.model.*;
-import com.service.ClinicAdministratorService;
-import com.service.HospitalRoomService;
-import com.service.MedicalRecordService;
-import com.service.SurgeryService;
+import com.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +33,9 @@ public class SurgeriesContoller {
 
     @Autowired
     private HospitalRoomService hospitalRoomService;
+
+    @Autowired
+    private DoctorService doctorService;
 
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -121,6 +121,22 @@ public class SurgeriesContoller {
             Set<Appointment> roomAppointments = hospitalRoom.getAppointments();
         }
 
+        return ret;
+    }
+
+    @CrossOrigin(origins = "http//localhost:4200")
+    @RequestMapping(value = "/api/availableDoctors", method = RequestMethod.POST)
+    public List<Doctor> getAvailableDoctors(@RequestBody SurgeryDTO surgeryDTO){
+        List<Doctor> ret = new ArrayList<>();
+        System.out.println(surgeryDTO);
+        List<Doctor> doctors = this.doctorService.findAll();
+        List<Surgery> surgeries = this.surgeryService.findAll();
+        for (Doctor doctor:doctors) {
+            System.out.println("Doctor id: " + doctor.getId() + "num of surgeries: " + doctor.getSurgeries().size());
+        }
+        for (Surgery surgery:surgeries) {
+            System.out.println("Surgery id: " + surgery.getId() + "num of doctors: " + surgery.getDoctor().size());
+        }
         return ret;
     }
 }
