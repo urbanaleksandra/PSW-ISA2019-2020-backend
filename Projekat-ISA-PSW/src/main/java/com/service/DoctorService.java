@@ -5,6 +5,8 @@ import com.repository.DoctorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DoctorService {
 
@@ -15,7 +17,7 @@ public class DoctorService {
         return (Doctor) doctorRepository.findByUsername(username);
     }
 
-    public Doctor findAll(){ return (Doctor) doctorRepository.findAll();}
+    public List<Doctor> findAll(){ return doctorRepository.findAll();}
 
     public Doctor save(Doctor patient) {
         return doctorRepository.save(patient);

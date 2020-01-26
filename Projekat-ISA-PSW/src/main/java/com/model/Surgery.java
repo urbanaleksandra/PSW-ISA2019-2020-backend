@@ -2,6 +2,7 @@ package com.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -11,9 +12,9 @@ public class Surgery {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-    @JsonBackReference
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Set<Doctor> doctor;
+	@JsonBackReference
+	@ManyToMany(mappedBy = "doctors", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Set<Doctor> doctors = new HashSet<Doctor>();
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private HospitalRoom hospitalRoom;
@@ -53,11 +54,11 @@ public class Surgery {
 	}
 
 	public void setDoctor(Set<Doctor> doctor) {
-		this.doctor = doctor;
+		this.doctors = doctor;
 	}
 
 	public Set<Doctor> getDoctor() {
-		return doctor;
+		return doctors;
 	}
 
 	public HospitalRoom getHospitalRoom() {
@@ -93,9 +94,11 @@ public class Surgery {
 		this.date = date;
 	}
 
+
+
 	public Surgery(Long id, Set<Doctor> doctor, HospitalRoom hospitalRoom, MedicalRecord medicalRecord, String date, String description, String patient, long duration) {
 		this.id = id;
-		this.doctor = doctor;
+		this.doctors = doctor;
 		this.hospitalRoom = hospitalRoom;
 		this.medicalRecord = medicalRecord;
 		this.date = date;
@@ -111,7 +114,7 @@ public class Surgery {
 	public String toString() {
 		return "Surgery{" +
 				"id=" + id +
-				", doctor=" + doctor +
+				", doctor=" + doctors +
 				", hospitalRoom=" + hospitalRoom +
 				", medicalRecord=" + medicalRecord +
 				", date='" + date + '\'' +
