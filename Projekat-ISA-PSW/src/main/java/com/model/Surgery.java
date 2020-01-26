@@ -13,7 +13,7 @@ public class Surgery {
 	private Long id;
 
 	@JsonBackReference
-	@ManyToMany(mappedBy = "doctors", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Doctor> doctors = new HashSet<Doctor>();
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

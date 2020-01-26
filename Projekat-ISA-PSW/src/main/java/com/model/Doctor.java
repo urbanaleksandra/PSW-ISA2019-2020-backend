@@ -25,7 +25,7 @@ public class Doctor extends MedicalStaff {
 	}
 
 	@JsonBackReference
-	@ManyToMany(mappedBy = "surgeries", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Surgery> surgeries = new HashSet<Surgery>();
 	
 	@OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
