@@ -23,4 +23,6 @@ public class DoctorService {
         return doctorRepository.save(patient);
 
     }
+
+    public  void delete(Doctor doc) { doctorRepository.delete(doc);}
 }

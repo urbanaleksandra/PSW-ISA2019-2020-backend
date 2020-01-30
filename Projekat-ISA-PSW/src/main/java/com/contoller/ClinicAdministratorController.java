@@ -9,7 +9,9 @@ import com.repository.ClinicRepository;
 import com.service.ClinicAdministratorService;
 import com.service.ClinicService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -55,6 +57,39 @@ public class ClinicAdministratorController {
         System.out.println(ca.getClinic().getId());
         clinicAdministratorRepository.save(ca);
         clinicRepository.save(clinic);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value="/cadmin/{username}", method= RequestMethod.GET)
+    public ClinicAdministrator getMedStaff(@PathVariable String username){
+        System.out.println("TU SAM");
+        System.out.println(clinicAdministratorService.findByUsername(username).getUsername());
+        return clinicAdministratorService.findByUsername(username);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value="/adminChangeInfo", method= RequestMethod.POST)
+    public @ResponseBody ResponseEntity<ClinicAdministratorDTO> changeInfo(@RequestBody ClinicAdministratorDTO mdNovi){
+        ClinicAdministrator md = (ClinicAdministrator) clinicAdministratorService.findByUsername(mdNovi.getUsername());
+        if(md != null){
+            md.setPassword(mdNovi.getPassword());
+            System.out.println(md.getPassword());
+            md.setFirstName(mdNovi.getFirstName());
+            md.setLastName(mdNovi.getLastName());
+            md.setCity(mdNovi.getCity());
+            md.setCountry(mdNovi.getCountry());
+            md.setEmail(mdNovi.getEmail());
+            md.setMobileNumber(mdNovi.getMobileNumber());
+            clinicAdministratorService.save(md);
+        }
+        else{
+            // Patient patient = new Patient(patientNovi.getUsername(), patientNovi.getPassword(), patientNovi.getFirstName(), patientNovi.getLastName(), patientNovi.getEmail(), patientNovi.getAddress(), patientNovi.getCity(), patientNovi.getCountry(), patientNovi.getMobileNumber(), patientNovi.getJmbg());
+
+            // patientService.save(patient);
+        }
+        ClinicAdministratorDTO d=new ClinicAdministratorDTO(md);
+        return new ResponseEntity<>(d, HttpStatus.OK);
+
     }
 
 }
