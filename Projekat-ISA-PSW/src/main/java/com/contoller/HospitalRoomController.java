@@ -1,9 +1,9 @@
 package com.contoller;
 
 import com.dto.HospitalRoomDTO;
-import com.model.ClinicalCenterAdministrator;
-import com.model.HospitalRoom;
-import com.model.Patient;
+import com.model.*;
+import com.service.ClinicAdministratorService;
+import com.service.ClinicService;
 import com.service.HospitalRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +19,12 @@ public class HospitalRoomController {
 
     @Autowired
     private HospitalRoomService hospitalRoomService;
+
+    @Autowired
+    private ClinicService clinicService;
+
+    @Autowired
+    private ClinicAdministratorService administratorService;
 
     @CrossOrigin
     @GetMapping("sale")
@@ -62,11 +68,26 @@ public class HospitalRoomController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value="/add-room", method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
-    public void addRoom(@RequestBody HospitalRoomDTO hospitalRoom){
-        System.out.println(hospitalRoom);
+    @RequestMapping(value="/add-room/{username}", method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+    public void addRoom(@RequestBody HospitalRoomDTO hospitalRoom,@PathVariable String username){
+        // username je username admina koji je dodao kliniku. Ovo cemo iskoristiti da bismo dodijelili sobu klinici
+        System.out.println(username);
         HospitalRoom hr=new HospitalRoom(hospitalRoom);
         hospitalRoomService.save(hr);
+        ClinicAdministrator clinicAdministrator=administratorService.findByUsername(username);
+
+        if(clinicAdministrator!=null) {
+            Clinic clinic = clinicService.findById(clinicAdministrator.getClinic().getId());
+            if (clinic!=null) {
+                clinic.getHospitalRooms().add(hr);
+                System.out.println(clinic);
+                hr.setClinic(clinic);
+                System.out.println(hr.getClinic().getId());
+                hospitalRoomService.save(hr);
+                clinicService.save(clinic);
+                hospitalRoomService.save(hr);
+            }
+            }
 
     }
 

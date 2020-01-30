@@ -129,6 +129,22 @@ public class Clinic {
         this.clinicAdministrator = clinicAdministrator;
     }
 
+    public ClinicalCenter getClinicalCenter() {
+        return clinicalCenter;
+    }
+
+    public void setClinicalCenter(ClinicalCenter clinicalCenter) {
+        this.clinicalCenter = clinicalCenter;
+    }
+
+    public Set<HospitalRoom> getHospitalRooms() {
+        return hospitalRooms;
+    }
+
+    public void setHospitalRooms(Set<HospitalRoom> hospitalRooms) {
+        this.hospitalRooms = hospitalRooms;
+    }
+
     @Override
     public String toString() {
         return "Clinic{" +
