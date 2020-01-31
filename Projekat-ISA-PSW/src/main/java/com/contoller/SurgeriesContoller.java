@@ -1,5 +1,6 @@
 package com.contoller;
 
+import com.dto.ReservationHospitalRoomDTO;
 import com.dto.SurgeryDTO;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.model.*;
@@ -10,11 +11,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.plaf.SeparatorUI;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -43,6 +41,9 @@ public class SurgeriesContoller {
     @Autowired
     private MedicalStaffService medicalStaffService;
 
+    @Autowired
+    private AppointmentService appointmentService;
+
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value="/getSurgeries/{username}", method= RequestMethod.GET)
     public List<Surgery> getSurgeries(@PathVariable String username){
@@ -62,7 +63,7 @@ public class SurgeriesContoller {
             Doctor doctor = null;
             Clinic clinic = null;
             try {
-                doctor = doctorService.findByUsername(surgeryDTO.getDoctor());
+                doctor = doctorService.findByUsername(surgeryDTO.getDoctorSurgery());
                 System.out.println(doctor.getUsername());
                 clinic = doctor.getClinic();
                 System.out.println(clinic.getAddress());
@@ -72,6 +73,7 @@ public class SurgeriesContoller {
             }
             if(doctor != null) {
                 surgery.setClinic(clinic);
+                surgery.setDuration(3);
                 Surgery surgeries = surgeryService.save(surgery);
             }
         return new ResponseEntity<>(surgeryDTO, HttpStatus.OK);
@@ -109,9 +111,17 @@ public class SurgeriesContoller {
     @CrossOrigin(origins = "http//localhost:4200")
     @RequestMapping(value = "/api/availableRooms", method = RequestMethod.POST)
     public List<HospitalRoom> availableRooms(@RequestBody SurgeryDTO surgeryDTO) throws ParseException {
+        System.out.println("USAO U AVAILABLE ROOMS");
         List<HospitalRoom> ret = new ArrayList<>();
         System.out.println(surgeryDTO);
+        Surgery surgery = null;
+        try{
+            surgery = surgeryService.findById(surgeryDTO.getId());
+        }catch (Exception e){
+            return null;
+        }
 
+        Clinic clinic = surgery.getClinic();
         //nalazim milisecs koje su vezane za moj zakazani pregled
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
         Date date = dateFormat.parse(surgeryDTO.getDate());
@@ -125,7 +135,7 @@ public class SurgeriesContoller {
 
 
         // prolazim kroz sve sale i gledam koja je slobodna u tom periodu
-        List<HospitalRoom> allRooms = hospitalRoomService.findAll();
+        List<HospitalRoom> allRooms = hospitalRoomService.findByClinicId(surgery.getClinic().getId());
         for (HospitalRoom hospitalRoom:allRooms) {
             boolean nadjenaOperacijaKojaJeUTomTerminu = false;
             //gledam da li je zakazana neka operacija tad
@@ -133,13 +143,35 @@ public class SurgeriesContoller {
             for (Surgery s:roomSurgeries) {
                 if(nadjenaOperacijaKojaJeUTomTerminu == false){
                 //poredim datum moje operacije i datum operacije u ovom for-u, ako je 0 onda su jednaki
-                    if(date2.compareTo(dateFormat2.parse(s.getDate())) == 0){
+                    if(date.compareTo(dateFormat.parse(s.getDate())) == 0){
                         //moram sad da proverim satnice dal se poklapaju
-                        Date dateS = dateFormat.parse(s.getDate());
+//                        Date dateS = dateFormat.parse(s.getDate());
+//                        long startSurgeryS = dateS.getTime();
+//                        long endSurgeryS =  startSurgeryS +  s.getDuration() * 60 * 60 * 1000;
+//                        System.out.print(startSurgeryS);
+//                        System.out.print(endSurgeryS);
+                        nadjenaOperacijaKojaJeUTomTerminu = true;
+//                        if(!((startSurgeryS < startSurgery && endSurgeryS < startSurgery) ||
+//                                (startSurgeryS > endSurgery && endSurgeryS > endSurgery))){
+//                            nadjenaOperacijaKojaJeUTomTerminu = true;
+//                        }
+                    }
+                }
+            }
+
+            List<Appointment> appsRoom = this.appointmentService.findByHospitalRoomId(hospitalRoom.getId());
+
+            for(Appointment appointment:appsRoom){
+                if(nadjenaOperacijaKojaJeUTomTerminu == false){
+                    //poredim datum moje operacije i datum operacije u ovom for-u, ako je 0 onda su jednaki
+                    if(date2.compareTo(dateFormat2.parse(appointment.getDate())) == 0){
+                        //moram sad da proverim satnice dal se poklapaju
+                        Date dateS = dateFormat.parse(appointment.getDate());
                         long startSurgeryS = dateS.getTime();
-                        long endSurgeryS =  startSurgeryS +  s.getDuration() * 60 * 60 * 1000;
+                        long endSurgeryS =  startSurgeryS +  appointment.getDuration() * 60 * 60 * 1000;
                         System.out.print(startSurgeryS);
                         System.out.print(endSurgeryS);
+                        nadjenaOperacijaKojaJeUTomTerminu = true;
                         if(!((startSurgeryS < startSurgery && endSurgeryS < startSurgery) ||
                                 (startSurgeryS > endSurgery && endSurgeryS > endSurgery))){
                             nadjenaOperacijaKojaJeUTomTerminu = true;
@@ -158,17 +190,73 @@ public class SurgeriesContoller {
 
     @CrossOrigin(origins = "http//localhost:4200")
     @RequestMapping(value = "/api/availableDoctors", method = RequestMethod.POST)
-    public List<Doctor> getAvailableDoctors(@RequestBody SurgeryDTO surgeryDTO){
-        List<Doctor> ret = new ArrayList<>();
+    public List<Doctor> getAvailableDoctors(@RequestBody SurgeryDTO surgeryDTO) throws ParseException {
         System.out.println(surgeryDTO);
-        List<Doctor> doctors = this.doctorService.findAll();
-        List<Surgery> surgeries = this.surgeryService.findAll();
+        Surgery surgery  = surgeryService.findById(surgeryDTO.getId());
+        List<Doctor> doctors = this.doctorService.findByClinicId(surgery.getClinic().getId());
+        List<Doctor> availableDoctors = new ArrayList<>();
         for (Doctor doctor:doctors) {
-            System.out.println("Doctor id: " + doctor.getId() + "num of surgeries: " + doctor.getSurgeries().size());
+
+            boolean available = true;
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+            Date date = dateFormat.parse(surgery.getDate());
+            for(Surgery s: doctor.getSurgeries()){
+                if(date.compareTo(dateFormat.parse(s.getDate())) == 0){
+                    available = false;
+                }
+            }
+            System.out.println("PREGLEDI " + doctor.getAppointments().size());
+
+
+            long startSurgery = date.getTime();
+            long endSurgery =  startSurgery +  surgery.getDuration() * 60 * 60 * 1000;
+            //System.out.println(startSurgery + "++++++" + endSurgery);
+            //datum bez vremena
+            SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
+            Date date2 = dateFormat2.parse(surgeryDTO.getDate());
+
+            for (Appointment appointment:doctor.getAppointments()) {
+                if(available == true) {
+                    if (date2.compareTo(dateFormat2.parse(appointment.getDate())) == 0) {
+                        Date dateS = dateFormat.parse(appointment.getDate());
+                        long startSurgeryS = dateS.getTime();
+                        long endSurgeryS = startSurgeryS + appointment.getDuration() * 60 * 60 * 1000;
+                        if (!((startSurgeryS < startSurgery && endSurgeryS < startSurgery) ||
+                                (startSurgeryS > endSurgery && endSurgeryS > endSurgery))) {
+                            available = false;
+                            System.out.println("PRONASAO PREGLED KOJI JE U TOM PERIODU "+ appointment.getDate());
+                        }
+                    }
+                }
+            }
+
+
+
+            if(available)
+                availableDoctors.add(doctor);
         }
-        for (Surgery surgery:surgeries) {
-            System.out.println("Surgery id: " + surgery.getId() + "num of doctors: " + surgery.getDoctor().size());
+
+        return availableDoctors;
+    }
+
+    @CrossOrigin(origins = "http//localhost:4200")
+    @RequestMapping(value="/api/add-room-to-surgery", method = RequestMethod.POST , consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+    public void addRoomToSurgery(@RequestBody ReservationHospitalRoomDTO reservationHospitalRoomDTO){
+        System.out.println(reservationHospitalRoomDTO);
+        HospitalRoom hospitalRoom = this.hospitalRoomService.findById(reservationHospitalRoomDTO.getSurgery().getRoomID());
+        Surgery surgery = this.surgeryService.findById(reservationHospitalRoomDTO.getSurgery().getId());
+        surgery.setHospitalRoom(hospitalRoom);
+        for (Long id:reservationHospitalRoomDTO.getDoctors()) {
+            surgery.getDoctor().add(this.doctorService.findById(id));
         }
-        return ret;
+        Surgery s = this.surgeryService.save(surgery);
+        for (Long id:reservationHospitalRoomDTO.getDoctors()) {
+            Doctor doctor = this.doctorService.findById(id);
+            doctor.getSurgeries().add(s);
+            Doctor d = this.doctorService.save(doctor);
+        }
+
+        hospitalRoom.getSurgeries().add(s);
+        HospitalRoom hospitalRoom1 = this.hospitalRoomService.save(hospitalRoom);
     }
 }

@@ -1,5 +1,6 @@
 package com.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -15,11 +16,13 @@ public class Surgery {
 	@JsonBackReference
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Doctor> doctors = new HashSet<Doctor>();
-	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+
+	@JsonBackReference
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private HospitalRoom hospitalRoom;
-	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+
+	@JsonBackReference
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private MedicalRecord medicalRecord;
 	
 	@Column(nullable = false)
@@ -34,7 +37,8 @@ public class Surgery {
 	@Column(name = "duration", nullable = false)
 	private long duration;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonBackReference
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Clinic clinic;
 
 	public long getDuration() {

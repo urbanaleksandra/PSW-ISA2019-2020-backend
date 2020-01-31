@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SurgeryService {
@@ -30,4 +31,6 @@ public class SurgeryService {
     }
 
     public Surgery save(Surgery surgery) { return surgeryRepository.save(surgery); }
+
+    public Surgery findById(Long id) { return surgeryRepository.findById(id).get();}
 }

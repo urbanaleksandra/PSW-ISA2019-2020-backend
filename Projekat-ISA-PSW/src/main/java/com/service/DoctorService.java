@@ -23,4 +23,7 @@ public class DoctorService {
         return doctorRepository.save(patient);
 
     }
+
+    public List<Doctor> findByClinicId(Long id){ return doctorRepository.findByClinicId(id);}
+    public Doctor findById(Long id) { return doctorRepository.findById(id).get();}
 }
