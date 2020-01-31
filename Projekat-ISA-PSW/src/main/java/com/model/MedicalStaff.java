@@ -49,7 +49,7 @@ public abstract class MedicalStaff {
 	private String krajRadnogVremena;
 
 	@JsonBackReference
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	private Set<HolidayRequest> holidayRequests = new HashSet<HolidayRequest>();
 
 	public Long getId() {

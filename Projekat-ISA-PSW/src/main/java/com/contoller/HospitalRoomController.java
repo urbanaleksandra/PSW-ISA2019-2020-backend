@@ -21,7 +21,7 @@ public class HospitalRoomController {
     private HospitalRoomService hospitalRoomService;
 
     @Autowired
-    private ClinicService clinicService;
+    private ClinicService clinicService2;
 
     @Autowired
     private ClinicAdministratorService administratorService;
@@ -38,6 +38,11 @@ public class HospitalRoomController {
 
         System.out.println(room.getName());
         HospitalRoom hr=hospitalRoomService.findByName(room.getName());
+        Clinic clinic=clinicService2.findById(hr.getClinic().getId());
+        System.out.println(clinic.getId());
+        clinic.getHospitalRooms().remove(hr);
+        System.out.println(clinic.getHospitalRooms());
+        clinicService2.save(clinic);
         hospitalRoomService.delete(hr);
         HospitalRoomDTO hRoom = new HospitalRoomDTO(room.getName(),room.getRoom_number());
 
@@ -77,14 +82,14 @@ public class HospitalRoomController {
         ClinicAdministrator clinicAdministrator=administratorService.findByUsername(username);
 
         if(clinicAdministrator!=null) {
-            Clinic clinic = clinicService.findById(clinicAdministrator.getClinic().getId());
+            Clinic clinic = clinicService2.findById(clinicAdministrator.getClinic().getId());
             if (clinic!=null) {
                 clinic.getHospitalRooms().add(hr);
                 System.out.println(clinic);
                 hr.setClinic(clinic);
                 System.out.println(hr.getClinic().getId());
                 hospitalRoomService.save(hr);
-                clinicService.save(clinic);
+                clinicService2.save(clinic);
                 hospitalRoomService.save(hr);
             }
             }

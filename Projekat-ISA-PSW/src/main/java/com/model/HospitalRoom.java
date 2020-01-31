@@ -18,16 +18,18 @@ public class HospitalRoom {
 	private Long id;
 
 	@JsonBackReference
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	private Set<Surgery> surgeries = new HashSet<Surgery>();
 
 	@JsonBackReference
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	private Set<Appointment> appointments = new HashSet<Appointment>();
 
 	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private Clinic clinic = new Clinic();
+	@ManyToOne( fetch = FetchType.EAGER)
+	private Clinic clinic;
+
+
 
 	@Column(nullable = false)
 	private String name;
@@ -100,7 +102,7 @@ public class HospitalRoom {
 		this.room_number = room_number;
 	}
 
-	@Override
+	/*@Override
 	public String toString() {
 		return "HospitalRoom{" +
 				"id=" + id +
@@ -110,5 +112,5 @@ public class HospitalRoom {
 				", name='" + name + '\'' +
 				", room_number=" + room_number +
 				'}';
-	}
+	}*/
 }

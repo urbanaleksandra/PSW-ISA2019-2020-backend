@@ -25,17 +25,20 @@ public class Doctor extends MedicalStaff {
 	}
 
 	@JsonBackReference
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	private Set<Surgery> surgeries = new HashSet<Surgery>();
 
+
 	@JsonBackReference
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	private Set<Appointment> appointments = new HashSet<Appointment>();
+
 
 
 	//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.REFRESH)
+
 	private Clinic clinic;
 	
 	@Column(name = "review", nullable = false)

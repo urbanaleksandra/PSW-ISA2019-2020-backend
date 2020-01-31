@@ -14,15 +14,15 @@ public class Surgery {
 	private Long id;
 
 	@JsonBackReference
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	private Set<Doctor> doctors = new HashSet<Doctor>();
 
 	@JsonBackReference
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	private HospitalRoom hospitalRoom;
 
 	@JsonBackReference
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	private MedicalRecord medicalRecord;
 	
 	@Column(nullable = false)
