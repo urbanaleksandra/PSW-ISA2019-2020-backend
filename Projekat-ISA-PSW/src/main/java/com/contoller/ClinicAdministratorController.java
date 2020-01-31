@@ -61,11 +61,21 @@ public class ClinicAdministratorController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value="/cadmin/{username}", method= RequestMethod.GET)
-    public ClinicAdministrator getMedStaff(@PathVariable String username){
+    public ClinicAdministrator getAdmin(@PathVariable String username){
         System.out.println("TU SAM");
         System.out.println(clinicAdministratorService.findByUsername(username).getUsername());
         return clinicAdministratorService.findByUsername(username);
     }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value="/getMyClinic/{username}", method= RequestMethod.GET)
+    public ClinicDTO getClinic(@PathVariable String username){
+        System.out.println(clinicAdministratorService.findByUsername(username).getUsername());
+        ClinicAdministrator admin=clinicAdministratorService.findByUsername(username);
+        Clinic clinic=clinicService.findById(admin.getClinic().getId());
+        ClinicDTO clinicDTO=new ClinicDTO(clinic);
+        return clinicDTO;
+     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value="/adminChangeInfo", method= RequestMethod.POST)
