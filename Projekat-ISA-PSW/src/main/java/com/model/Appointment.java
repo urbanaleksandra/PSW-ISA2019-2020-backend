@@ -1,4 +1,6 @@
 package com.model;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.util.Objects;
 
 import javax.persistence.CascadeType;

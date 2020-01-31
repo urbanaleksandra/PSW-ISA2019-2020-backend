@@ -3,6 +3,7 @@ package com.model;
 import com.dto.HospitalRoomDTO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -27,6 +28,8 @@ public class HospitalRoom {
 	@JsonIgnore
 	@ManyToOne( fetch = FetchType.EAGER)
 	private Clinic clinic;
+
+
 
 	@Column(nullable = false)
 	private String name;

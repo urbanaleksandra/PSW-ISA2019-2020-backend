@@ -36,33 +36,35 @@ INSERT INTO medical_record (patient_id) VALUES (3);
 INSERT INTO medical_record (patient_id) VALUES (4);
 INSERT INTO medical_record (patient_id) VALUES (5);
 
-INSERT INTO clinic_administrator (username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, clinic_id) VALUES ('cadmin', 'cadmin', 'zeki.sipovac@gmail.com', 'Zeljana', 'Sipovac', '354168465', 'Glavna 54', 'Nevesinje', 'Bosna i Hercegovina', '0645865455', 1);
-INSERT INTO clinic_administrator (username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, clinic_id) VALUES ('cadmin2', 'cadmin', 'zeki.sipovac@gmail.com', 'Zeljana', 'Sipovac', '354168464', 'Glavna 54', 'Nevesinje', 'Bosna i Hercegovina', '0645865455', 2);
-INSERT INTO clinic_administrator (username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, clinic_id) VALUES ('cadmin3', 'cadmin', 'zeki.sipovac@gmail.com', 'Zeljana', 'Sipovac', '354168467', 'Glavna 54', 'Nevesinje', 'Bosna i Hercegovina', '0645865455', 3);
 
-INSERT INTO hospital_room (name,room_number,clinic_id) VALUES ('GLAVNA SALA',1,4);
-INSERT INTO hospital_room (name,room_number,clinic_id) VALUES ('Operaciona',2, 4);
-INSERT INTO hospital_room (name,room_number,clinic_id) VALUES ('Operaciona sala',3, 3);
+INSERT INTO hospital_room (name,room_number,clinic_id) VALUES ('Glavna sala',1, 1);
+INSERT INTO hospital_room (name,room_number,clinic_id) VALUES ('Operaciona sala',2, 1);
+INSERT INTO hospital_room (name,room_number,clinic_id) VALUES ('Operaciona sala',3, 1);
+INSERT INTO hospital_room (name,room_number,clinic_id) VALUES ('Mala sala',23, 2);
+INSERT INTO hospital_room (name,room_number,clinic_id) VALUES ('Velika sala',24, 2);
 
-INSERT INTO clinic_hospital_rooms(clinic_id,hospital_rooms_id) values (4,1);
-INSERT INTO clinic_hospital_rooms(clinic_id,hospital_rooms_id) values (4,2);
-INSERT INTO clinic_hospital_rooms(clinic_id,hospital_rooms_id) values (3,3);
-INSERT INTO surgery (date, description, patient, duration, clinic_id) VALUES ("2020-01-14T16:30", 'operacija nosa', 'anaM', 2, 1);
-INSERT INTO surgery (date, description, patient, duration, clinic_id) VALUES ("2020-01-22T18:10", 'operacija kicme', 'markoM', 2, 1);
-INSERT INTO surgery (date, description, patient, duration, clinic_id) VALUES ("2020-01-02T16:30", 'operacija jetre', 'masa', 1, 1);
-INSERT INTO surgery (date, description, patient, duration, clinic_id, hospital_room_id) VALUES ("2020-01-22T16:30", 'operacija mozga', 'marko1', 3, 1, 2);
-INSERT INTO surgery (date, description, patient, duration, clinic_id, hospital_room_id) VALUES ("2020-01-23T16:30", 'operacija prsta', 'ana', 3, 1, 3);
+INSERT INTO surgery (date, description, patient, duration, clinic_id) VALUES ("2020-02-14T09:00", 'operacija nosa', 'anaM', 3, 1);
+INSERT INTO surgery (date, description, patient, duration, clinic_id) VALUES ("2020-02-22T12:00", 'operacija kicme', 'markoM', 3, 2);
+INSERT INTO surgery (date, description, patient, duration, clinic_id) VALUES ("2020-02-02T12:00", 'operacija jetre', 'masa', 3, 2);
+INSERT INTO surgery (date, description, patient, duration, clinic_id, hospital_room_id) VALUES ("2020-02-22T09:00", 'operacija mozga', 'marko1', 3, 1, 1);
+INSERT INTO surgery (date, description, patient, duration, clinic_id, hospital_room_id) VALUES ("2020-02-23T09:00", 'operacija prsta', 'ana', 3, 1, 2);
 
-INSERT INTO surgery_doctors(surgery_id, doctors_id) VALUES (4,4);
-INSERT INTO surgery_doctors(surgery_id, doctors_id) VALUES (4,3);
+INSERT INTO surgery_doctors(surgery_id, doctors_id) VALUES (4,2);
+INSERT INTO surgery_doctors(surgery_id, doctors_id) VALUES (4,5);
 INSERT INTO surgery_doctors(surgery_id, doctors_id) VALUES (5,5);
 
-INSERT INTO hospital_room_surgeries(hospital_room_id, surgeries_id) VALUES (2,4);
-INSERT INTO hospital_room_surgeries(hospital_room_id, surgeries_id) VALUES (3,5);
+
+INSERT INTO medical_staff_surgeries(doctor_id, surgeries_id) VALUES (2,4);
+INSERT INTO medical_staff_surgeries(doctor_id, surgeries_id) VALUES (5,4);
+INSERT INTO medical_staff_surgeries(doctor_id, surgeries_id) VALUES (5,5);
+
+INSERT INTO hospital_room_surgeries(hospital_room_id, surgeries_id) VALUES (1,4);
+INSERT INTO hospital_room_surgeries(hospital_room_id, surgeries_id) VALUES (2,5);
+
 
 INSERT INTO clinic_surgeries (clinic_id, surgeries_id) VALUES (1,1);
-INSERT INTO clinic_surgeries (clinic_id, surgeries_id) VALUES (1,2);
-INSERT INTO clinic_surgeries (clinic_id, surgeries_id) VALUES (1,3);
+INSERT INTO clinic_surgeries (clinic_id, surgeries_id) VALUES (2,2);
+INSERT INTO clinic_surgeries (clinic_id, surgeries_id) VALUES (2,3);
 INSERT INTO clinic_surgeries (clinic_id, surgeries_id) VALUES (1,4);
 INSERT INTO clinic_surgeries (clinic_id, surgeries_id) VALUES (1,5);
 
@@ -71,9 +73,16 @@ INSERT INTO request_appointments (date, description, duration, patient, type) VA
 
 INSERT INTO appointments (date, description, duration, patient,finished, type, doctor_id) VALUES ('2020-01-20T16:30', 'cold', 1, 'anaM', false,'appointment', 2);
 INSERT INTO appointments (date, description, duration, patient,finished, type, doctor_id) VALUES ('2020-02-25T11:30', 'broken leg', 3, 'anaM',true, 'surgery', 2);
-
 INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id) VALUES ('2020-01-30T09:15', 'pregled ledja', 1, 'anaM', 'tip pregleda', false, 3);
 INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id) VALUES ('2020-12-15T08:00', 'opis pregleda', 1, 'markoM', 'tip2', false, 2);
+INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id) VALUES ('2020-02-23T10:00', 'pregled grla', 2, 'markoM', 'tip2', false, 2);
+
+INSERT INTO medical_staff_appointments(doctor_id, appointments_id) VALUES(2, 1);
+INSERT INTO medical_staff_appointments(doctor_id, appointments_id) VALUES(2, 2);
+INSERT INTO medical_staff_appointments(doctor_id, appointments_id) VALUES(3, 3);
+INSERT INTO medical_staff_appointments(doctor_id, appointments_id) VALUES(2, 4);
+INSERT INTO medical_staff_appointments(doctor_id, appointments_id) VALUES(2, 5);
+
 INSERT INTO clinic_doctors(clinic_id, doctors_id) VALUES (1,2);
 INSERT INTO clinic_doctors(clinic_id, doctors_id) VALUES (2,3);
 INSERT INTO clinic_doctors(clinic_id, doctors_id) VALUES (1,5);
@@ -95,5 +104,11 @@ INSERT INTO appointment_type(name) VALUES ("kardioloski");
 
 
 INSERT INTO clinic_clinic_administrator(clinic_id, clinic_administrator_id) VALUES (1,1);
-INSERT INTO clinic_clinic_administrator(clinic_id, clinic_administrator_id) VALUES (2,2);
-INSERT INTO clinic_clinic_administrator(clinic_id, clinic_administrator_id) VALUES (3,3);
+
+
+INSERT INTO clinic_hospital_rooms(clinic_id, hospital_rooms_id) VALUES (1,1);
+INSERT INTO clinic_hospital_rooms(clinic_id, hospital_rooms_id) VALUES (1,2);
+INSERT INTO clinic_hospital_rooms(clinic_id, hospital_rooms_id) VALUES (1,3);
+INSERT INTO clinic_hospital_rooms(clinic_id, hospital_rooms_id) VALUES (2,4);
+INSERT INTO clinic_hospital_rooms(clinic_id, hospital_rooms_id) VALUES (2,5);
+

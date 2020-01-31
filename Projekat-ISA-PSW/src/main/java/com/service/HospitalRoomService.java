@@ -18,7 +18,11 @@ public class HospitalRoomService {
         return hospitalRoomRepository.findAll();
 
     }
+    public List<HospitalRoom> findByClinicId(Long id) {
+        return hospitalRoomRepository.findByClinicId(id);
 
+    }
+    public HospitalRoom findById(Long id) { return hospitalRoomRepository.findById(id).get();}
     public HospitalRoom findByName(String name) {
         return hospitalRoomRepository.findByName(name);
     }

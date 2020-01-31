@@ -58,8 +58,9 @@ public class Clinic {
         return rating;
     }
 
+    @JsonBackReference
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Surgery> surgeries;
+    private Set<Surgery> surgeries = new HashSet<Surgery>();
 
     public void setRating(int rating) {
         this.rating = rating;

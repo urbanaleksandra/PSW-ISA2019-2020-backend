@@ -14,7 +14,7 @@ public class DoctorService {
     private DoctorRepository doctorRepository;
 
     public Doctor findByUsername(String username) {
-        return (Doctor) doctorRepository.findByUsername(username);
+        return doctorRepository.findByUsername(username);
     }
 
     public List<Doctor> findAll(){ return doctorRepository.findAll();}
@@ -25,4 +25,8 @@ public class DoctorService {
     }
 
     public  void delete(Doctor doc) { doctorRepository.delete(doc);}
+
+    public List<Doctor> findByClinicId(Long id){ return doctorRepository.findByClinicId(id);}
+    public Doctor findById(Long id) { return doctorRepository.findById(id).get();}
+
 }
