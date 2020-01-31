@@ -61,7 +61,7 @@ INSERT INTO request_appointments (date, description, duration, patient, type) VA
 INSERT INTO appointments (date, description, duration, patient,finished, type, doctor_id) VALUES ('2020-01-20T16:30', 'cold', 1, 'anaM', false,'appointment', 2);
 INSERT INTO appointments (date, description, duration, patient,finished, type, doctor_id) VALUES ('2020-02-25T11:30', 'broken leg', 3, 'anaM',true, 'surgery', 2);
 
-INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id) VALUES ('2020-01-30T09:15', 'pregled ledja', 1, 'anaM', 'tip pregleda', false, 3);
+INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id) VALUES ('2020-01-30T09:15', 'pregled ledja', 1, 'anaM', 'tip pregleda', true, 3);
 INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id) VALUES ('2020-12-15T08:00', 'opis pregleda', 1, 'markoM', 'tip2', false, 2);
 INSERT INTO clinic_doctors(clinic_id, doctors_id) VALUES (1,2);
 INSERT INTO clinic_doctors(clinic_id, doctors_id) VALUES (2,3);
