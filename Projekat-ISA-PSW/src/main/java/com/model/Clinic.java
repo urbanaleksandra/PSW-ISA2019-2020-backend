@@ -27,17 +27,17 @@ public class Clinic {
 //	private ClinicAdministrator clinicAdministrator;
 
 	@JsonBackReference
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     //@JoinColumn(name="clinicAdministrator_id")
     private Set<ClinicAdministrator> clinicAdministrator = new HashSet<ClinicAdministrator>();
 
     @JsonBackReference
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.REFRESH)
     //@JoinColumn(name="clinicAdministrator_id")
     private Set<Doctor> doctors = new HashSet<Doctor>();
 
     @JsonBackReference
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY)
     private Set<HospitalRoom> hospitalRooms = new HashSet<HospitalRoom>();
 
     @Column(name = "name", nullable = false)
@@ -145,7 +145,7 @@ public class Clinic {
         this.hospitalRooms = hospitalRooms;
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return "Clinic{" +
                 "id=" + id +
@@ -158,5 +158,5 @@ public class Clinic {
                 ", description='" + description + '\'' +
                 ", profit=" + profit +
                 '}';
-    }
+    }*/
 }
