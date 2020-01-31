@@ -1,4 +1,6 @@
 package com.model;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.util.Objects;
 
 import javax.persistence.CascadeType;
@@ -19,7 +21,8 @@ public class Appointment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
+
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Doctor doctor;
 	

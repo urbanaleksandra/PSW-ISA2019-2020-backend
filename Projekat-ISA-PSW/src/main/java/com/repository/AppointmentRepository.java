@@ -29,4 +29,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long>{
 
 
 	List<Appointment> findByDate(String date);
+
+	List<Appointment> findByHospitalRoomId(Long id);
 }

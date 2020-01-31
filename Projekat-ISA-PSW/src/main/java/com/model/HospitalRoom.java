@@ -3,6 +3,7 @@ package com.model;
 import com.dto.HospitalRoomDTO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -25,8 +26,8 @@ public class HospitalRoom {
 	private Set<Appointment> appointments = new HashSet<Appointment>();
 
 	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Clinic clinic;
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Clinic clinic = new Clinic();
 
 	@Column(nullable = false)
 	private String name;
