@@ -7,6 +7,7 @@ import com.service.DoctorService;
 import com.service.MedicalStaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,6 +38,21 @@ public class MedicalStaffController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value="/delete-doc", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+    public  @ResponseBody
+    ResponseEntity<MedicalStaffDTO> deleteType(@RequestBody MedicalStaffDTO doctor){
+
+        System.out.println(doctor.getUsername());
+        MedicalStaff hr=medicalStaffService.findByUsername(doctor.getUsername());
+        medicalStaffService.delete(hr);
+        MedicalStaffDTO medStaff = new MedicalStaffDTO();
+
+
+        return new ResponseEntity<>(medStaff, HttpStatus.OK);
+    }
+
+
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value="/add-doctor", method= RequestMethod.POST)
     public void addDoc(@RequestBody MedicalStaffDTO staff){
         Doctor d=new Doctor();
@@ -59,7 +75,7 @@ public class MedicalStaffController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value="/osobljePromjena", method= RequestMethod.POST)
-    public @ResponseBody ResponseEntity<Doctor> changeInfo(@RequestBody Doctor mdNovi){
+    public @ResponseBody ResponseEntity<Doctor> changeInfo(@RequestBody MedicalStaffDTO mdNovi){
         Doctor md = (Doctor) medicalStaffService.findByUsername(mdNovi.getUsername());
         if(md != null){
             md.setPassword(mdNovi.getPassword());
