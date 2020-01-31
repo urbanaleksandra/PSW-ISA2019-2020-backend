@@ -164,4 +164,5 @@ public abstract class MedicalStaff {
 		this.krajRadnogVremena = krajRadnogVremena;
 	}
 
+
 }

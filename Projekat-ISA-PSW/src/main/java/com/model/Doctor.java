@@ -76,6 +76,8 @@ public class Doctor extends MedicalStaff {
 		this.appointments = appointments;
 	}
 
+
+
 	@Override
 	public String toString() {
 		return "Doctor{" +

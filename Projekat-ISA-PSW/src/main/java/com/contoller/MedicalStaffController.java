@@ -1,8 +1,12 @@
 package com.contoller;
 
 import com.dto.MedicalStaffDTO;
+import com.model.Clinic;
+import com.model.ClinicAdministrator;
 import com.model.Doctor;
 import com.model.MedicalStaff;
+import com.service.ClinicAdministratorService;
+import com.service.ClinicService;
 import com.service.DoctorService;
 import com.service.MedicalStaffService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +27,13 @@ public class MedicalStaffController {
     @Autowired
     DoctorService doctorService;
 
+    @Autowired
+    ClinicService clinicService;
+
+
+    @Autowired
+    ClinicAdministratorService administratorService;
+
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value="/osoblje/{username}", method= RequestMethod.GET)
     public MedicalStaff getMedStaff(@PathVariable String username){
@@ -40,10 +51,15 @@ public class MedicalStaffController {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value="/delete-doc", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
     public  @ResponseBody
-    ResponseEntity<MedicalStaffDTO> deleteType(@RequestBody MedicalStaffDTO doctor){
+    ResponseEntity<MedicalStaffDTO> deleteDoc(@RequestBody MedicalStaffDTO doctor){
 
         System.out.println(doctor.getUsername());
-        MedicalStaff hr=medicalStaffService.findByUsername(doctor.getUsername());
+        Doctor hr=(Doctor)medicalStaffService.findByUsername(doctor.getUsername());
+        Clinic clinic=clinicService.findById(hr.getClinic().getId());
+        System.out.println(clinic.getId());
+        clinic.getDoctors().remove(hr);
+        System.out.println(clinic.getDoctors());
+        clinicService.save(clinic);
         medicalStaffService.delete(hr);
         MedicalStaffDTO medStaff = new MedicalStaffDTO();
 
@@ -53,8 +69,8 @@ public class MedicalStaffController {
 
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value="/add-doctor", method= RequestMethod.POST)
-    public void addDoc(@RequestBody MedicalStaffDTO staff){
+    @RequestMapping(value="/add-doctor/{username}", method= RequestMethod.POST)
+    public void addDoc(@RequestBody MedicalStaffDTO staff,@PathVariable String username){
         Doctor d=new Doctor();
         d.setFirstName(staff.getFirstName());
         d.setAddress(staff.getAddress());
@@ -68,8 +84,20 @@ public class MedicalStaffController {
         d.setJmbg(staff.getJmbg());
         d.setRole("doctor");
         d.setUsername(staff.getUsername());
+        d.setPocetakRadnogVremena(staff.getPocetakRadnogVremena());
         medicalStaffService.save(d);
 
+        ClinicAdministrator clinicAdministrator=administratorService.findByUsername(username);
+        Clinic clinic = clinicService.findById(clinicAdministrator.getClinic().getId());
+        if (clinic!=null) {
+            clinic.getDoctors().add(d);
+            System.out.println(clinic);
+            d.setClinic(clinic);
+            System.out.println(d.getClinic().getId());
+            medicalStaffService.save(d);
+            clinicService.save(clinic);
+
+        }
     }
 
 
