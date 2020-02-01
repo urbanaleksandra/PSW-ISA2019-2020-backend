@@ -44,11 +44,16 @@ INSERT INTO hospital_room (name,room_number,clinic_id) VALUES ('Operaciona sala'
 INSERT INTO hospital_room (name,room_number,clinic_id) VALUES ('Mala sala',23, 2);
 INSERT INTO hospital_room (name,room_number,clinic_id) VALUES ('Velika sala',24, 2);
 
-INSERT INTO surgery (date, description, patient, duration, clinic_id) VALUES ("2020-02-14T09:00", 'operacija nosa', 'anaM', 3, 1);
-INSERT INTO surgery (date, description, patient, duration, clinic_id) VALUES ("2020-02-22T12:00", 'operacija kicme', 'markoM', 3, 2);
-INSERT INTO surgery (date, description, patient, duration, clinic_id) VALUES ("2020-02-02T12:00", 'operacija jetre', 'masa', 3, 2);
-INSERT INTO surgery (date, description, patient, duration, clinic_id, hospital_room_id) VALUES ("2020-02-22T09:00", 'operacija mozga', 'marko1', 3, 1, 1);
-INSERT INTO surgery (date, description, patient, duration, clinic_id, hospital_room_id) VALUES ("2020-02-23T09:00", 'operacija prsta', 'ana', 3, 1, 2);
+INSERT INTO surgery (date, description, patient, duration, clinic_id) VALUES ("2020-02-22T16:00", 'operacija nosa', 'anaM', 2, 1);
+INSERT INTO surgery (date, description, patient, duration, clinic_id) VALUES ("2020-02-22T16:00", 'operacija kicme', 'markoM', 2, 2);
+INSERT INTO surgery (date, description, patient, duration, clinic_id) VALUES ("2020-02-22T16:00", 'operacija jetre', 'masa', 2, 2);
+INSERT INTO surgery (date, description, patient, duration, clinic_id, hospital_room_id) VALUES ("2020-02-22T14:00", 'operacija mozga', 'marko1', 2, 1, 1);
+INSERT INTO surgery (date, description, patient, duration, clinic_id, hospital_room_id) VALUES ("2020-02-23T14:00", 'operacija prsta', 'ana', 2, 1, 2);
+INSERT INTO surgery (date, description, patient, duration, clinic_id) VALUES ("2020-02-22T16:00", 'operacija hitna', 'marko1', 2, 1);
+INSERT INTO surgery (date, description, patient, duration, clinic_id) VALUES ("2020-02-14T14:00", 'noga', 'masa', 2, 1);
+INSERT INTO surgery (date, description, patient, duration, clinic_id) VALUES ("2020-02-14T14:00", 'ruka', 'ana', 2, 1);
+
+
 
 INSERT INTO surgery_doctors(surgery_id, doctors_id) VALUES (4,2);
 INSERT INTO surgery_doctors(surgery_id, doctors_id) VALUES (4,5);
@@ -68,15 +73,21 @@ INSERT INTO clinic_surgeries (clinic_id, surgeries_id) VALUES (2,2);
 INSERT INTO clinic_surgeries (clinic_id, surgeries_id) VALUES (2,3);
 INSERT INTO clinic_surgeries (clinic_id, surgeries_id) VALUES (1,4);
 INSERT INTO clinic_surgeries (clinic_id, surgeries_id) VALUES (1,5);
+INSERT INTO clinic_surgeries (clinic_id, surgeries_id) VALUES (1,6);
+INSERT INTO clinic_surgeries (clinic_id, surgeries_id) VALUES (1,7);
+INSERT INTO clinic_surgeries (clinic_id, surgeries_id) VALUES (1,8);
 
-INSERT INTO request_appointments (date, description, duration, patient, type) VALUES ('2020-01-27T16:30', 'opis1', 1, 'anaM', 'tip1');
+INSERT INTO request_appointments (date, description, duration, patient, type) VALUES ('2020-01-27T16:00', 'opis1', 2, 'anaM', 'tip1');
 INSERT INTO request_appointments (date, description, duration, patient, type) VALUES ('2020-01-23T10:00', 'opis1', 2, 'markoM', 'tip1');
 
-INSERT INTO appointments (date, description, duration, patient,finished, type, doctor_id) VALUES ('2020-01-20T16:30', 'cold', 1, 'anaM', false,'appointment', 2);
-INSERT INTO appointments (date, description, duration, patient,finished, type, doctor_id) VALUES ('2020-02-25T11:30', 'broken leg', 3, 'anaM',true, 'surgery', 2);
-INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id) VALUES ('2020-01-30T09:15', 'pregled ledja', 1, 'anaM', 'tip pregleda', false, 3);
-INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id) VALUES ('2020-12-15T08:00', 'opis pregleda', 1, 'markoM', 'tip2', false, 2);
-INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id) VALUES ('2020-02-23T10:00', 'pregled grla', 2, 'markoM', 'tip2', false, 2);
+INSERT INTO appointments (date, description, duration, patient,finished, type, doctor_id, hospital_room_id) VALUES ('2020-02-22T16:00', 'cold', 2, 'anaM', false,'appointment', 2, 1);
+INSERT INTO appointments (date, description, duration, patient,finished, type, doctor_id, hospital_room_id) VALUES ('2020-02-22T16:00', 'broken leg', 2, 'anaM',true, 'surgery', 2, 2);
+INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id) VALUES ('2020-01-30T10:00', 'pregled ledja', 2, 'anaM', 'tip pregleda', false, 3);
+INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id) VALUES ('2020-12-15T16:00', 'opis pregleda', 2, 'markoM', 'tip2', false, 2);
+INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id) VALUES ('2020-02-23T16:00', 'pregled grla', 2, 'markoM', 'tip2', false, 2);
+
+INSERT INTO hospital_room_appointments(hospital_room_id, appointments_id) VALUES (1,1);
+INSERT INTO hospital_room_appointments(hospital_room_id, appointments_id) VALUES (2,2);
 
 INSERT INTO medical_staff_appointments(doctor_id, appointments_id) VALUES(2, 1);
 INSERT INTO medical_staff_appointments(doctor_id, appointments_id) VALUES(2, 2);
