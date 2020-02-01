@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
@@ -74,9 +75,28 @@ public class SurgeriesContoller {
 
             }
             if(doctor != null) {
+                Set<Surgery> surgeries = doctor.getSurgeries();
+                Set<Appointment> appointments = doctor.getAppointments();
+                boolean available = true;
+                for (Surgery s:surgeries) {
+                    if(available) {
+                        if (s.getDate().equals(surgery.getDate())) {
+                            available = false;
+                        }
+                    }
+                }
+                for(Appointment a:appointments){
+                    if(available) {
+                        if (a.getDate().equals(surgery.getDate())) {
+                            available = false;
+                        }
+                    }
+                }
                 surgery.setClinic(clinic);
-                surgery.setDuration(3);
-                Surgery surgeries = surgeryService.save(surgery);
+                surgery.setDuration(2);
+                if(available)
+                    surgery.getDoctor().add(doctor);
+                Surgery surgeriesave = surgeryService.save(surgery);
             }
         return new ResponseEntity<>(surgeryDTO, HttpStatus.OK);
     }
@@ -232,13 +252,13 @@ public class SurgeriesContoller {
         Surgery surgery = surgeryService.findById(surgeryDTO.getId());
         //sve sale u toj klinici
         List<HospitalRoom> rooms = hospitalRoomService.findByClinicId(surgery.getClinic().getId());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+        Date date = dateFormat.parse(surgery.getDate());
+        long startSurgery = date.getTime();
 
 
         boolean nadjenaSoba = false;
         while(nadjenaSoba == false) {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
-            Date date = dateFormat.parse(surgery.getDate());
-            long startSurgery = date.getTime();
             startSurgery = startSurgery + 2 * 60 * 60 * 1000;
             String newDate = dateFormat.format(startSurgery);
             for (HospitalRoom room:rooms) {
@@ -289,4 +309,46 @@ public class SurgeriesContoller {
         return available;
     }
 
+    @Scheduled(cron  = "${greeting.cron}")
+    private void systemReservation() throws ParseException {
+        System.out.println("usao u sheduled fun");
+        List<Surgery> allSurgeries = surgeryService.findAll();
+        List<Surgery> surgeriesWithoutRoom = new ArrayList<>();
+        for (Surgery surgery:allSurgeries) {
+            if(surgery.getHospitalRoom() == null)
+                surgeriesWithoutRoom.add(surgery);
+        }
+
+        for (Surgery s:surgeriesWithoutRoom) {
+            Surgery surgery = surgeryService.findById(s.getId());
+            List<HospitalRoom> rooms = hospitalRoomService.findByClinicId(surgery.getClinic().getId());
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+            Date date = dateFormat.parse(surgery.getDate());
+            long startSurgery = date.getTime();
+
+            boolean nadjenaSoba = false;
+            while(nadjenaSoba == false) {
+                String newDate = dateFormat.format(startSurgery);
+                for (HospitalRoom room:rooms) {
+                    if (nadjenaSoba == false) {
+                        System.out.println("soba id + " + room.getId());
+                        List<Surgery> surgeries = surgeryService.findByHospitalId(room.getId());
+                        List<Appointment> appointments = appointmentService.findByHospitalRoomId(room.getId());
+
+                        nadjenaSoba = checkTime(newDate, appointments, surgeries);
+                        if(nadjenaSoba){
+                            s.setHospitalRoom(room);
+                            s.setDate(newDate);
+                            room.getSurgeries().add(s);
+                            Surgery saveS = surgeryService.save(s);
+                            HospitalRoom saveHR = hospitalRoomService.save(room);
+                        }else{
+                            startSurgery = startSurgery + 2 * 60 * 60 * 1000;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
