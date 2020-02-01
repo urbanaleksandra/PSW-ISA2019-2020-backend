@@ -48,9 +48,11 @@ public class MedicalRecord {
 		this.appointments = appointments;
 	}
 
+	@JsonBackReference
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Surgery> surgeries = new HashSet<>();
-	
+
+	@JsonBackReference
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Appointment> appointments = new HashSet<>();
 
