@@ -26,6 +26,11 @@ public class Clinic {
 //	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //	private ClinicAdministrator clinicAdministrator;
 
+    @JsonBackReference
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+    //@JoinColumn(name="clinicAdministrator_id")
+    private Set<PriceList> priceList = new HashSet<PriceList>();
+
 	@JsonBackReference
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     //@JoinColumn(name="clinicAdministrator_id")
@@ -39,6 +44,10 @@ public class Clinic {
     @JsonBackReference
     @OneToMany(fetch = FetchType.LAZY)
     private Set<HospitalRoom> hospitalRooms = new HashSet<HospitalRoom>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL)
+    private Set<PatientRatedClinic> patientRatedClinic = new HashSet<>();
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -129,6 +138,16 @@ public class Clinic {
     public void setClinicAdministrator(Set<ClinicAdministrator> clinicAdministrator) {
         this.clinicAdministrator = clinicAdministrator;
     }
+
+
+    public void setPatientRatedClinic(Set<PatientRatedClinic> patientRatedClinic) {
+        this.patientRatedClinic = patientRatedClinic;
+    }
+
+    public Set<PatientRatedClinic> getPatientRatedClinic() {
+        return patientRatedClinic;
+    }
+
 
     public ClinicalCenter getClinicalCenter() {
         return clinicalCenter;

@@ -33,7 +33,8 @@ public class Doctor extends MedicalStaff {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	private Set<Appointment> appointments = new HashSet<Appointment>();
 
-
+	@OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
+	private Set<PatientRatedDoctor> patientRatedDoctors = new HashSet<>();
 
 	//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@JsonIgnore
@@ -77,6 +78,13 @@ public class Doctor extends MedicalStaff {
 	}
 
 
+	public Set<PatientRatedDoctor> getPatientRatedDoctors() {
+		return patientRatedDoctors;
+	}
+
+	public void setPatientRatedDoctors(Set<PatientRatedDoctor> patientRatedDoctors) {
+		this.patientRatedDoctors = patientRatedDoctors;
+	}
 
 	@Override
 	public String toString() {

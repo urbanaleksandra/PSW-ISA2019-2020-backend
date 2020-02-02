@@ -1,17 +1,24 @@
 package com.contoller;
 
 import com.dto.HolidayRequestDTO;
+import com.dto.HospitalRoomDTO;
 import com.model.Clinic;
 import com.model.HolidayRequest;
 import com.model.MedicalStaff;
 import com.model.RequestAppointment;
 import com.repository.HolidayRequestRepository;
+import com.service.EmailService;
 import com.service.HolidayRequestService;
 import com.service.MedicalStaffService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -19,6 +26,10 @@ public class HolidayRequestController {
 
     @Autowired
     private HolidayRequestService holidayRequestService;
+
+    @Autowired
+    private EmailService emailService;
+
 
     @Autowired
     private MedicalStaffService medicalStaffService;
@@ -29,6 +40,47 @@ public class HolidayRequestController {
 
         return holidayRequestService.findAll();
     }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value="/getHolidayRequests2/{username}", method= RequestMethod.GET)
+    public List<HolidayRequestDTO> getHolidayReq2(@PathVariable String username){
+        List<HolidayRequest> list=holidayRequestService.findAll();
+        List<HolidayRequestDTO> list2=new ArrayList<>();
+        for(int i=0;i<list.size();i++){
+            HolidayRequest h=list.get(i);
+            HolidayRequestDTO dto=new HolidayRequestDTO();
+            dto.setDateEnd(h.getDateEnd());
+            dto.setDateStart(h.getDateStart());
+            dto.setUsername(h.getMedicalStaff().getUsername());
+            dto.setId(h.getId());
+            dto.setConfirmed(h.isConfirmed());
+
+            list2.add(dto);
+        }
+        return list2;
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value="/changeConfirmation/{message}", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody ResponseEntity<HolidayRequestDTO> change(@RequestBody HolidayRequestDTO holidayreq,@PathVariable String message){
+        HolidayRequest holidayRequest = holidayRequestService.findById(holidayreq.getId());
+        System.out.println(holidayreq.getConfirmed());
+        holidayRequest.setConfirmed(holidayreq.getConfirmed());
+        holidayRequestService.save(holidayRequest);
+        HolidayRequestDTO h=new HolidayRequestDTO();
+        try {
+            if(holidayRequest.isConfirmed()){
+            emailService.sendNotificaitionAsync5(); }
+            else {
+                emailService.sendNotificaitionAsync6(message);
+            }
+        }catch( Exception e ){
+            System.out.println("nije poslata poruka");
+        }
+
+        return new ResponseEntity<>(h, HttpStatus.OK);
+    }
+
 
 
     @CrossOrigin(origins = "http://localhost:4200")
