@@ -18,7 +18,7 @@ public class HospitalRoom {
 	private Long id;
 
 	@JsonBackReference
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
 	private Set<Surgery> surgeries = new HashSet<Surgery>();
 
 	@JsonBackReference
