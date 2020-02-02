@@ -1,7 +1,9 @@
 package com.service;
 
 
+import com.model.Doctor;
 import com.model.Patient;
+import com.model.Surgery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.MailException;
@@ -98,6 +100,43 @@ public class EmailService {
     }
 
     @Async
+
+    public void sendDoctorNotificaition(Surgery surgery, Doctor doctor) throws MailException, InterruptedException {
+        System.out.println("Slanje emaila doktoru...");
+
+        System.out.println(doctor.getEmail());
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setTo(doctor.getEmail());
+        mail.setFrom(env.getProperty("spring.mail.username"));
+        mail.setSubject("Surgery info");
+
+        mail.setText("Mr/Mrs " + doctor.getFirstName() + " " + doctor.getLastName() +
+                ","  + "\n\nYou have new scheduled surgery\n\nDate: " + surgery.getDate() +
+                "\nHospital room: "+ surgery.getHospitalRoom().getName()+ " no." + surgery.getHospitalRoom().getRoom_number()
+                + ".\n\nAll the best,\nYour clinic.");
+        try{
+            javaMailSender.send(mail);
+        }
+        catch( Exception e ){
+            System.out.println("nije javaMailSender.send(mail); prosao");
+        }
+    }
+
+    @Async
+    public void sendPatientNotificaition(Surgery surgery, Patient patient) throws MailException, InterruptedException {
+        System.out.println("Slanje emaila pacijentu...");
+
+        System.out.println(patient.getEmail());
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setTo(patient.getEmail());
+        mail.setFrom(env.getProperty("spring.mail.username"));
+        mail.setSubject("Surgery info");
+
+        mail.setText("Mr/Mrs " + patient.getFirstName() + " " + patient.getLastName() +
+                ","  + "\n\nYou have new scheduled surgery\n\nDate: " + surgery.getDate() +
+                "\nHospital room: "+ surgery.getHospitalRoom().getName()+ " no." + surgery.getHospitalRoom().getRoom_number()
+                + ".\n\nAll the best,\nYour clinic.");
+
     public void sendNotificaitionAsync5() throws MailException, InterruptedException {
         System.out.println("Slanje emaila...");
 

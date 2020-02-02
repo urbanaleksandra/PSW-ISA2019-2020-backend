@@ -46,6 +46,11 @@ public class SurgeriesContoller {
     @Autowired
     private AppointmentService appointmentService;
 
+    @Autowired
+    private EmailService email;
+
+    @Autowired
+    private PatientService patientService;
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value="/getSurgeries/{username}", method= RequestMethod.GET)
@@ -223,7 +228,7 @@ public class SurgeriesContoller {
 
     @CrossOrigin(origins = "http//localhost:4200")
     @RequestMapping(value="/api/add-room-to-surgery", method = RequestMethod.POST , consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
-    public void addRoomToSurgery(@RequestBody ReservationHospitalRoomDTO reservationHospitalRoomDTO){
+    public void addRoomToSurgery(@RequestBody ReservationHospitalRoomDTO reservationHospitalRoomDTO) throws InterruptedException {
         System.out.println(reservationHospitalRoomDTO);
         HospitalRoom hospitalRoom = this.hospitalRoomService.findById(reservationHospitalRoomDTO.getSurgery().getRoomID());
         Surgery surgery = this.surgeryService.findById(reservationHospitalRoomDTO.getSurgery().getId());
@@ -237,6 +242,17 @@ public class SurgeriesContoller {
             Doctor doctor = this.doctorService.findById(id);
             doctor.getSurgeries().add(s);
             Doctor d = this.doctorService.save(doctor);
+            try {
+                email.sendDoctorNotificaition(s, doctor);
+            }catch (Exception e){
+                System.out.println("email fail");
+            }
+            Patient patient = patientService.findByUsername(s.getPatient());
+            try{
+                email.sendPatientNotificaition(s, patient);
+            }catch (Exception e){
+                System.out.println("email fail");
+            }
         }
 
         hospitalRoom.getSurgeries().add(s);
@@ -310,7 +326,7 @@ public class SurgeriesContoller {
     }
 
     @Scheduled(cron  = "${greeting.cron}")
-    private void systemReservation() throws ParseException {
+    private void systemReservation() throws ParseException, InterruptedException {
         System.out.println("usao u sheduled fun");
         List<Surgery> allSurgeries = surgeryService.findAll();
         List<Surgery> surgeriesWithoutRoom = new ArrayList<>();
@@ -343,6 +359,13 @@ public class SurgeriesContoller {
                             room.getSurgeries().add(s);
                             Surgery saveS = surgeryService.save(s);
                             HospitalRoom saveHR = hospitalRoomService.save(room);
+                            Patient patient = patientService.findByUsername(s.getPatient());
+                            try{
+                                email.sendPatientNotificaition(s, patient);
+                            }catch (Exception e){
+                                System.out.println("email fail");
+                            }
+
                         }else{
                             startSurgery = startSurgery + 2 * 60 * 60 * 1000;
                         }
