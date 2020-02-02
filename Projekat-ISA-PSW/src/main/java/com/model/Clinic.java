@@ -40,6 +40,10 @@ public class Clinic {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<HospitalRoom> hospitalRooms = new HashSet<HospitalRoom>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL)
+    private Set<PatientRatedClinic> patientRatedClinic = new HashSet<>();
+
     @Column(name = "name", nullable = false)
     private String name;
 
@@ -127,6 +131,14 @@ public class Clinic {
 
     public void setClinicAdministrator(Set<ClinicAdministrator> clinicAdministrator) {
         this.clinicAdministrator = clinicAdministrator;
+    }
+
+    public void setPatientRatedClinic(Set<PatientRatedClinic> patientRatedClinic) {
+        this.patientRatedClinic = patientRatedClinic;
+    }
+
+    public Set<PatientRatedClinic> getPatientRatedClinic() {
+        return patientRatedClinic;
     }
 
     @Override

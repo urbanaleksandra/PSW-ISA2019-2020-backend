@@ -31,7 +31,8 @@ public class Doctor extends MedicalStaff {
 	@OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Appointment> appointments = new HashSet<Appointment>();
 
-
+	@OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
+	private Set<PatientRatedDoctor> patientRatedDoctors = new HashSet<>();
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Clinic clinic;
@@ -69,6 +70,14 @@ public class Doctor extends MedicalStaff {
 
 	public void setAppointments(Set<Appointment> appointments) {
 		this.appointments = appointments;
+	}
+
+	public Set<PatientRatedDoctor> getPatientRatedDoctors() {
+		return patientRatedDoctors;
+	}
+
+	public void setPatientRatedDoctors(Set<PatientRatedDoctor> patientRatedDoctors) {
+		this.patientRatedDoctors = patientRatedDoctors;
 	}
 
 	@Override
