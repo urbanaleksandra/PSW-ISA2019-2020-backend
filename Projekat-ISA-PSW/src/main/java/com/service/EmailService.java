@@ -137,6 +137,7 @@ public class EmailService {
                 "\nHospital room: " + surgery.getHospitalRoom().getName() + " no." + surgery.getHospitalRoom().getRoom_number()
                 + ".\n\nAll the best,\nYour clinic.");
     }
+    @Async
     public void sendNotificaitionAsync5() throws MailException, InterruptedException {
         System.out.println("Slanje emaila...");
 
