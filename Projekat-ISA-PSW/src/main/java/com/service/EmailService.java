@@ -97,6 +97,37 @@ public class EmailService {
         }
     }
 
+    @Async
+    public void sendNotificaitionAsync5() throws MailException, InterruptedException {
+        System.out.println("Slanje emaila...");
 
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setTo("zekica997@gmail.com");
+        mail.setFrom(env.getProperty("spring.mail.username"));
+        mail.setSubject("New request");
+        mail.setText("Mr/Mrs, your request for holiday has been approved. Enjoy your holiday. ");
+        try{
+            javaMailSender.send(mail);
+        }
+        catch( Exception e ){
+            System.out.println("nije javaMailSender.send(mail); prosao");
+        }
+    }
 
+    @Async
+    public void sendNotificaitionAsync6(String message) throws MailException, InterruptedException {
+        System.out.println("Slanje emaila...");
+
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setTo("zekica997@gmail.com");
+        mail.setFrom(env.getProperty("spring.mail.username"));
+        mail.setSubject("New request");
+        mail.setText("Mr/Mrs, your request for holiday has been rejected. Here is a short explanation why: "+ message);
+        try{
+            javaMailSender.send(mail);
+        }
+        catch( Exception e ){
+            System.out.println("nije javaMailSender.send(mail); prosao");
+        }
+    }
 }

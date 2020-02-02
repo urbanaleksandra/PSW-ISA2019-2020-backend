@@ -19,6 +19,9 @@ public class AppointmentTypeController {
     @Autowired
     private AppointmentTypeService appointmentTypeService;
 
+
+
+
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value="/add-appType", method= RequestMethod.POST)
     public void addApp(@RequestBody AppointmentType appointmentType){

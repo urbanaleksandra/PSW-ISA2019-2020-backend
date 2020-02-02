@@ -25,6 +25,9 @@ public class HolidayRequest {
 	@Column(nullable = false)
 	private String dateEnd;
 
+	@Column(nullable = true)
+	private boolean confirmed;
+
 	@JsonBackReference
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private MedicalStaff medicalStaff;
@@ -62,6 +65,14 @@ public class HolidayRequest {
 
 	public void setMedicalStaff(MedicalStaff medicalStaff) {
 		this.medicalStaff = medicalStaff;
+	}
+
+	public boolean isConfirmed() {
+		return confirmed;
+	}
+
+	public void setConfirmed(boolean confirmed) {
+		this.confirmed = confirmed;
 	}
 
 	@Override

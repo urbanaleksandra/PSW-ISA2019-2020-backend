@@ -102,6 +102,7 @@ INSERT INTO drug_recipe(drug_id, recipe_id) VALUES (2,3);
 INSERT INTO drug_recipe(drug_id, recipe_id) VALUES (2,4);
 
 INSERT INTO appointment_type(name) VALUES ("kardioloski");
+INSERT INTO appointment_type(name) VALUES ("stomatoloski");
 
 
 INSERT INTO clinic_clinic_administrator(clinic_id, clinic_administrator_id) VALUES (1,1);
@@ -113,3 +114,11 @@ INSERT INTO clinic_hospital_rooms(clinic_id, hospital_rooms_id) VALUES (1,3);
 INSERT INTO clinic_hospital_rooms(clinic_id, hospital_rooms_id) VALUES (2,4);
 INSERT INTO clinic_hospital_rooms(clinic_id, hospital_rooms_id) VALUES (2,5);
 
+INSERT INTO price_list(price,appointment_type_id,clinic_id) values (1200,1,1);
+INSERT INTO price_list(price,appointment_type_id,clinic_id) values (1000,2,1);
+
+INSERT INTO appointment_type_price_list(appointment_type_id,price_list_id) values (1,1);
+insert  into clinic_price_list(clinic_id,price_list_id) values (1,1);
+
+INSERT INTO appointment_type_price_list(appointment_type_id,price_list_id) values (2,2);
+insert  into clinic_price_list(clinic_id,price_list_id) values (1,2);

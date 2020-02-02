@@ -26,6 +26,11 @@ public class Clinic {
 //	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //	private ClinicAdministrator clinicAdministrator;
 
+    @JsonBackReference
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+    //@JoinColumn(name="clinicAdministrator_id")
+    private Set<PriceList> priceList = new HashSet<PriceList>();
+
 	@JsonBackReference
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     //@JoinColumn(name="clinicAdministrator_id")
