@@ -5,6 +5,7 @@ import com.model.Drug;
 import com.model.Nurse;
 import com.model.Recipe;
 import com.repository.MedicalStaffRepository;
+import com.service.DrugService;
 import com.service.MedicalStaffService;
 import com.service.NurseService;
 import com.service.RecipeService;
@@ -24,6 +25,9 @@ public class RecipeController {
     @Autowired
     private MedicalStaffService medicalStaffService;
 
+    @Autowired
+    private DrugService drugService;
+
 
     @RequestMapping(method = RequestMethod.GET, value = "/api/get-recipes")
     public List<Recipe> getRecipes(){
@@ -37,7 +41,7 @@ public class RecipeController {
         System.out.println("usao u get-drug");
         Drug drug = new Drug();
         Optional<Recipe> recipes = recipeService.findById(id);
-        drug = getRecipes().get(0).getDrug();
+        //drug = getRecipes().get(0).getDrug();
 
         return drug;
     }
@@ -53,5 +57,11 @@ public class RecipeController {
 
 
         Recipe r1 = recipeService.save(r);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/api/get-drugs", method = RequestMethod.GET)
+    public List<Drug> getDrugs(){
+        return drugService.findAll();
     }
 }
