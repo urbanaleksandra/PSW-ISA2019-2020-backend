@@ -91,9 +91,9 @@ INSERT INTO clinic_surgeries (clinic_id, surgeries_id) VALUES (1,8);
 INSERT INTO request_appointments (date, description, duration, patient, type) VALUES ('2020-01-27T16:00', 'opis1', 2, 'anaM', 'tip1');
 INSERT INTO request_appointments (date, description, duration, patient, type) VALUES ('2020-01-23T10:00', 'opis1', 2, 'markoM', 'tip1');
 
+INSERT INTO appointments (date, description, duration, patient,finished, type, doctor_id, hospital_room_id, medical_record_id, doctor_username) VALUES ('2020-02-02T16:00', 'cold', 2, 'anaM', false,'appointment', 2, 1, 5, 'doctor');
+INSERT INTO appointments (date, description, duration, patient,finished, type, doctor_id, hospital_room_id, medical_record_id, doctor_username) VALUES ('2020-02-02T16:00', 'broken leg', 2, 'anaM',true, 'surgery', 2, 2, 5, 'doctor');
 
-INSERT INTO appointments (date, description, duration, patient,finished, type, doctor_id, hospital_room_id, medical_record_id, doctor_username) VALUES ('2020-02-01T16:00', 'cold', 2, 'anaM', false,'appointment', 2, 1, 5, 'doctor');
-INSERT INTO appointments (date, description, duration, patient,finished, type, doctor_id, hospital_room_id, medical_record_id, doctor_username) VALUES ('2020-02-01T16:00', 'broken leg', 2, 'anaM',true, 'surgery', 2, 2, 5, 'doctor');
 INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id, medical_record_id, doctor_username) VALUES ('2020-01-30T10:00', 'pregled ledja', 2, 'anaM', 'tip pregleda', false, 3, 5, 'Jovan');
 INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id, medical_record_id, doctor_username) VALUES ('2020-12-15T16:00', 'opis pregleda', 2, 'markoM', 'tip2', false, 2, 3, 'doctor');
 INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id, medical_record_id, doctor_username) VALUES ('2020-02-23T16:00', 'pregled grla', 2, 'markoM', 'tip2', false, 2, 3, 'doctor');
@@ -135,14 +135,18 @@ INSERT INTO patient_rated_clinic(ocena, patient_id, clinic_id) VALUES (3, 5, 1);
 
 INSERT INTO drug(name, price, quantity) VALUES ("brufen", 259, 100);
 INSERT INTO drug(name, price, quantity) VALUES ("fervex", 550, 200);
-INSERT INTO recipe(authenticated, description, drug_id) VALUES (false, "dva puta po dve tablete", 1);
-INSERT INTO recipe(authenticated, description, drug_id) VALUES (false, "tri kesice na dan", 2);
-INSERT INTO recipe(authenticated, description, drug_id) VALUES (false, "jedna kesica na dan", 2);
-INSERT INTO recipe(authenticated, description, drug_id) VALUES (true, "dve kesice na dan", 2);
+INSERT INTO recipe(authenticated, description) VALUES (false, "dva puta po dve tablete");
+INSERT INTO recipe(authenticated, description) VALUES (false, "tri kesice na dan");
+INSERT INTO recipe(authenticated, description) VALUES (false, "jedna kesica na dan");
+INSERT INTO recipe(authenticated, description) VALUES (true, "dve kesice na dan");
 INSERT INTO drug_recipe(drug_id, recipe_id) VALUES (1,1);
 INSERT INTO drug_recipe(drug_id, recipe_id) VALUES (2,2);
 INSERT INTO drug_recipe(drug_id, recipe_id) VALUES (2,3);
 INSERT INTO drug_recipe(drug_id, recipe_id) VALUES (2,4);
+INSERT INTO recipe_drug(recipe_id, drug_id) VALUES (1,1);
+INSERT INTO recipe_drug(recipe_id, drug_id) VALUES (2,2);
+INSERT INTO recipe_drug(recipe_id, drug_id) VALUES (3,2);
+INSERT INTO recipe_drug(recipe_id, drug_id) VALUES (4,2);
 
 INSERT INTO appointment_type(name) VALUES ("kardioloski");
 INSERT INTO appointment_type(name) VALUES ("stomatoloski");
@@ -157,6 +161,12 @@ INSERT INTO clinic_hospital_rooms(clinic_id, hospital_rooms_id) VALUES (1,3);
 INSERT INTO clinic_hospital_rooms(clinic_id, hospital_rooms_id) VALUES (2,4);
 INSERT INTO clinic_hospital_rooms(clinic_id, hospital_rooms_id) VALUES (2,5);
 
+
+INSERT INTO diagnosis(description, name) VALUE ("temperatura", "UPALA PLUCA");
+INSERT INTO diagnosis(description, name) VALUE ("kasalj", "GRIP");
+INSERT INTO diagnosis(description, name) VALUE ("temperatura", "MONONUKLEOZA");
+INSERT INTO diagnosis(description, name) VALUE ("bol u grlu", "PREHLADA");
+
 INSERT INTO price_list(price,appointment_type_id,clinic_id) values (1200,1,1);
 INSERT INTO price_list(price,appointment_type_id,clinic_id) values (1000,2,1);
 
@@ -165,3 +175,4 @@ insert  into clinic_price_list(clinic_id,price_list_id) values (1,1);
 
 INSERT INTO appointment_type_price_list(appointment_type_id,price_list_id) values (2,2);
 insert  into clinic_price_list(clinic_id,price_list_id) values (1,2);
+

@@ -24,7 +24,7 @@ public class Drug {
     private int price;
 
     @JsonBackReference
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     private Set<Recipe> recipe = new HashSet<Recipe>();
 
     public Drug() {

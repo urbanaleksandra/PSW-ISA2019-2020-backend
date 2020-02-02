@@ -5,6 +5,8 @@ import com.repository.DiagnosisRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DiagnosisService {
 
@@ -14,5 +16,7 @@ public class DiagnosisService {
     public Diagnosis save(Diagnosis diagnosis){
         return diagnosisRepository.save(diagnosis);
     }
+
+    public List<Diagnosis> findAll(){ return diagnosisRepository.findAll(); }
 
 }
