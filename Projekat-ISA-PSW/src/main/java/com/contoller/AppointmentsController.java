@@ -110,6 +110,21 @@ public class AppointmentsController {
     @RequestMapping(value="/getAppointments/{username}", method= RequestMethod.GET)
     public List<Appointment> getAppointments(@PathVariable String username){
 
+        List<Appointment> ret = new ArrayList<>();
+        List<Appointment> sviPregledi = appointmentService.findAll();
+        for(Appointment a : sviPregledi){
+            if(a.isFinished()){
+                ret.add(a);
+            }
+        }
+
+        return ret;
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value="/getAppointmentsMR/{username}", method= RequestMethod.GET)
+    public List<Appointment> getAppointmentsMR(@PathVariable String username){
+
         return appointmentService.findAll();
     }
 
