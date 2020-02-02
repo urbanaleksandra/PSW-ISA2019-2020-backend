@@ -26,4 +26,6 @@ public class MedicalStaffService {
         return medicalStaffRepository.findByRole(role);
     }
 
+    public  void delete(MedicalStaff medicalStaff) { medicalStaffRepository.delete(medicalStaff);}
+
 }

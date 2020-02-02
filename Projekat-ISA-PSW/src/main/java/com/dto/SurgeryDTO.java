@@ -5,68 +5,79 @@ import com.model.Surgery;
 public class SurgeryDTO {
 
 	private Long id;
-	private String date;
-	private String description;
-	private String patient;
-	private String doctor;
-	private int duration;
+	private String date = "";
+	private String description =  "";
+	private String patient = "";
+	private String doctorSurgery = "";
+	private int duration = 3;
+	private Long roomID;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setDate(String date) {
-		this.date = date;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public String getDate() {
+        return date;
+    }
 
-	public void setPatient(String patient) {
-		this.patient = patient;
-	}
+    public void setDate(String date) {
+        this.date = date;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public String getDate() {
-		return date;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getPatient() {
+        return patient;
+    }
 
-	public String getPatient() {
-		return patient;
-	}
+    public void setPatient(String patient) {
+        this.patient = patient;
+    }
 
-	public String getDoctor() {
-		return doctor;
-	}
+    public String getDoctorSurgery() {
+        return doctorSurgery;
+    }
 
-	public void setDoctor(String doctor) {
-		this.doctor = doctor;
-	}
+    public void setDoctorSurgery(String doctorSurgery) {
+        this.doctorSurgery = doctorSurgery;
+    }
 
-	@Override
-	public String toString() {
-		return "SurgeryDTO{" +
-				"id=" + id +
-				", date='" + date + '\'' +
-				", description='" + description + '\'' +
-				", patient='" + patient + '\'' +
-				", doctor='" + doctor + '\'' +
-				'}';
-	}
+    public int getDuration() {
+        return duration;
+    }
 
-	public int getDuration() {
-		return duration;
-	}
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
 
-	public void setDuration(int duration) {
-		this.duration = duration;
-	}
+    public Long getRoomID() {
+        return roomID;
+    }
+
+    public void setRoomID(Long roomID) {
+        this.roomID = roomID;
+    }
+
+    @Override
+    public String toString() {
+        return "SurgeryDTO{" +
+                "id=" + id +
+                ", date='" + date + '\'' +
+                ", description='" + description + '\'' +
+                ", patient='" + patient + '\'' +
+                ", doctorSurgery='" + doctorSurgery + '\'' +
+                ", duration=" + duration +
+                ", roomID=" + roomID +
+                '}';
+    }
 }

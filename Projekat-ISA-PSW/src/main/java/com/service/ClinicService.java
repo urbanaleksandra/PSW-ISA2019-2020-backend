@@ -30,4 +30,6 @@ public class ClinicService {
         return clinicRepository.findByName(name);
     }
 
+    public void delete(Clinic clinic) { clinicRepository.delete(clinic);}
+
 }

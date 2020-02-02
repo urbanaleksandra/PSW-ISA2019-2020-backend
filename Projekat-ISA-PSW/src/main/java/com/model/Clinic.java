@@ -27,17 +27,17 @@ public class Clinic {
 //	private ClinicAdministrator clinicAdministrator;
 
 	@JsonBackReference
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     //@JoinColumn(name="clinicAdministrator_id")
     private Set<ClinicAdministrator> clinicAdministrator = new HashSet<ClinicAdministrator>();
 
     @JsonBackReference
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.REFRESH)
     //@JoinColumn(name="clinicAdministrator_id")
     private Set<Doctor> doctors = new HashSet<Doctor>();
 
     @JsonBackReference
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY)
     private Set<HospitalRoom> hospitalRooms = new HashSet<HospitalRoom>();
 
     @JsonIgnore
@@ -62,8 +62,9 @@ public class Clinic {
         return rating;
     }
 
+    @JsonBackReference
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Surgery> surgeries;
+    private Set<Surgery> surgeries = new HashSet<Surgery>();
 
     public void setRating(int rating) {
         this.rating = rating;
@@ -133,6 +134,7 @@ public class Clinic {
         this.clinicAdministrator = clinicAdministrator;
     }
 
+
     public void setPatientRatedClinic(Set<PatientRatedClinic> patientRatedClinic) {
         this.patientRatedClinic = patientRatedClinic;
     }
@@ -141,7 +143,24 @@ public class Clinic {
         return patientRatedClinic;
     }
 
-    @Override
+
+    public ClinicalCenter getClinicalCenter() {
+        return clinicalCenter;
+    }
+
+    public void setClinicalCenter(ClinicalCenter clinicalCenter) {
+        this.clinicalCenter = clinicalCenter;
+    }
+
+    public Set<HospitalRoom> getHospitalRooms() {
+        return hospitalRooms;
+    }
+
+    public void setHospitalRooms(Set<HospitalRoom> hospitalRooms) {
+        this.hospitalRooms = hospitalRooms;
+    }
+
+    /*@Override
     public String toString() {
         return "Clinic{" +
                 "id=" + id +
@@ -154,5 +173,5 @@ public class Clinic {
                 ", description='" + description + '\'' +
                 ", profit=" + profit +
                 '}';
-    }
+    }*/
 }
