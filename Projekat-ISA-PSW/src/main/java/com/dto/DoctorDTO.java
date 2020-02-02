@@ -4,6 +4,26 @@ import com.model.MedicalStaff;
 
 public class DoctorDTO extends MedicalStaffDTO {
 
+	private ClinicDTO clinicDTO;
+
+	private int review;
+
+	public int getReview() {
+		return review;
+	}
+
+	public void setReview(int review) {
+		this.review = review;
+	}
+
+	public ClinicDTO getClinicDTO() {
+		return clinicDTO;
+	}
+
+	public void setClinicDTO(ClinicDTO clinicDTO) {
+		this.clinicDTO = clinicDTO;
+	}
+
 	public DoctorDTO() {
 		super();
 		// TODO Auto-generated constructor stub

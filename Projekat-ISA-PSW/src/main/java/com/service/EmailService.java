@@ -100,6 +100,7 @@ public class EmailService {
     }
 
     @Async
+
     public void sendDoctorNotificaition(Surgery surgery, Doctor doctor) throws MailException, InterruptedException {
         System.out.println("Slanje emaila doktoru...");
 
@@ -135,6 +136,15 @@ public class EmailService {
                 ","  + "\n\nYou have new scheduled surgery\n\nDate: " + surgery.getDate() +
                 "\nHospital room: "+ surgery.getHospitalRoom().getName()+ " no." + surgery.getHospitalRoom().getRoom_number()
                 + ".\n\nAll the best,\nYour clinic.");
+
+    public void sendNotificaitionAsync5() throws MailException, InterruptedException {
+        System.out.println("Slanje emaila...");
+
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setTo("zekica997@gmail.com");
+        mail.setFrom(env.getProperty("spring.mail.username"));
+        mail.setSubject("New request");
+        mail.setText("Mr/Mrs, your request for holiday has been approved. Enjoy your holiday. ");
         try{
             javaMailSender.send(mail);
         }
@@ -143,4 +153,20 @@ public class EmailService {
         }
     }
 
+    @Async
+    public void sendNotificaitionAsync6(String message) throws MailException, InterruptedException {
+        System.out.println("Slanje emaila...");
+
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setTo("zekica997@gmail.com");
+        mail.setFrom(env.getProperty("spring.mail.username"));
+        mail.setSubject("New request");
+        mail.setText("Mr/Mrs, your request for holiday has been rejected. Here is a short explanation why: "+ message);
+        try{
+            javaMailSender.send(mail);
+        }
+        catch( Exception e ){
+            System.out.println("nije javaMailSender.send(mail); prosao");
+        }
+    }
 }
