@@ -5,15 +5,24 @@ import com.model.HolidayRequest;
 import java.util.Date;
 
 public class HolidayRequestDTO {
-	private long id;
+	private Long id;
 	private String dateStart;
 	private String dateEnd;
 	private String username;
+	private boolean confirmed;
 
 	public HolidayRequestDTO() {
 	}
 
-	public long getId() {
+	public HolidayRequestDTO(Long id, String dateStart, String dateEnd, String username, boolean confirmed) {
+		this.id = id;
+		this.dateStart = dateStart;
+		this.dateEnd = dateEnd;
+		this.username = username;
+		this.confirmed = confirmed;
+	}
+
+	public Long getId() {
 		return id;
 	}
 
@@ -29,7 +38,7 @@ public class HolidayRequestDTO {
 		return username;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -43,6 +52,14 @@ public class HolidayRequestDTO {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public boolean getConfirmed() {
+		return confirmed;
+	}
+
+	public void setConfirmed(boolean confirmed) {
+		this.confirmed = confirmed;
 	}
 
 	@Override

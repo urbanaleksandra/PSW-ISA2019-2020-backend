@@ -1,19 +1,13 @@
 package com.model;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.persistence.CascadeType;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -30,6 +24,14 @@ public class Patient implements UserDetails {
 	@JsonBackReference
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	 private MedicalRecord record;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+	private Set<PatientRatedDoctor> patientRatedDoctors = new HashSet<>();
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+	private Set<PatientRatedClinic> patientRatedClinic = new HashSet<>();
 	
 	public ClinicalCenter getClinicalCenter() {
 		return clinicalCenter;
@@ -140,6 +142,21 @@ public class Patient implements UserDetails {
 		this.jmbg = jmbg;
 	}
 
+	public Set<PatientRatedDoctor> getPatientRatedDoctors() {
+		return patientRatedDoctors;
+	}
+
+	public Set<PatientRatedClinic> getPatientRatedClinic() {
+		return patientRatedClinic;
+	}
+
+	public void setPatientRatedDoctors(Set<PatientRatedDoctor> patientRatedDoctors) {
+		this.patientRatedDoctors = patientRatedDoctors;
+	}
+
+	public void setPatientRatedClinic(Set<PatientRatedClinic> patientRatedClinic) {
+		this.patientRatedClinic = patientRatedClinic;
+	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
