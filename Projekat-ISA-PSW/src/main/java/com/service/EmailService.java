@@ -133,10 +133,10 @@ public class EmailService {
         mail.setSubject("Surgery info");
 
         mail.setText("Mr/Mrs " + patient.getFirstName() + " " + patient.getLastName() +
-                ","  + "\n\nYou have new scheduled surgery\n\nDate: " + surgery.getDate() +
-                "\nHospital room: "+ surgery.getHospitalRoom().getName()+ " no." + surgery.getHospitalRoom().getRoom_number()
+                "," + "\n\nYou have new scheduled surgery\n\nDate: " + surgery.getDate() +
+                "\nHospital room: " + surgery.getHospitalRoom().getName() + " no." + surgery.getHospitalRoom().getRoom_number()
                 + ".\n\nAll the best,\nYour clinic.");
-
+    }
     public void sendNotificaitionAsync5() throws MailException, InterruptedException {
         System.out.println("Slanje emaila...");
 
