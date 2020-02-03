@@ -41,7 +41,7 @@ public class RecipeController {
     public Drug getDrug(@PathVariable Long id){
         System.out.println("usao u get-drug");
         Drug drug = new Drug();
-        Optional<Recipe> recipes = recipeService.findById(id);
+        Recipe recipes = recipeService.findById(id);
         //drug = getRecipes().get(0).getDrug();
 
         return drug;
@@ -51,8 +51,8 @@ public class RecipeController {
     public void authRecipe(@RequestBody RecipeDTO recipeDTO, @PathVariable String username){
         Nurse nurse = (Nurse) medicalStaffService.findByUsername(username);
 
-        Optional<Recipe> recipe = recipeService.findById(recipeDTO.getId());
-        Recipe r = recipe.get();
+
+        Recipe r = recipeService.findById(recipeDTO.getId());
         r.setAuthenticated(true);
         r.setNurse(nurse);
 

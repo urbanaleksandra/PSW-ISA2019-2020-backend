@@ -1,9 +1,7 @@
 package com.contoller;
 
 
-import com.dto.AppointmentDTO;
-import com.dto.CalendarEventsDTO;
-import com.dto.ReportAppointmentDTO;
+import com.dto.*;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.model.*;
 import com.model.RequestAppointment;
@@ -204,6 +202,55 @@ public class AppointmentsController {
 
         Recipe r = recipeService.save(recipe);
         Appointment app1 = appointmentService.save(app);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value="/api/get-old-app-report/{doctor}", method= RequestMethod.GET)
+    private List<Appointment> getOldAppointments(@PathVariable String doctor){
+        List<Appointment> appointments = appointmentService.findAll();
+        List<Appointment> ret = new ArrayList<>();
+        System.out.println("usao u get old app report");
+        for (Appointment app : appointments){
+            if(app.getDoctor().getUsername().equals(doctor) && app.isFinished())
+                ret.add(app);
+        }
+
+        return ret;
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value="/api/get-report-info/{id}", method= RequestMethod.GET)
+    private ReportAppointmentDTO getOldAppointmentsInfo(@PathVariable Long id){
+        Appointment appointment = appointmentService.findById(id);
+        ReportAppointmentDTO reportAppointmentDTO = new ReportAppointmentDTO();
+
+        AppointmentDTO appointmentDTO = new AppointmentDTO();
+        appointmentDTO.setPatient(appointment.getPatient());
+        appointmentDTO.setId(appointment.getId());
+        appointmentDTO.setInfo(appointment.getInfo());
+        reportAppointmentDTO.setAppointment(appointmentDTO);
+
+        DiagnosisDTO diagnosisDTO = new DiagnosisDTO();
+        Diagnosis d = diagnosisService.findById(appointment.getDiagnosis().getId());
+        diagnosisDTO.setDescription(d.getDescription());
+        diagnosisDTO.setName(d.getName());
+        diagnosisDTO.setId(d.getId());
+        reportAppointmentDTO.setDiagnosis(diagnosisDTO);
+
+        RecipeDTO recipeDTO = new RecipeDTO();
+        Recipe r = recipeService.findById(appointment.getRecipe().getId());
+        recipeDTO.setDescription(r.getDescription());
+        recipeDTO.setId(r.getId());
+        Set<Drug> drugs = r.getDrug();
+        List<Long> recipeDrug = new ArrayList<>();
+        for (Drug drug:drugs) {
+            System.out.println(drug);
+            recipeDrug.add(drug.getId());
+        }
+        recipeDTO.setDrugs(recipeDrug);
+        reportAppointmentDTO.setRecipe(recipeDTO);
+        System.out.println(reportAppointmentDTO);
+        return reportAppointmentDTO;
     }
 
 }
