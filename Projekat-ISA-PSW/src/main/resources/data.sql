@@ -91,8 +91,8 @@ INSERT INTO clinic_surgeries (clinic_id, surgeries_id) VALUES (1,8);
 INSERT INTO request_appointments (date, description, duration, patient, type) VALUES ('2020-01-27T16:00', 'opis1', 2, 'anaM', 'tip1');
 INSERT INTO request_appointments (date, description, duration, patient, type) VALUES ('2020-01-23T10:00', 'opis1', 2, 'markoM', 'tip1');
 
-INSERT INTO appointments (date, description, duration, patient,finished, type, doctor_id, hospital_room_id, medical_record_id, doctor_username) VALUES ('2020-02-02T16:00', 'cold', 2, 'anaM', false,'appointment', 2, 1, 5, 'doctor');
-INSERT INTO appointments (date, description, duration, patient,finished, type, doctor_id, hospital_room_id, medical_record_id, doctor_username) VALUES ('2020-02-02T16:00', 'broken leg', 2, 'anaM',true, 'surgery', 2, 2, 5, 'doctor');
+INSERT INTO appointments (date, description, duration, patient,finished, type, doctor_id, hospital_room_id, medical_record_id, doctor_username,type2_id) VALUES ('2020-02-02T16:00', 'cold', 2, 'anaM', false,'appointment', 2, 1, 5, 'doctor',1);
+INSERT INTO appointments (date, description, duration, patient,finished, type, doctor_id, hospital_room_id, medical_record_id, doctor_username,type2_id) VALUES ('2020-02-02T16:00', 'broken leg', 2, 'anaM',true, 'surgery', 2, 2, 5, 'doctor',1);
 
 INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id, medical_record_id, doctor_username,type2_id) VALUES ('2020-01-30T10:00', 'pregled ledja', 2, 'anaM', 'tip pregleda', false, 3, 5, 'Jovan',1);
 INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id, medical_record_id, doctor_username,type2_id) VALUES ('2020-12-15T16:00', 'opis pregleda', 2, 'markoM', 'tip2', false, 2, 3, 'doctor',2);
@@ -177,6 +177,8 @@ INSERT INTO appointment_type_price_list(appointment_type_id,price_list_id) value
 insert  into clinic_price_list(clinic_id,price_list_id) values (1,2);
 
 insert into appointment_type_appointments(appointment_type_id,appointments_id) values(1,1);
-insert into appointment_type_appointments(appointment_type_id,appointments_id) values(2,2);
+insert into appointment_type_appointments(appointment_type_id,appointments_id) values(1,2);
 insert into appointment_type_appointments(appointment_type_id,appointments_id) values(1,3);
+insert into appointment_type_appointments(appointment_type_id,appointments_id) values(2,4);
+insert into appointment_type_appointments(appointment_type_id,appointments_id) values(1,5);
 
