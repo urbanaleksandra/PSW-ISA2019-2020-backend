@@ -1,5 +1,6 @@
 package com.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.Objects;
 
@@ -15,6 +16,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "appointments")
 public class Appointment {
 	
@@ -46,7 +48,7 @@ public class Appointment {
 	@Column(name = "description", nullable = false)
 	private String description;
 	
-	@Column(name = "type", nullable = false)
+	@Column(name = "type", nullable = true)
 	private String type ;
 	
 	@Column(name = "duration", nullable = false)
@@ -136,6 +138,17 @@ public class Appointment {
 
 	public void setFinished(boolean finished) {
 		this.finished = finished;
+	}
+
+	public Appointment(Long id, String patient, String date, String description, long duration) {
+		this.id = id;
+		this.patient = patient;
+		this.date = date;
+		this.description = description;
+		this.duration = duration;
+	}
+
+	public Appointment() {
 	}
 
 	@Override

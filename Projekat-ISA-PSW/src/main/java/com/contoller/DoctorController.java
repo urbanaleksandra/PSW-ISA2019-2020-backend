@@ -65,9 +65,12 @@ public class DoctorController {
 
 
         for(Appointment app : pregledi){
-            if(app.getPatient().equals(username) && app.isFinished()){
-                doctors.add(app.getDoctor());
+            if(app.getPatient() != null){
+                if(app.getPatient().equals(username) && app.isFinished()){
+                    doctors.add(app.getDoctor());
+                }
             }
+
         }
 
         Patient patient = patientService.findByUsername(username);
@@ -114,9 +117,12 @@ public class DoctorController {
 
 
         for(Appointment app : pregledi){
-            if(app.getPatient().equals(username) && app.isFinished()){
-                clinics.add(app.getDoctor().getClinic());
+            if(app.getPatient() != null){
+                if(app.getPatient().equals(username) && app.isFinished()){
+                    clinics.add(app.getDoctor().getClinic());
+                }
             }
+
         }
 
         List<PatientRatedClinic> prclinic = patientRatedClinicService.findAll();
