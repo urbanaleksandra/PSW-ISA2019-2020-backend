@@ -32,6 +32,9 @@ public class Appointment {
 	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
 	private MedicalRecord medicalRecord;
+
+	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+	private AppointmentType type2;
 	
 	@OneToOne(optional=true)
 	 private Recipe recipe;
@@ -164,5 +167,12 @@ public class Appointment {
 	public String toString() {
 		return "Course [id=" + id + "]";
 	}
-	
+
+	public AppointmentType getType2() {
+		return type2;
+	}
+
+	public void setType2(AppointmentType type2) {
+		this.type2 = type2;
+	}
 }
