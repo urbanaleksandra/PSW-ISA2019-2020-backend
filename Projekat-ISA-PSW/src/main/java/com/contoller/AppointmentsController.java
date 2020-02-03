@@ -204,6 +204,7 @@ public class AppointmentsController {
         Appointment app1 = appointmentService.save(app);
     }
 
+
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value="/api/get-old-app-report/{doctor}", method= RequestMethod.GET)
     private List<Appointment> getOldAppointments(@PathVariable String doctor){
@@ -213,10 +214,25 @@ public class AppointmentsController {
         for (Appointment app : appointments){
             if(app.getDoctor().getUsername().equals(doctor) && app.isFinished())
                 ret.add(app);
+           }
+
+        return ret;
+    }
+
+    @RequestMapping(value="/getAlreadyCreatedAppointments", method= RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+    public List<Appointment> getAlreadyCreatedAppointments() throws ParseException {
+        List<Appointment> lista = appointmentService.findAll();
+        List<Appointment> ret = new ArrayList<>();
+
+        for(Appointment a : lista){
+            if(a.getPatient() == null){
+                ret.add(a);
+            }
         }
 
         return ret;
     }
+
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value="/api/get-report-info/{id}", method= RequestMethod.GET)
@@ -252,5 +268,32 @@ public class AppointmentsController {
         System.out.println(reportAppointmentDTO);
         return reportAppointmentDTO;
     }
+
+    
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value="/scheduleApp", method=RequestMethod.POST,  produces=MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody ResponseEntity<Appointment> scheduleApp(@RequestBody AppointmentDTO appointment){
+
+        Appointment appointment1 = new Appointment(appointment.getId(), appointment.getPatient(), appointment.getDate(), appointment.getDescription(), appointment.getDuration());
+        appointment1.setType(appointment.getType());
+        appointment1.setDoctorUsername(appointment.getDoctorUsername());
+        System.out.println(appointment.getId());
+
+        Patient patient = patientService.findByUsername(appointment.getPatient());
+
+        //appointment1.setMedicalRecord(medicalRecordService.findByPatientId(patient.getId()));
+        appointmentService.save(appointment1);
+
+        try {
+            emailService.sendNotificaitionAsync4();
+        }catch( Exception e ){
+            System.out.println("nije poslata poruka");
+        }
+
+        return new ResponseEntity<>(appointment1, HttpStatus.OK);
+
+    }
+
 
 }

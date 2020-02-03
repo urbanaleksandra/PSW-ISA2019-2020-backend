@@ -1,12 +1,17 @@
 package com.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 import java.util.Objects;
 
 import javax.persistence.*;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "appointments")
 public class Appointment {
 	
@@ -24,7 +29,6 @@ public class Appointment {
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
 	private MedicalRecord medicalRecord;
 
-
 	@JsonBackReference
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Recipe recipe;
@@ -33,6 +37,9 @@ public class Appointment {
 	@JsonIgnore
 	private Diagnosis diagnosis;
 
+	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+	private AppointmentType type2;
+	
 	@Column(name = "patient", nullable = true)
 	private String patient;
 
@@ -45,7 +52,7 @@ public class Appointment {
 	@Column(name = "description", nullable = false)
 	private String description;
 	
-	@Column(name = "type", nullable = false)
+	@Column(name = "type", nullable = true)
 	private String type ;
 	
 	@Column(name = "duration", nullable = false)
@@ -156,6 +163,17 @@ public class Appointment {
 		this.finished = finished;
 	}
 
+	public Appointment(Long id, String patient, String date, String description, long duration) {
+		this.id = id;
+		this.patient = patient;
+		this.date = date;
+		this.description = description;
+		this.duration = duration;
+	}
+
+	public Appointment() {
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {
@@ -180,5 +198,12 @@ public class Appointment {
 	public String toString() {
 		return "Course [id=" + id + "]";
 	}
-	
+
+	public AppointmentType getType2() {
+		return type2;
+	}
+
+	public void setType2(AppointmentType type2) {
+		this.type2 = type2;
+	}
 }
