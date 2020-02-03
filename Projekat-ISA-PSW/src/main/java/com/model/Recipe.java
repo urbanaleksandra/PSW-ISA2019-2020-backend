@@ -3,6 +3,8 @@ package com.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Recipe {
@@ -17,8 +19,8 @@ public class Recipe {
 	private String description;
 
 	@JsonBackReference
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Drug drug;
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<Drug> drug = new HashSet<Drug>();
 	
 	@OneToOne(optional=true)
 	private Appointment appointment;
@@ -47,15 +49,15 @@ public class Recipe {
 		this.description = description;
 	}
 
-	public Drug getDrug() {
-		return drug;
-	}
-
 	public Appointment getAppointment() {
 		return appointment;
 	}
 
-	public void setDrug(Drug drug) {
+	public Set<Drug> getDrug() {
+		return drug;
+	}
+
+	public void setDrug(Set<Drug> drug) {
 		this.drug = drug;
 	}
 

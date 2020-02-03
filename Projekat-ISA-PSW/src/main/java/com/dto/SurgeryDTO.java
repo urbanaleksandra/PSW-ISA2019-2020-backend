@@ -9,7 +9,7 @@ public class SurgeryDTO {
 	private String description =  "";
 	private String patient = "";
 	private String doctorSurgery = "";
-	private int duration = 3;
+	private int duration = 2;
 	private Long roomID;
 
     public Long getId() {

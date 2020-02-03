@@ -20,6 +20,10 @@ public class AppointmentType {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     private Set<PriceList> priceList = new HashSet<PriceList>();
 
+    @JsonBackReference
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+    private Set<Appointment> appointments = new HashSet<Appointment>();
+
     public AppointmentType() {
     }
 
@@ -33,5 +37,21 @@ public class AppointmentType {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<PriceList> getPriceList() {
+        return priceList;
+    }
+
+    public void setPriceList(Set<PriceList> priceList) {
+        this.priceList = priceList;
+    }
+
+    public Set<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(Set<Appointment> appointments) {
+        this.appointments = appointments;
     }
 }
