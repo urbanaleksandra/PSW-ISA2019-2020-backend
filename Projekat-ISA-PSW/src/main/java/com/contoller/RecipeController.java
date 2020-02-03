@@ -10,6 +10,7 @@ import com.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,6 +36,26 @@ public class RecipeController {
 
         List<Recipe> recipes = recipeService.findByAuthenticated(false);
         return recipes;
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/api/get-recipes-dto")
+    public List<RecipeDTO> getRecipesDTO(){
+        List<Recipe> recipes = recipeService.findByAuthenticated(false);
+        List<RecipeDTO> ret = new ArrayList<>();
+        for (Recipe r : recipes){
+            RecipeDTO recipeDTO = new RecipeDTO();
+            recipeDTO.setId(r.getId());
+            recipeDTO.setDescription(r.getDescription());
+            String drugs= "";
+            for(Drug d:r.getDrug()){
+                drugs += d.getName() + " | ";
+            }
+            recipeDTO.setDrugString(drugs);
+            ret.add(recipeDTO);
+
+
+        }
+        return ret;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/api/get-drug/{id}")

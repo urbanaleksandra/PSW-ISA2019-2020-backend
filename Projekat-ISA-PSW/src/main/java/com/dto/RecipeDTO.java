@@ -11,6 +11,15 @@ public class RecipeDTO {
     private long id;
     private String description;
     private List<Long> drugs;
+    private String drugString = "";
+
+    public String getDrugString() {
+        return drugString;
+    }
+
+    public void setDrugString(String drugString) {
+        this.drugString = drugString;
+    }
 
     public List<Long> getDrugs() {
         return drugs;
