@@ -49,9 +49,13 @@ public class MedicalRecordController {
             Date date = dateFormat.parse(app.getDate());
             long milis = date.getTime();
             String newDate = dateFormat.format(milis);
-            if(app.getPatient().equals(username) && app.getDoctorUsername().equals(doctor)
-                    && newDate.equals(today) && app.getHospitalRoom() != null && app.isFinished() == false){
-                ret.add(app);
+            try {
+                if (app.getPatient().equals(username) && app.getDoctorUsername().equals(doctor)
+                        && newDate.equals(today) && app.getHospitalRoom() != null && app.isFinished() == false) {
+                    ret.add(app);
+                }
+            }catch (Exception e){
+                System.out.println("neko polje nije uneto");
             }
 
         }
