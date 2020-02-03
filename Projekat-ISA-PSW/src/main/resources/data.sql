@@ -35,11 +35,11 @@ INSERT INTO medical_staff (medical_staff_type, username, password, email, first_
 INSERT INTO medical_staff (medical_staff_type, username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, review, role, clinic_id,pocetak_radnog_vremena,kraj_radnog_vremena) VALUES ('1', 'drMr', '123', 'tacajovicic@gmail.com', 'Mila', 'Katic', '6595026', 'Bulevar Oslobodjenja 13', 'Novi Sad', 'Serbia', '063585526', 4, 'doctor', 1,"07:00","14:00");
 
 
-INSERT INTO medical_record (patient_id) VALUES (1);
-INSERT INTO medical_record (patient_id) VALUES (2);
-INSERT INTO medical_record (patient_id) VALUES (3);
-INSERT INTO medical_record (patient_id) VALUES (4);
-INSERT INTO medical_record (patient_id) VALUES (5);
+INSERT INTO medical_record (blood_type, diopter, height, weight, patient_id) VALUES ('A', '+2.25', '185', '95',1);
+INSERT INTO medical_record (blood_type, diopter, height, weight, patient_id) VALUES ('AB', '-2.25', '192', '82',2);
+INSERT INTO medical_record (blood_type, diopter, height, weight, patient_id) VALUES ('0','-0.25', '156', '52',3);
+INSERT INTO medical_record (blood_type, diopter, height, weight, patient_id) VALUES ('B+', '-0.0', '189', '72',4);
+INSERT INTO medical_record (blood_type, diopter, height, weight, patient_id) VALUES ('B-', '-5.0', '150', '45',5);
 
 
 INSERT INTO hospital_room (name,room_number,clinic_id) VALUES ('Glavna sala',1, 1);
