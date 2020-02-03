@@ -3,6 +3,7 @@ package com.contoller;
 
 import com.dto.AppointmentDTO;
 import com.dto.CalendarEventsDTO;
+import com.dto.ReportAppointmentDTO;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.model.*;
 import com.model.RequestAppointment;
@@ -37,6 +38,14 @@ public class AppointmentsController {
     @Autowired
     private EmailService emailService;
 
+    @Autowired
+    private DiagnosisService diagnosisService;
+
+    @Autowired
+    private DrugService drugService;
+
+    @Autowired
+    private RecipeService recipeService;
 
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -120,6 +129,18 @@ public class AppointmentsController {
 
         return ret;
     }
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value="/api/all-patient-appointment/{username}", method= RequestMethod.GET)
+    public List<Appointment> getAllAppointments(@PathVariable String username){
+
+        List<Appointment> apps = appointmentService.findAll();
+        List<Appointment> ret = new ArrayList<>();
+        for(Appointment app:apps){
+            if(app.getPatient().equals(username))
+                ret.add(app);
+        }
+        return ret;
+    }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value="/getAppointmentsMR/{username}", method= RequestMethod.GET)
@@ -156,4 +177,33 @@ public class AppointmentsController {
         }
         return eventsDTOS;
     }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value="/api/set-app-report", method= RequestMethod.POST)
+    public void reportAppointment(@RequestBody ReportAppointmentDTO reportAppointmentDTO){
+        System.out.println("USAOOOOO U SET REPORT");
+
+        Appointment app = appointmentService.findById(reportAppointmentDTO.getAppointment().getId());
+        app.setInfo(reportAppointmentDTO.getAppointment().getInfo());
+
+        Diagnosis diagnosis = diagnosisService.findById(reportAppointmentDTO.getDiagnosis().getId());
+        app.setDiagnosis(diagnosis);
+
+        Recipe recipe = new Recipe();
+        recipe.setDescription(reportAppointmentDTO.getRecipe().getDescription());
+        recipe.setAppointment(app);
+        recipe.setAuthenticated(false);
+
+        System.out.println(recipe);
+        for (Long id : reportAppointmentDTO.getRecipe().getDrugs()){
+                Drug drug = drugService.findById(id);
+                System.out.println(drug);
+                recipe.getDrug().add(drug);
+        }
+        app.setRecipe(recipe);
+
+        Recipe r = recipeService.save(recipe);
+        Appointment app1 = appointmentService.save(app);
+    }
+
 }

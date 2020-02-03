@@ -10,8 +10,16 @@ public class AppointmentDTO {
 	//private HospitalRoomDTO hospitalRoom;
 	//private MedicalRecordDTO medicalRecord;
 	//private RecipeDTO recipe;
-	
-	
+
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	private String date;
 	
 	private String description;
@@ -23,6 +31,16 @@ public class AppointmentDTO {
 	private String patient;
 
 	private String doctorUsername;
+
+	private String info;
+
+	public String getInfo() {
+		return info;
+	}
+
+	public void setInfo(String info) {
+		this.info = info;
+	}
 
 	public String getDoctorUsername() {
 		return doctorUsername;
@@ -84,5 +102,20 @@ public class AppointmentDTO {
 
 	public void setDuration(long duration) {
 		this.duration = duration;
+	}
+
+	@Override
+	public String toString() {
+		return "AppointmentDTO{" +
+				"id=" + id +
+				", doctor=" + doctor +
+				", date='" + date + '\'' +
+				", description='" + description + '\'' +
+				", type='" + type + '\'' +
+				", duration=" + duration +
+				", patient='" + patient + '\'' +
+				", doctorUsername='" + doctorUsername + '\'' +
+				", info='" + info + '\'' +
+				'}';
 	}
 }

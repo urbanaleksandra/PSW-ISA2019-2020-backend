@@ -1,14 +1,12 @@
 package com.contoller;
 
 import com.dto.RecipeDTO;
+import com.model.Appointment;
 import com.model.Drug;
 import com.model.Nurse;
 import com.model.Recipe;
 import com.repository.MedicalStaffRepository;
-import com.service.DrugService;
-import com.service.MedicalStaffService;
-import com.service.NurseService;
-import com.service.RecipeService;
+import com.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +25,9 @@ public class RecipeController {
 
     @Autowired
     private DrugService drugService;
+
+    @Autowired
+    private AppointmentService appointmentService;
 
 
     @RequestMapping(method = RequestMethod.GET, value = "/api/get-recipes")
@@ -57,6 +58,9 @@ public class RecipeController {
 
 
         Recipe r1 = recipeService.save(r);
+        Appointment app = appointmentService.findById(r1.getAppointment().getId());
+        app.setFinished(true);
+        Appointment appointment = appointmentService.save(app);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
