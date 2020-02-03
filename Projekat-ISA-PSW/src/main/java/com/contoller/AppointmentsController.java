@@ -172,6 +172,7 @@ public class AppointmentsController {
         return ret;
     }
 
+    
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value="/scheduleApp", method=RequestMethod.POST,  produces=MediaType.APPLICATION_JSON_VALUE)
