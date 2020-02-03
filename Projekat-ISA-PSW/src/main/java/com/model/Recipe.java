@@ -1,6 +1,7 @@
 package com.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -21,8 +22,9 @@ public class Recipe {
 	@JsonBackReference
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Drug> drug = new HashSet<Drug>();
-	
-	@OneToOne(optional=true)
+
+	@JsonBackReference
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Appointment appointment;
 
 	@OneToOne(fetch = FetchType.LAZY)

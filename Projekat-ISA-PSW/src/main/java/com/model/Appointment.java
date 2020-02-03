@@ -8,16 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -38,12 +29,17 @@ public class Appointment {
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
 	private MedicalRecord medicalRecord;
 
+	@JsonBackReference
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Recipe recipe;
+
+	@ManyToOne
+	@JsonIgnore
+	private Diagnosis diagnosis;
+
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
 	private AppointmentType type2;
 	
-	@OneToOne(optional=true)
-	 private Recipe recipe;
-
 	@Column(name = "patient", nullable = true)
 	private String patient;
 
@@ -66,6 +62,25 @@ public class Appointment {
 	@Column(name = "finished", nullable = false)
 	private boolean finished;
 
+	@Column(name = "info", nullable = true)
+	private String info;
+
+
+	public Diagnosis getDiagnosis() {
+		return diagnosis;
+	}
+
+	public void setDiagnosis(Diagnosis diagnosis) {
+		this.diagnosis = diagnosis;
+	}
+
+	public String getInfo() {
+		return info;
+	}
+
+	public void setInfo(String info) {
+		this.info = info;
+	}
 
 	public String getDoctorUsername() {
 		return doctorUsername;

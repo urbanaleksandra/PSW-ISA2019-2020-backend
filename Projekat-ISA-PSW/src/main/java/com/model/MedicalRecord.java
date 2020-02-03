@@ -4,14 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 public class MedicalRecord {
@@ -23,6 +16,18 @@ public class MedicalRecord {
 	@JsonBackReference
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	 private Patient patient;
+
+	@Column(nullable = true)
+	private String diopter;
+
+	@Column( nullable = true)
+	private String height;
+
+	@Column(nullable = true)
+	private String weight;
+
+	@Column(nullable = true)
+	private String bloodType;
 	
 	public Patient getPatient() {
 		return patient;

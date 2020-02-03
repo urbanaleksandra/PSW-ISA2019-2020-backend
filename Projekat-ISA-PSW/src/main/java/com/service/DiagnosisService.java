@@ -19,4 +19,6 @@ public class DiagnosisService {
 
     public List<Diagnosis> findAll(){ return diagnosisRepository.findAll(); }
 
+    public Diagnosis findById(Long id) { return diagnosisRepository.findById(id).get();}
+
 }

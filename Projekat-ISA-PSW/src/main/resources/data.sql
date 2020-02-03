@@ -91,8 +91,10 @@ INSERT INTO clinic_surgeries (clinic_id, surgeries_id) VALUES (1,8);
 INSERT INTO request_appointments (date, description, duration, patient, type) VALUES ('2020-01-27T16:00', 'opis1', 2, 'anaM', 'tip1');
 INSERT INTO request_appointments (date, description, duration, patient, type) VALUES ('2020-01-23T10:00', 'opis1', 2, 'markoM', 'tip1');
 
-INSERT INTO appointments (date, description, duration, patient,finished, type, doctor_id, hospital_room_id, medical_record_id, doctor_username,type2_id) VALUES ('2020-02-02T16:00', 'cold', 2, 'anaM', false,'appointment', 2, 1, 5, 'doctor',1);
-INSERT INTO appointments (date, description, duration, patient,finished, type, doctor_id, hospital_room_id, medical_record_id, doctor_username,type2_id) VALUES ('2020-02-02T16:00', 'broken leg', 2, 'anaM',true, 'surgery', 2, 2, 5, 'doctor',1);
+
+INSERT INTO appointments (date, description, duration, patient,finished, type, doctor_id, hospital_room_id, medical_record_id, doctor_username,type2_id) VALUES ('2020-02-03T16:00', 'cold', 2, 'anaM', false,'appointment', 2, 1, 5, 'doctor',1);
+INSERT INTO appointments (date, description, duration, patient,finished, type, doctor_id, hospital_room_id, medical_record_id, doctor_username,diagnosis_id,type2_id) VALUES ('2020-02-03T16:00', 'broken leg', 2, 'anaM',true, 'surgery', 2, 2, 5, 'doctor', 1,1);
+
 
 INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id, medical_record_id, doctor_username,type2_id) VALUES ('2020-01-30T10:00', 'pregled ledja', 2, 'anaM', 'tip pregleda', false, 3, 5, 'Jovan',1);
 INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id, medical_record_id, doctor_username,type2_id) VALUES ('2020-12-15T16:00', 'opis pregleda', 2, 'markoM', 'tip2', false, 2, 3, 'doctor',2);
@@ -145,10 +147,7 @@ INSERT INTO recipe(authenticated, description) VALUES (false, "dva puta po dve t
 INSERT INTO recipe(authenticated, description) VALUES (false, "tri kesice na dan");
 INSERT INTO recipe(authenticated, description) VALUES (false, "jedna kesica na dan");
 INSERT INTO recipe(authenticated, description) VALUES (true, "dve kesice na dan");
-INSERT INTO drug_recipe(drug_id, recipe_id) VALUES (1,1);
-INSERT INTO drug_recipe(drug_id, recipe_id) VALUES (2,2);
-INSERT INTO drug_recipe(drug_id, recipe_id) VALUES (2,3);
-INSERT INTO drug_recipe(drug_id, recipe_id) VALUES (2,4);
+
 INSERT INTO recipe_drug(recipe_id, drug_id) VALUES (1,1);
 INSERT INTO recipe_drug(recipe_id, drug_id) VALUES (2,2);
 INSERT INTO recipe_drug(recipe_id, drug_id) VALUES (3,2);

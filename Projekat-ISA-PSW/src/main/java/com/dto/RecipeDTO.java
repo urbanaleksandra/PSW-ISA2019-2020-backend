@@ -1,5 +1,7 @@
 package com.dto;
 
+import java.util.List;
+
 public class RecipeDTO {
 
 //    id: number = 0;
@@ -8,6 +10,15 @@ public class RecipeDTO {
 
     private long id;
     private String description;
+    private List<Long> drugs;
+
+    public List<Long> getDrugs() {
+        return drugs;
+    }
+
+    public void setDrugs(List<Long> drugs) {
+        this.drugs = drugs;
+    }
 
     public long getId() {
         return id;
@@ -30,6 +41,7 @@ public class RecipeDTO {
         return "RecipeDTO{" +
                 "id=" + id +
                 ", description='" + description + '\'' +
+                ", drugs=" + drugs +
                 '}';
     }
 }
