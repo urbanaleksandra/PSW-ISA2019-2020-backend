@@ -22,7 +22,7 @@ public class RecipeService {
         return recipeRepository.findByAuthenticated(auth);
     }
 
-    public Optional<Recipe> findById(Long id){
-        return recipeRepository.findById(id);
+    public Recipe findById(Long id){
+        return recipeRepository.findById(id).get();
     }
 }

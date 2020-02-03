@@ -28,4 +28,6 @@ public class AppointmentService {
     public List<Appointment> findByHospitalRoomId(Long id) { return appointmentRepository.findByHospitalRoomId(id); }
 
     public Appointment findById(Long id) { return appointmentRepository.findById(id).get();}
+
+
 }
