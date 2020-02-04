@@ -1,6 +1,7 @@
 package com.service;
 
 
+import com.model.Appointment;
 import com.model.Doctor;
 import com.model.Patient;
 import com.model.Surgery;
@@ -137,6 +138,23 @@ public class EmailService {
                 "\nHospital room: " + surgery.getHospitalRoom().getName() + " no." + surgery.getHospitalRoom().getRoom_number()
                 + ".\n\nAll the best,\nYour clinic.");
     }
+
+    @Async
+    public void sendPatientNotificaition2(Appointment surgery, Patient patient) throws MailException, InterruptedException {
+        System.out.println("Slanje emaila pacijentu...");
+
+        System.out.println(patient.getEmail());
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setTo(patient.getEmail());
+        mail.setFrom(env.getProperty("spring.mail.username"));
+        mail.setSubject("Surgery info");
+
+        mail.setText("Mr/Mrs " + patient.getFirstName() + " " + patient.getLastName() +
+                "," + "\n\nYou have new scheduled surgery\n\nDate: " + surgery.getDate() +
+                "\nHospital room: " + surgery.getHospitalRoom().getName() + " no." + surgery.getHospitalRoom().getRoom_number()
+                + ".\n\nAll the best,\nYour clinic.");
+    }
+
     @Async
     public void sendNotificaitionAsync5() throws MailException, InterruptedException {
         System.out.println("Slanje emaila...");

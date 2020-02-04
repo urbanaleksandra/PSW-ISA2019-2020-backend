@@ -1,5 +1,6 @@
 package com.service;
 
+import com.model.Appointment;
 import com.model.RequestAppointment;
 import com.repository.RequestAppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,11 @@ public class RequestAppointmentService {
     public RequestAppointment save(RequestAppointment appointment){
         return requestAppointmentRepositoryt.save(appointment);
     }
+
+    public List<RequestAppointment> findByClinicId(Long id){
+        return requestAppointmentRepositoryt.findByClinicId(id);
+    }
+    public RequestAppointment findById(Long id){ return requestAppointmentRepositoryt.findById(id).get(); }
 
     public void delete(RequestAppointment appointment){
         requestAppointmentRepositoryt.delete(appointment);
