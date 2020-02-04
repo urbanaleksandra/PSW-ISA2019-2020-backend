@@ -60,6 +60,9 @@ public class ClinicalCenterAdministratorContoller {
 
 	@Autowired
 	private MedicalRecordService medicalRecordService;
+
+	@Autowired
+	private ClinicalCenterAdministratorService service;
 	 
 	@CrossOrigin(origins = "http://localhost:4200")
 	//@PostMapping(value = "/findByUsernameAndPassword")
@@ -216,6 +219,23 @@ public class ClinicalCenterAdministratorContoller {
 	public void addAdministrator(@RequestBody ClinicalCenterAdministrator clinicalCenterAdministrator){
 		System.out.println(clinicalCenterAdministrator);
 		clinicalCenterAdministratorRepository.save(clinicalCenterAdministrator);
+	}
+
+	@CrossOrigin(origins = "http://localhost:4200")
+	@RequestMapping(value="/api/get-admin/{username}", method= RequestMethod.GET)
+	private ClinicalCenterAdministrator getAdmin(@PathVariable String username){
+		ClinicalCenterAdministrator cca = service.findByUsername(username);
+		return cca;
+	}
+
+	@CrossOrigin(origins = "http://localhost:4200")
+	@RequestMapping(value="api/set-password-admin/{password}/{username}", method= RequestMethod.GET)
+	private ClinicalCenterAdministrator setPasswordAdmin(@PathVariable("username") String username, @PathVariable("password") String password){
+		ClinicalCenterAdministrator cca = service.findByUsername(username);
+		cca.setPassword(password);
+		cca.setFirstLog(1);
+		ClinicalCenterAdministrator newcca = service.save(cca);
+		return newcca;
 	}
 
 
