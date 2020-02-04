@@ -45,6 +45,15 @@ public class AppointmentsController {
     @Autowired
     private RecipeService recipeService;
 
+    @Autowired
+    private SurgeryService surgeryService;
+
+    @Autowired
+    private DoctorService doctorService;
+
+    @Autowired
+    private NurseService nurseService;
+
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value="/api/add-requestApp", method=RequestMethod.POST,  produces=MediaType.APPLICATION_JSON_VALUE)
@@ -133,10 +142,15 @@ public class AppointmentsController {
 
         List<Appointment> apps = appointmentService.findAll();
         List<Appointment> ret = new ArrayList<>();
-        for(Appointment app:apps){
-            if(app.getPatient().equals(username))
-                ret.add(app);
+        try{
+            for(Appointment app:apps){
+                if(app.getPatient().equals(username))
+                    ret.add(app);
+            }
+        }catch (Exception e){
+            System.out.println("neka polja su prazna");
         }
+
         return ret;
     }
 
@@ -149,32 +163,133 @@ public class AppointmentsController {
 
     //preuzimanje svih appointmenta za kalendar
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value="/api/getAllAppointments", method= RequestMethod.GET)
-    public List<CalendarEventsDTO> getAllAppointments() throws ParseException {
+    @RequestMapping(value="/api/getAllAppointments/{doctor}", method= RequestMethod.GET)
+    public List<CalendarEventsDTO> getAllAppointmentsDoctor(@PathVariable String doctor) throws ParseException {
         List<Appointment> lista = appointmentService.findAll();
         List<CalendarEventsDTO> eventsDTOS = new ArrayList<CalendarEventsDTO>();
+        List<Surgery> surgeries = surgeryService.findAll();
 
         for (Appointment app: lista) {
-            Patient patient = patientService.findByUsername(app.getPatient());
-            String title = app.getDescription() + "\n" + patient.getFirstName() + " " + patient.getLastName();
-            String color = "";
-            if(app.getType().equals("appointment"))
-                color = "purple";
-            else
-                color = "green";
+            if (app.getDoctor().getUsername().equals(doctor)) {
+                String title = "";
+                try{
+                    Patient patient = patientService.findByUsername(app.getPatient());
+                    String finished = "";
+                    if(app.isFinished())
+                        finished = "FINISHED";
+                    else
+                        finished = "AVAILABLE";
+                    title = app.getId() + "\n" + "appointment" + "\n" + app.getDescription() + "\n" + patient.getFirstName() + " " + patient.getLastName()+ "\n" + finished;
+                }catch (Exception e){
+                    title = app.getDescription() + "\nthere is no patient yet." ;
+                }
 
-            //dodavanje duration
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
-            Date date = dateFormat.parse(app.getDate());
-            long millis = date.getTime();
-            millis += app.getDuration() * 60 * 60 * 1000;
-            String endDate = dateFormat.format(millis);
+                String color = "green";
 
-            CalendarEventsDTO eventsDTO = new CalendarEventsDTO(title, app.getDate(), endDate, app.getId(), color);
-            eventsDTOS.add(eventsDTO);
+                //dodavanje duration
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+                Date date = dateFormat.parse(app.getDate());
+                long millis = date.getTime();
+                millis += app.getDuration() * 60 * 60 * 1000;
+                String endDate = dateFormat.format(millis);
+
+                CalendarEventsDTO eventsDTO = new CalendarEventsDTO(title, app.getDate(), endDate, app.getId(), color);
+                eventsDTOS.add(eventsDTO);
+            }
+
         }
+        Doctor doc = doctorService.findByUsername(doctor);
+        for (Surgery s : surgeries){
+            if(s.getDoctor().contains(doc)){
+                String title = "";
+                try{
+                    Patient patient = patientService.findByUsername(s.getPatient());
+
+                    title = s.getId() + "\n" + "surgery" + "\n" +  s.getDescription() + "\n" + patient.getFirstName() + " " + patient.getLastName();
+                }catch (Exception e){
+                    title = s.getDescription() + "\nthere is no patient yet." ;
+                }
+
+                String color = "purple";
+
+                //dodavanje duration
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+                Date date = dateFormat.parse(s.getDate());
+                long millis = date.getTime();
+                millis += s.getDuration() * 60 * 60 * 1000;
+                String endDate = dateFormat.format(millis);
+
+                CalendarEventsDTO eventsDTO = new CalendarEventsDTO(title, s.getDate(), endDate, s.getId(), color);
+                eventsDTOS.add(eventsDTO);
+            }
+        }
+
         return eventsDTOS;
     }
+
+    //DODATI OVU FJU KAD SE DODA KLINIKA U NURSE
+//    @CrossOrigin(origins = "http://localhost:4200")
+//    @RequestMapping(value="/api/getAllAppointments/{nurse}", method= RequestMethod.GET)
+//    public List<CalendarEventsDTO> getAllAppointmentsNurse(@PathVariable String nurse) throws ParseException {
+//        List<Appointment> lista = appointmentService.findAll();
+//        List<CalendarEventsDTO> eventsDTOS = new ArrayList<CalendarEventsDTO>();
+//        List<Surgery> surgeries = surgeryService.findAll();
+//        Nurse nur = nurseService.findByUsername(nurse);
+//        for (Appointment app: lista) {
+//            //ovde poredim da li je to klinika u kojoj se nalazi ta med sestra
+//            if (app.getDoctor().getClinic().getId() == nur.getClinic ) {
+//                String title = "";
+//                try{
+//                    Patient patient = patientService.findByUsername(app.getPatient());
+//                    title = app.getDescription() + "\n" + patient.getFirstName() + " " + patient.getLastName();
+//                }catch (Exception e){
+//                    title = app.getDescription() + "\nthere is no patient yet." ;
+//                }
+//
+//                String color = "green";
+//
+//                //dodavanje duration
+//                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+//                Date date = dateFormat.parse(app.getDate());
+//                long millis = date.getTime();
+//                millis += app.getDuration() * 60 * 60 * 1000;
+//                String endDate = dateFormat.format(millis);
+//
+//                CalendarEventsDTO eventsDTO = new CalendarEventsDTO(title, app.getDate(), endDate, app.getId(), color);
+//                eventsDTOS.add(eventsDTO);
+//            }
+//
+//        }
+//
+//        for (Surgery s : surgeries){
+//            //isto proveravam kliniku
+//            if(s.getDoctor().getClinic().getId() == nur.getClinic)){
+//                String title = "";
+//                try{
+//                    Patient patient = patientService.findByUsername(s.getPatient());
+//                    title = s.getDescription() + "\n" + patient.getFirstName() + " " + patient.getLastName();
+//                }catch (Exception e){
+//                    title = s.getDescription() + "\nthere is no patient yet." ;
+//                }
+//
+//                String color = "purple";
+//
+//                //dodavanje duration
+//                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+//                Date date = dateFormat.parse(s.getDate());
+//                long millis = date.getTime();
+//                millis += s.getDuration() * 60 * 60 * 1000;
+//                String endDate = dateFormat.format(millis);
+//
+//                CalendarEventsDTO eventsDTO = new CalendarEventsDTO(title, s.getDate(), endDate, s.getId(), color);
+//                eventsDTOS.add(eventsDTO);
+//            }
+//        }
+//
+//        return eventsDTOS;
+//    }
+
+
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value="/api/set-app-report", method= RequestMethod.POST)
