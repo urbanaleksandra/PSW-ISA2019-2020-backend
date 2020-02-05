@@ -24,6 +24,16 @@ public class PatientDTO {
 	private String country;
 	private int mobileNumber;
 	private int jmbg;
+	private boolean isEnabled;
+
+	public boolean isEnabled() {
+		return isEnabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		isEnabled = enabled;
+	}
+
 	public Long getId() {
 		return id;
 	}

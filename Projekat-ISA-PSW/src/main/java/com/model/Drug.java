@@ -23,10 +23,6 @@ public class Drug {
     @Column(name = "price", nullable = false)
     private int price;
 
-    @JsonBackReference
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-    private Set<Recipe> recipe = new HashSet<Recipe>();
-
     public Drug() {
     }
 
@@ -69,7 +65,6 @@ public class Drug {
                 ", name='" + name + '\'' +
                 ", quantity=" + quantity +
                 ", price=" + price +
-                ", recipe=" + recipe +
                 '}';
     }
 }
