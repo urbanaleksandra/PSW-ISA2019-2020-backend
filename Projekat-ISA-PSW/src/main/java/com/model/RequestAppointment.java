@@ -14,15 +14,19 @@ public class RequestAppointment {
     private Long id;
 
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     private Doctor doctor;
 
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     private HospitalRoom hospitalRoom;
 
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    private Clinic clinic;
+
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     private MedicalRecord medicalRecord;
 
     @OneToOne(optional=true)
@@ -150,7 +154,15 @@ public class RequestAppointment {
         return "Course [id=" + id + "]";
     }
 
-    public RequestAppointment(String patient,String date,String description, long duration) {
+    public Clinic getClinic() {
+        return clinic;
+    }
+
+    public void setClinic(Clinic clinic) {
+        this.clinic = clinic;
+    }
+
+    public RequestAppointment(String patient, String date, String description, long duration) {
         this.patient=patient;
         this.date=date;
         this.description = description;

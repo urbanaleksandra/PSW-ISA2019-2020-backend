@@ -89,8 +89,14 @@ INSERT INTO clinic_surgeries (clinic_id, surgeries_id) VALUES (1,6);
 INSERT INTO clinic_surgeries (clinic_id, surgeries_id) VALUES (1,7);
 INSERT INTO clinic_surgeries (clinic_id, surgeries_id) VALUES (1,8);
 
-INSERT INTO request_appointments (date, description, duration, patient, type) VALUES ('2020-01-27T16:00', 'opis1', 2, 'anaM', 'tip1');
-INSERT INTO request_appointments (date, description, duration, patient, type) VALUES ('2020-01-23T10:00', 'opis1', 2, 'markoM', 'tip1');
+INSERT INTO request_appointments (date, description, duration, patient, type,clinic_id,doctor_id,doctor_username) VALUES ('2020-01-27T16:00', 'opis1', 2, 'anaM', 'tip1',1,2,'doctor');
+INSERT INTO request_appointments (date, description, duration, patient, type,clinic_id,doctor_id,doctor_username) VALUES ('2020-01-23T10:00', 'opis1', 2, 'markoM', 'tip1',1,2,'doctor');
+INSERT INTO request_appointments (date, description, duration, patient, type,clinic_id,doctor_id,doctor_username) VALUES ('2020-04-02T10:00', 'opis1', 2, 'markoM', 'tip1',1,3,'Jovan');
+
+INSERT INTO medical_staff_request_appointments(doctor_id,request_appointments_id) values (2,1);
+INSERT INTO medical_staff_request_appointments(doctor_id,request_appointments_id) values (2,2);
+INSERT INTO medical_staff_request_appointments(doctor_id,request_appointments_id) values (3,3);
+
 
 
 INSERT INTO appointments (date, description, duration, patient,finished, type, doctor_id, hospital_room_id, medical_record_id, doctor_username,type2_id) VALUES ('2020-02-05T16:00', 'cold', 2, 'anaM', false,'appointment', 2, 1, 5, 'doctor',1);
@@ -104,9 +110,7 @@ INSERT INTO appointments (date, description, duration, patient, type, finished, 
 INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id, medical_record_id, doctor_username,type2_id) VALUES ('2020-12-15T16:00', 'opis pregleda', 2, 'markoM', 'tip2', false, 2, 3, 'doctor',4);
 INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id, medical_record_id, doctor_username,type2_id) VALUES ('2020-12-15T16:00', 'opis pregleda', 2, 'markoM', 'tip2', false, 2, 3, 'doctor',4);
 INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id, medical_record_id, doctor_username,type2_id) VALUES ('2020-12-15T16:00', 'opis pregleda', 2, 'markoM', 'tip2', false, 2, 3, 'doctor',3);
-INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id, medical_record_id, doctor_username,type2_id) VALUES ('2020-12-15T16:00', 'opis pregleda', 2, 'markoM', 'tip2', false, 2, 3, 'doctor',1);
-INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id, medical_record_id, doctor_username,type2_id) VALUES ('2020-12-15T16:00', 'opis pregleda', 2, 'markoM', 'tip2', false, 2, 3, 'doctor',2);
-INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id, medical_record_id, doctor_username,type2_id) VALUES ('2020-02-23T16:00', 'pregled grla', 2, 'markoM', 'tip2', false, 3, 3, 'Jovan',1);
+
 
 INSERT INTO medical_record_appointments(medical_record_id, appointments_id) VALUES (5,1);
 INSERT INTO medical_record_appointments(medical_record_id, appointments_id) VALUES (5,2);

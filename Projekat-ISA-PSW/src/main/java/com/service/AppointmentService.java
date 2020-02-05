@@ -26,6 +26,8 @@ public class AppointmentService implements AppointmentServiceInterface{
 
     public List<Appointment> findByFinished(Boolean finished){ return appointmentRepository.findByFinished(finished); }
 
+
+
     public List<Appointment> findByDate(String date){ return appointmentRepository.findByDate(date); }
 
     public List<Appointment> findByHospitalRoomId(Long id) { return appointmentRepository.findByHospitalRoomId(id); }

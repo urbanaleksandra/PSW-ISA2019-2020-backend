@@ -31,6 +31,11 @@ public class Clinic {
     //@JoinColumn(name="clinicAdministrator_id")
     private Set<PriceList> priceList = new HashSet<PriceList>();
 
+    @JsonBackReference
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+    //@JoinColumn(name="clinicAdministrator_id")
+    private Set<RequestAppointment> requestAppointments = new HashSet<RequestAppointment>();
+
 	@JsonBackReference
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     //@JoinColumn(name="clinicAdministrator_id")
@@ -163,6 +168,30 @@ public class Clinic {
 
     public void setHospitalRooms(Set<HospitalRoom> hospitalRooms) {
         this.hospitalRooms = hospitalRooms;
+    }
+
+    public Set<PriceList> getPriceList() {
+        return priceList;
+    }
+
+    public void setPriceList(Set<PriceList> priceList) {
+        this.priceList = priceList;
+    }
+
+    public Set<RequestAppointment> getRequestAppointments() {
+        return requestAppointments;
+    }
+
+    public void setRequestAppointments(Set<RequestAppointment> requestAppointments) {
+        this.requestAppointments = requestAppointments;
+    }
+
+    public Set<Surgery> getSurgeries() {
+        return surgeries;
+    }
+
+    public void setSurgeries(Set<Surgery> surgeries) {
+        this.surgeries = surgeries;
     }
 
     /*@Override

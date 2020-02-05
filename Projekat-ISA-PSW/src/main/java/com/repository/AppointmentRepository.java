@@ -26,8 +26,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long>{
 	<S extends Appointment> List<S> saveAll(Iterable<S> entities);
 
 	List<Appointment> findByFinished(Boolean finished);
-
-
 	List<Appointment> findByDate(String date);
 
 	List<Appointment> findByHospitalRoomId(Long id);
