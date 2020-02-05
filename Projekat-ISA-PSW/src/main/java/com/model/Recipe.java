@@ -36,6 +36,8 @@ public class Recipe {
 	@OneToOne(fetch = FetchType.LAZY)
 	private Nurse nurse;
 
+	@Version
+	private Long version;
 	public Recipe() {
 	}
 
@@ -46,5 +48,15 @@ public class Recipe {
 		this.drug = drug;
 		this.appointment = appointment;
 		this.nurse = nurse;
+	}
+
+	public Recipe(Long id, boolean authenticated, String description, Set<Drug> drug, Appointment appointment, Nurse nurse, Long version) {
+		this.id = id;
+		this.authenticated = authenticated;
+		this.description = description;
+		this.drug = drug;
+		this.appointment = appointment;
+		this.nurse = nurse;
+		this.version = version;
 	}
 }
