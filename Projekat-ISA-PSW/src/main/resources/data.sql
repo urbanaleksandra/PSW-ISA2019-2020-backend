@@ -11,10 +11,10 @@ INSERT INTO AUTHORITY (name) VALUES ('ROLE_NURSE');
 
 
 INSERT INTO clinic (address, description, name, pricelist, profit, rating,longitude,lat) VALUES ('Koste Todorovica 26, 11129 Beograd', 'Klinika za pulmologiju je zdravstvena ustanova za plućne bolesti u sastavu Kliničkog centra Srbije.', 'Klinika za pulmologiju', 0, 0, 0,44.797860, 20.458775);
-INSERT INTO clinic (address, description, name, pricelist, profit, rating) VALUES ('New York, NY 10011', '7 days a week | Your health is our priority', 'NYC Free Clinic', 0, 0, 3);
-INSERT INTO clinic (address, description, name, pricelist, profit, rating) VALUES ('Pasterova 2, Beograd', 'New York City Health Department clinics offer patients health', 'Klinika za očne bolesti', 0, 0, 4);
-INSERT INTO clinic (address, description, name, pricelist, profit, rating) VALUES (' Koste Todorovića 4, 11000 Beograd', 'Klinika za neurohirurgiju je organizaciona jedinica Kliničkog centra Srbije i nastavna baza Medicinskog fakulteta Univerziteta', 'Klinka za nerohirurgiju', 0, 0, 4);
-INSERT INTO clinic (address, description, name, pricelist, profit, rating) VALUES ('Pasterova 2', 'New York City Health Department clinics offer patients health', 'Klinika za fizikalnu medicinu i rehabilitaciju', 0, 0, 4);
+INSERT INTO clinic (address, description, name, pricelist, profit, rating,longitude,lat) VALUES ('New York, NY 10011', '7 days a week | Your health is our priority', 'NYC Free Clinic', 0, 0, 3,44.797860, 20.458775);
+INSERT INTO clinic (address, description, name, pricelist, profit, rating,longitude,lat) VALUES ('Pasterova 2, Beograd', 'New York City Health Department clinics offer patients health', 'Klinika za očne bolesti', 0, 0, 4,44.797860, 20.458775);
+INSERT INTO clinic (address, description, name, pricelist, profit, rating,longitude,lat) VALUES (' Koste Todorovića 4, 11000 Beograd', 'Klinika za neurohirurgiju je organizaciona jedinica Kliničkog centra Srbije i nastavna baza Medicinskog fakulteta Univerziteta', 'Klinka za nerohirurgiju', 0, 0, 4,44.797860, 20.458775);
+INSERT INTO clinic (address, description, name, pricelist, profit, rating,longitude,lat) VALUES ('Pasterova 2', 'New York City Health Department clinics offer patients health', 'Klinika za fizikalnu medicinu i rehabilitaciju', 0, 0, 4,44.797860, 20.458775);
 
 
 INSERT INTO patient (address, city, country, email, first_name, jmbg, last_name, mobile_number, password, username, record_id) VALUES ('Beogradska 6', 'Bileca', 'Bosnia and Herzegovina', 'tacajovicic@gmail.com', 'Marija', 1497,'Gutic', '0640589536', 'masa', 'masa', '1');

@@ -175,6 +175,13 @@ public class AppointmentsController {
         //Doctor doc= (Doctor) medicalStaffService.findByUsername(appointment.getDoctor().getUsername());
         //appointment1.setDoctor(doc);
         appointmentService.save(appointment1);
+
+        try {
+            emailService.sendPatientNotificaition7(appointment1,pa);
+        }catch( Exception e ){
+            System.out.println("nije poslata poruka");
+        }
+
         requestAppointmentService.delete(requestAppointmentService.findById(appointment.getId()));
         return new ResponseEntity<>(appointment1, HttpStatus.OK);
     }
