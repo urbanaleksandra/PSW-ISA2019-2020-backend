@@ -4,6 +4,7 @@ package com.contoller;
 import com.dto.AppointmentDTO;
 import com.dto.AvailableHospitalRoomDTO;
 import com.dto.CalendarEventsDTO;
+import com.dto.ReservationHospitalRoomDTO2;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.model.*;
 import com.model.RequestAppointment;
@@ -25,6 +26,9 @@ import java.util.*;
 public class AppointmentsController {
 
     @Autowired
+    private DoctorService doctorService;
+
+    @Autowired
     private RequestAppointmentService requestAppointmentService;
 
     @Autowired
@@ -38,6 +42,9 @@ public class AppointmentsController {
 
     @Autowired
     private AppointmentService appointmentService;
+
+    @Autowired
+    private ClinicService clinicService;
 
     @Autowired
     private PatientService patientService;
@@ -65,6 +72,13 @@ public class AppointmentsController {
         }
 
         Clinic clinic = appointment.getClinic();
+        if(clinic==null)
+        {
+            Clinic c=clinicService.findById(appointmentDTO.getClinicDTO().getId());
+            appointment.setClinic(c);
+        }
+        System.out.println("AAAAAAA");
+        System.out.println(clinic.getId());
         //nalazim milisecs koje su vezane za moj zakazani pregled
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
         Date date = dateFormat.parse(appointmentDTO.getDate());
@@ -173,15 +187,21 @@ public class AppointmentsController {
         RequestAppointment appointment1 = new RequestAppointment(appointment.getPatient(),appointment.getDate(),appointment.getDescription(),appointment.getDuration());
         //requestAppointmentService.save(appointment1);
 
-        Patient pa = patientService.findByUsername(appointment.getPatient());
-        System.out.println(pa.getUsername());
-        Long paID = pa.getId();
+        try {
 
-        MedicalRecord mr = medicalRecordService.findByPatientId(paID);
+
+            Patient pa = patientService.findByUsername(appointment.getPatient());
+            System.out.println(pa.getUsername());
+            Long paID = pa.getId();
+
+            MedicalRecord mr = medicalRecordService.findByPatientId(paID);
 //        mr.addRequestAppointment(appointment1);
 //        medicalRecordService.save(mr);
 //        System.out.println(mr.getId());
-        appointment1.setMedicalRecord(mr);
+            appointment1.setMedicalRecord(mr);
+        } catch ( Exception e ){
+            System.out.println("Pacijent je null");
+        }
         requestAppointmentService.save(appointment1);
 
 
@@ -190,6 +210,22 @@ public class AppointmentsController {
         }catch( Exception e ){
             System.out.println("nije poslata poruka");
         }
+
+        return new ResponseEntity<>(appointment1, HttpStatus.OK);
+
+    }
+
+    // za brze preglede
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value="/api/add-requestAppFAST/{username}", method=RequestMethod.POST,  produces=MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody ResponseEntity<RequestAppointment> addRequestAppo(@RequestBody AppointmentDTO appointment,@PathVariable String username){
+
+        RequestAppointment appointment1 = new RequestAppointment(appointment.getPatient(),appointment.getDate(),appointment.getDescription(),appointment.getDuration());
+        //requestAppointmentService.save(appointment1);
+        ClinicAdministrator ca=clinicAdministratorService.findByUsername(username);
+        Clinic c=clinicService.findById(ca.getClinic().getId());
+        appointment1.setClinic(c);
+        requestAppointmentService.save(appointment1);
 
         return new ResponseEntity<>(appointment1, HttpStatus.OK);
 
@@ -416,5 +452,49 @@ public class AppointmentsController {
             }
         }
     }
+
+    //za fast appointments
+    @CrossOrigin(origins = "http//localhost:4200")
+    @RequestMapping(value="/api/add-room-to-appointmentF", method = RequestMethod.POST , consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+    public void addRoomToFastApp(@RequestBody ReservationHospitalRoomDTO2 reservationHospitalRoomDTO) throws InterruptedException {
+        System.out.println(reservationHospitalRoomDTO);
+        HospitalRoom hospitalRoom = this.hospitalRoomService.findById(reservationHospitalRoomDTO.getAppointmentDTO().getRoomID());
+        RequestAppointment req = this.requestAppointmentService.findById(reservationHospitalRoomDTO.getAppointmentDTO().getId());
+        req.setHospitalRoom(hospitalRoom);
+        req.setDate(reservationHospitalRoomDTO.getAppointmentDTO().getDate());
+
+        req.setDoctor(this.doctorService.findById(reservationHospitalRoomDTO.getDoctor()));
+
+
+        //prebacujem iz request appointment u appointment
+        Appointment appointment1=new Appointment();
+
+        appointment1.setDate(req.getDate());
+        appointment1.setDescription(req.getDescription());
+        appointment1.setDoctorUsername(req.getDoctorUsername());
+        appointment1.setDuration(req.getDuration());
+        appointment1.setType("neki tip");
+        appointment1.setPatient(null);
+        appointment1.setHospitalRoom(req.getHospitalRoom());
+        appointment1.setDoctor(req.getDoctor());
+
+        Appointment a = this.appointmentService.save(appointment1);
+
+
+            Doctor doctor = this.doctorService.findById(reservationHospitalRoomDTO.getDoctor());
+            doctor.getAppointments().add(a);
+            Doctor d = this.doctorService.save(doctor);
+           /* try {
+                emailService.sendDoctorNotificaition(a, doctor);
+            }catch (Exception e){
+                System.out.println("email fail");
+            }*/
+
+
+
+       hospitalRoom.getAppointments().add(a);
+        HospitalRoom hospitalRoom1 = this.hospitalRoomService.save(hospitalRoom);
+    }
+
 
 }

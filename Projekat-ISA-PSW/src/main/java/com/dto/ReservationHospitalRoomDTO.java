@@ -11,6 +11,7 @@ public class ReservationHospitalRoomDTO{
     private List<Long> doctors;
     private SurgeryDTO surgery;
 
+
     public List<Long> getDoctors() {
         return doctors;
     }

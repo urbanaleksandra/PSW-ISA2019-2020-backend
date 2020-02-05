@@ -68,6 +68,12 @@ public class Clinic {
     @Column(name = "rating", nullable = false)
     private int rating;
 
+    @Column(name = "longitude", nullable = true)
+    private double longitude ;
+
+    @Column(name = "lat", nullable = true)
+    private double lat;
+
     public int getRating() {
         return rating;
     }
@@ -192,6 +198,22 @@ public class Clinic {
 
     public void setSurgeries(Set<Surgery> surgeries) {
         this.surgeries = surgeries;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
     }
 
     /*@Override

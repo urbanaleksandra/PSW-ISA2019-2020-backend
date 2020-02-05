@@ -1,5 +1,7 @@
 package com.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -13,6 +15,7 @@ public class PatientRatedDoctor implements Serializable {
     @JoinColumn
     private Doctor doctor;
 
+    @JsonIgnore
     @Id
     @ManyToOne
     @JoinColumn
