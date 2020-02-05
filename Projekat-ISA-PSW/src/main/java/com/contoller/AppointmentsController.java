@@ -71,6 +71,9 @@ public class AppointmentsController {
 //        medicalRecordService.save(mr);
 //        System.out.println(mr.getId());
         appointment1.setMedicalRecord(mr);
+        appointment1.setDoctorUsername(appointment.getDoctorUsername());
+        Doctor doctor = doctorService.findByUsername(appointment.getDoctorUsername());
+        appointment1.setDoctor(doctor);
         requestAppointmentService.save(appointment1);
 
 

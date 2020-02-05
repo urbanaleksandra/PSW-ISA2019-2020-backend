@@ -144,10 +144,10 @@ INSERT INTO patient_rated_clinic(ocena, patient_id, clinic_id) VALUES (3, 5, 1);
 
 INSERT INTO drug(name, price, quantity) VALUES ("brufen", 259, 100);
 INSERT INTO drug(name, price, quantity) VALUES ("fervex", 550, 200);
-INSERT INTO recipe(authenticated, description, appointment_id) VALUES (false, "dva puta po dve tablete", 2);
-INSERT INTO recipe(authenticated, description) VALUES (false, "tri kesice na dan");
-INSERT INTO recipe(authenticated, description) VALUES (false, "jedna kesica na dan");
-INSERT INTO recipe(authenticated, description) VALUES (true, "dve kesice na dan");
+INSERT INTO recipe(authenticated, description, appointment_id, version) VALUES (false, "dva puta po dve tablete", 2,0);
+INSERT INTO recipe(authenticated, description, version) VALUES (false, "tri kesice na dan",0);
+INSERT INTO recipe(authenticated, description, version) VALUES (false, "jedna kesica na dan",0);
+INSERT INTO recipe(authenticated, description, version) VALUES (true, "dve kesice na dan",0);
 
 INSERT INTO recipe_drug(recipe_id, drug_id) VALUES (1,1);
 INSERT INTO recipe_drug(recipe_id, drug_id) VALUES (2,2);

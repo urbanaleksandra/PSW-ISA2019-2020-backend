@@ -4,12 +4,15 @@ import com.model.Recipe;
 import com.repository.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class RecipeService {
+public class RecipeService implements RecipeServiceInterface{
 
     @Autowired
     private RecipeRepository recipeRepository;
@@ -26,15 +29,12 @@ public class RecipeService {
         return recipeRepository.findById(id).get();
     }
 
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW, isolation = Isolation.READ_COMMITTED)
     public Recipe authRecipe(Recipe r){
-        Recipe recipe = new Recipe().builder()
-                .authenticated(true)
-                .nurse(r.getNurse())
-                .appointment(r.getAppointment())
-                .id(r.getId())
-                .description(r.getDescription())
-                .drug(r.getDrug()).build();
-
+        Recipe recipe = recipeRepository.findById(r.getId()).get();
+        recipe.setAuthenticated(true);
+        recipe.setNurse(r.getNurse());
+        System.out.println(recipe);
         Recipe ret = recipeRepository.save(recipe);
         return ret;
     }

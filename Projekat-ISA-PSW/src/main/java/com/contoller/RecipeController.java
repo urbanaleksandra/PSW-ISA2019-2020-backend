@@ -73,6 +73,7 @@ public class RecipeController {
         Nurse nurse = (Nurse) medicalStaffService.findByUsername(username);
 
         Recipe r = recipeService.findById(recipeDTO.getId());
+        r.setNurse(nurse);
         Recipe recipe = recipeService.authRecipe(r);
         try {
             Appointment app = appointmentService.findById(recipe.getAppointment().getId());
