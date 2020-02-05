@@ -123,9 +123,14 @@ public class LoginController {
             }
             else{
                 if(!user.getPassword().equals(pa.getPassword()))
-                {user.setRole("NONE");
-                    return  user;}
-                user.setRole("PA");
+                {
+                    user.setRole("NONE");
+                    return  user;
+                }
+                else if(user.getPassword().equals(pa.getPassword()) && pa.isEnabled()){
+                    user.setRole("PA");
+                }
+
             }
         }
         else{

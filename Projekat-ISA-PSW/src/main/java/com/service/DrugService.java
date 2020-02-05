@@ -18,4 +18,6 @@ public class DrugService {
     }
 
     public List<Drug> findAll() { return drugRepository.findAll(); }
+
+    public Drug findById(Long id) { return drugRepository.findById(id).get();}
 }

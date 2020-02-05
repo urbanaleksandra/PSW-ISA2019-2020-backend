@@ -4,14 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 public class MedicalRecord {
@@ -23,6 +16,18 @@ public class MedicalRecord {
 	@JsonBackReference
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	 private Patient patient;
+
+	@Column(nullable = true)
+	private String diopter;
+
+	@Column( nullable = true)
+	private String height;
+
+	@Column(nullable = true)
+	private String weight;
+
+	@Column(nullable = true)
+	private String bloodType;
 	
 	public Patient getPatient() {
 		return patient;
@@ -79,11 +84,47 @@ public class MedicalRecord {
 		this.id = id;
 	}
 
+	public String getDiopter() {
+		return diopter;
+	}
+
+	public void setDiopter(String diopter) {
+		this.diopter = diopter;
+	}
+
+	public String getHeight() {
+		return height;
+	}
+
+	public void setHeight(String height) {
+		this.height = height;
+	}
+
+	public String getWeight() {
+		return weight;
+	}
+
+	public void setWeight(String weight) {
+		this.weight = weight;
+	}
+
+	public String getBloodType() {
+		return bloodType;
+	}
+
+	public void setBloodType(String bloodType) {
+		this.bloodType = bloodType;
+	}
+
 	@Override
 	public String toString() {
 		return "MedicalRecord{" +
 				"id=" + id +
 				", patient=" + patient +
+				", diopter='" + diopter + '\'' +
+				", height='" + height + '\'' +
+				", weight='" + weight + '\'' +
+				", bloodType='" + bloodType + '\'' +
 				", surgeries=" + surgeries +
 				", appointments=" + appointments +
 				", requestAppointments=" + requestAppointments +

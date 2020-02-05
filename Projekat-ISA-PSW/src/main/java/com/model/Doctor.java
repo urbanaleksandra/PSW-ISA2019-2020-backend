@@ -39,11 +39,22 @@ public class Doctor extends MedicalStaff {
 	//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.REFRESH)
-
 	private Clinic clinic;
 	
 	@Column(name = "review", nullable = false)
 	private int review;
+
+	@JsonIgnore
+	@ManyToOne(cascade = CascadeType.REFRESH)
+	private AppointmentType appointmentType;
+
+	public AppointmentType getAppointmentType() {
+		return appointmentType;
+	}
+
+	public void setAppointmentType(AppointmentType appointmentType) {
+		this.appointmentType = appointmentType;
+	}
 
 	public int getReview() {
 		return review;

@@ -8,9 +8,12 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @Entity
 public class Patient implements UserDetails {
 
@@ -32,7 +35,9 @@ public class Patient implements UserDetails {
 	@JsonIgnore
 	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
 	private Set<PatientRatedClinic> patientRatedClinic = new HashSet<>();
-	
+
+
+
 	public ClinicalCenter getClinicalCenter() {
 		return clinicalCenter;
 	}
@@ -72,6 +77,16 @@ public class Patient implements UserDetails {
 	private int mobileNumber;
 	@Column(nullable = false)
 	private int jmbg;
+	@Column(nullable = false)
+	private boolean isEnabled;
+
+	public void setEnabled(boolean enabled) {
+		this.isEnabled = enabled;
+	}
+
+	public boolean isEnabled(){
+		return this.isEnabled;
+	}
 	
 	
 	
@@ -186,11 +201,6 @@ public class Patient implements UserDetails {
 	}
 
 
-	@Override
-	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	public Patient() {
 	}
@@ -209,6 +219,7 @@ public class Patient implements UserDetails {
 		this.country = country;
 		this.mobileNumber = mobileNumber;
 		this.jmbg = jmbg;
+		this.isEnabled = false;
 	}
 
 

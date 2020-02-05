@@ -1,9 +1,11 @@
 package com.contoller;
 
 import com.dto.ClinicalCenterAdministratorDTO;
+import com.dto.PatientDTO;
 import com.model.*;
 import com.repository.ClinicAdministratorRepository;
 import com.repository.ClinicalCenterAdministratorRepository;
+import com.repository.ConfirmationTokenRepository;
 import com.security.JwtAuthenticationRequest;
 import com.security.TokenUtils;
 import com.service.*;
@@ -17,6 +19,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.naming.AuthenticationException;
 import javax.print.DocFlavor;
@@ -53,6 +56,9 @@ public class ClinicalCenterAdministratorContoller {
 	private NurseService nurseService;
 
 	@Autowired
+	private ConfirmationTokenRepository confirmationTokenRepository;
+
+	@Autowired
 	private ClinicalCenterAdministratorRepository clinicalCenterAdministratorRepository;
 
 	@Autowired
@@ -60,77 +66,78 @@ public class ClinicalCenterAdministratorContoller {
 
 	@Autowired
 	private MedicalRecordService medicalRecordService;
+
+	@Autowired
+	private ClinicalCenterAdministratorService service;
 	 
 	@CrossOrigin(origins = "http://localhost:4200")
 	//@PostMapping(value = "/findByUsernameAndPassword")
 	@RequestMapping(value="/findByUsernameAndPassword", method= RequestMethod.POST)
 	@ResponseBody
-	public String postCCAByUsernameAndPassword(@RequestBody JwtAuthenticationRequest authenticationRequest,
+	public ResponseEntity<?> postCCAByUsernameAndPassword(@RequestBody JwtAuthenticationRequest authenticationRequest,
 														  HttpServletResponse response) throws AuthenticationException, IOException {
 
 		// ne brisati zakomentarisane delove!!
 
-//		final Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
-//				authenticationRequest.getPassword()));
+		final Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
+				authenticationRequest.getPassword()));
 //
-//		SecurityContextHolder.getContext().setAuthentication(authentication);
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+
 		System.out.println("usao");
-		ClinicalCenterAdministrator cca = clinicalCenterAdministratorService.findByUsername(authenticationRequest.getUsername());
-		String ret = "none";
-		Patient pa = null;
-		ClinicAdministrator ca = null;
-		Doctor doc = null;
-		Nurse nur = null;
-//		ClinicalCenterAdministrator cca = (ClinicalCenterAdministrator) authentication.getPrincipal();
-		if(cca == null) {
-
-			pa = patientService.findByUsername(authenticationRequest.getUsername());
-			if(pa == null){
-
-					ca = clinicAdministratorService.findByUsername(authenticationRequest.getUsername());
-					if(ca == null) {
-
-						doc = doctorService.findByUsername(authenticationRequest.getUsername());
-						if(doc == null) {
-
-							nur = nurseService.findByUsername(authenticationRequest.getUsername());
-							if(nur == null){
-								ret = "none";
-							}
-							else{
-								ret = "nur";
-							}
-
-						}
-						else{
-							ret = "doc";
-						}
-					}
-					else{
-						ret = "ca";
-					}
-			}
-			else{
-				ret = "pa";
-			}
-		}
-		else{
-			ret = "cca";
-		}
-
-//		String jwt = "";
-//		if(cca != null){
-//			jwt = tokenUtils.generateToken(cca.getUsername()); //user.username
+		//ClinicalCenterAdministrator cca = clinicalCenterAdministratorService.findByUsername(authenticationRequest.getUsername());
+//		String ret = "none";
+//		Patient pa = null;
+//		ClinicAdministrator ca = null;
+//		Doctor doc = null;
+//		Nurse nur = null;
+		ClinicalCenterAdministrator cca = (ClinicalCenterAdministrator) authentication.getPrincipal();
+//		if(cca == null) {
+//
+//			pa = patientService.findByUsername(authenticationRequest.getUsername());
+//			if(pa == null){
+//
+//					ca = clinicAdministratorService.findByUsername(authenticationRequest.getUsername());
+//					if(ca == null) {
+//
+//						doc = doctorService.findByUsername(authenticationRequest.getUsername());
+//						if(doc == null) {
+//
+//							nur = nurseService.findByUsername(authenticationRequest.getUsername());
+//							if(nur == null){
+//								ret = "none";
+//							}
+//							else{
+//								ret = "nur";
+//							}
+//
+//						}
+//						else{
+//							ret = "doc";
+//						}
+//					}
+//					else{
+//						ret = "ca";
+//					}
+//			}
+//			else{
+//				ret = "pa";
+//			}
 //		}
 //		else{
-//			jwt = tokenUtils.generateToken(pa.getUsername()); //user.username
+//			ret = "cca";
 //		}
-//
-//		int expiresIn = tokenUtils.getExpiredIn();
+
+		String jwt = "";
+		if(cca != null){
+			jwt = tokenUtils.generateToken(cca.getUsername()); //user.username
+		}
+
+		int expiresIn = tokenUtils.getExpiredIn();
 //		System.out.println(new UserTokenState(jwt, expiresIn));
 
-		// return ResponseEntity.ok(new UserTokenState(jwt, expiresIn));
-		return ret;
+		return ResponseEntity.ok(new UserTokenState(jwt, expiresIn));
+		//return ret;
 		
 	}
 
@@ -194,6 +201,7 @@ public class ClinicalCenterAdministratorContoller {
 		requestService.delete(deleteUser);
 		List<RequestUser> requests  = requestService.findAll();
 
+
 		Patient patient = new Patient(deleteUser.getUsername(), deleteUser.getPassword(), deleteUser.getFirstName(), deleteUser.getLastName(), deleteUser.getEmail(), deleteUser.getAddress(), deleteUser.getCity(), deleteUser.getCountry(), deleteUser.getMobileNumber(), deleteUser.getJmbg());
 		MedicalRecord medicalRecord = new MedicalRecord();
 		patient.setRecord(medicalRecord);
@@ -202,9 +210,13 @@ public class ClinicalCenterAdministratorContoller {
 		patient.setRecord(medicalRecord);
 		patient = patientService.save(patient);
 
+		ConfirmationTokenRegistration confirmationToken = new ConfirmationTokenRegistration(patient);
+		confirmationToken.setPatientUsername(patient.getUsername());
+		confirmationTokenRepository.save(confirmationToken);
+
 		//slanje emaila
 		try {
-			emailService.sendNotificaitionAsync(patient);
+			emailService.sendNotificaitionAsync(patient, confirmationToken);
 		}catch( Exception e ){
 			System.out.println("nije poslata poruka");
 		}
@@ -212,10 +224,43 @@ public class ClinicalCenterAdministratorContoller {
 	}
 
 	@CrossOrigin(origins = "http://localhost:4200")
+	@RequestMapping(value="/confirmAccount/{token}", method= RequestMethod.GET)
+	public  Patient  confirmAccount(ModelAndView modelAndView, @PathVariable("token") String confirmationToken){
+
+		//Patient patient = new Patient(patientDTO.getUsername(), patientDTO.getPassword(), patientDTO.getFirstName(), patientDTO.getLastName(), patientDTO.getEmail(), patientDTO.getAddress(), patientDTO.getCity(), patientDTO.getCountry(), patientDTO.getMobileNumber(), patientDTO.getJmbg());
+		//System.out.println(patient.getFirstName());
+		ConfirmationTokenRegistration token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
+		Patient patient = patientService.findByUsername(token.getPatient().getUsername());
+		System.out.println("USAO U CONF ACC" + token.getPatient().getUsername());
+
+		patient.setEnabled(true);
+		patient = patientService.save(patient);
+
+		return token.getPatient();
+	}
+
+	@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value="/api/add-clinic-center-admin", method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 	public void addAdministrator(@RequestBody ClinicalCenterAdministrator clinicalCenterAdministrator){
 		System.out.println(clinicalCenterAdministrator);
 		clinicalCenterAdministratorRepository.save(clinicalCenterAdministrator);
+	}
+
+	@CrossOrigin(origins = "http://localhost:4200")
+	@RequestMapping(value="/api/get-admin/{username}", method= RequestMethod.GET)
+	private ClinicalCenterAdministrator getAdmin(@PathVariable String username){
+		ClinicalCenterAdministrator cca = service.findByUsername(username);
+		return cca;
+	}
+
+	@CrossOrigin(origins = "http://localhost:4200")
+	@RequestMapping(value="api/set-password-admin/{password}/{username}", method= RequestMethod.GET)
+	private ClinicalCenterAdministrator setPasswordAdmin(@PathVariable("username") String username, @PathVariable("password") String password){
+		ClinicalCenterAdministrator cca = service.findByUsername(username);
+		cca.setPassword(password);
+		cca.setFirstLog(1);
+		ClinicalCenterAdministrator newcca = service.save(cca);
+		return newcca;
 	}
 
 

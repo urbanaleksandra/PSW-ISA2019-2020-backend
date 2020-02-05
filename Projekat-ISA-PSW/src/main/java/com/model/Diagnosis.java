@@ -15,6 +15,7 @@ public class Diagnosis {
     @Column(name = "description", nullable = false)
     private String description;
 
+
     public Diagnosis() {
     }
 

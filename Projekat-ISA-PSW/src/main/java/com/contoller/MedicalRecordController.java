@@ -2,12 +2,9 @@ package com.contoller;
 
 
 
-import com.model.Appointment;
-import com.model.Doctor;
-import com.model.Surgery;
-import com.service.AppointmentService;
-import com.service.DoctorService;
-import com.service.SurgeryService;
+import com.dto.MedicalRecordDTO;
+import com.model.*;
+import com.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +28,12 @@ public class MedicalRecordController {
     @Autowired
     private DoctorService doctorService;
 
+    @Autowired
+    private PatientService patientService;
+
+    @Autowired
+    private MedicalRecordService medicalRecordService;
+
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value="/get-patient-appointments/{username}/{doctor}", method= RequestMethod.GET)
@@ -46,9 +49,13 @@ public class MedicalRecordController {
             Date date = dateFormat.parse(app.getDate());
             long milis = date.getTime();
             String newDate = dateFormat.format(milis);
-            if(app.getPatient().equals(username) && app.getDoctorUsername().equals(doctor)
-                    && newDate.equals(today) && app.getHospitalRoom() != null && app.isFinished()){
-                ret.add(app);
+            try {
+                if (app.getPatient().equals(username) && app.getDoctorUsername().equals(doctor)
+                        && newDate.equals(today) && app.getHospitalRoom() != null && app.isFinished() == false) {
+                    ret.add(app);
+                }
+            }catch (Exception e){
+                System.out.println("neko polje nije uneto");
             }
 
         }
@@ -77,4 +84,34 @@ public class MedicalRecordController {
 //        }
 //        return ret;
 //    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value="/api/get-medical-record-info/{username}", method= RequestMethod.GET)
+    private MedicalRecordDTO getMedicalRecordInfo(@PathVariable String username){
+        MedicalRecordDTO medicalRecordDTO = new MedicalRecordDTO();
+        Patient patient = patientService.findByUsername(username);
+        MedicalRecord medicalRecord = medicalRecordService.findByPatientId(patient.getId());
+        medicalRecordDTO.setBloodType(medicalRecord.getBloodType());
+        medicalRecordDTO.setDiopter(medicalRecord.getDiopter());
+        medicalRecordDTO.setHeight(medicalRecord.getHeight());
+        medicalRecordDTO.setWeight(medicalRecord.getWeight());
+        medicalRecordDTO.setPatientUsername(username);
+        System.out.println(medicalRecordDTO);
+        return medicalRecordDTO;
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value="/api/set-medical-record-info", method= RequestMethod.POST)
+    private MedicalRecordDTO setMedicalRecordInfo(@RequestBody MedicalRecordDTO medicalRecordDTO){
+        Patient patient = patientService.findByUsername(medicalRecordDTO.getPatientUsername());
+        MedicalRecord medicalRecord = medicalRecordService.findByPatientId(patient.getId());
+        medicalRecord.setBloodType(medicalRecordDTO.getBloodType());
+        medicalRecord.setDiopter(medicalRecordDTO.getDiopter());
+        medicalRecord.setHeight(medicalRecordDTO.getHeight());
+        medicalRecord.setWeight(medicalRecordDTO.getWeight());
+        medicalRecordDTO.setId(medicalRecord.getId());
+
+        MedicalRecord md = medicalRecordService.save(medicalRecord);
+        return medicalRecordDTO;
+    }
 }

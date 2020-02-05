@@ -1,5 +1,6 @@
 package com.contoller;
 
+import com.dto.PatientDTO;
 import com.model.Patient;
 import com.model.RequestUser;
 import com.service.ClinicalCenterAdministratorService;
@@ -28,13 +29,14 @@ public class PatientContoller {
 	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value="/register", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResponseEntity<RequestUser> registrujPacijenta(@RequestBody Patient patientNovi){
+	public @ResponseBody ResponseEntity<RequestUser> registrujPacijenta(@RequestBody PatientDTO patientNovi){
 		
 		//Patient patient = new Patient(patientNovi.getUsername(), patientNovi.getPassword(), patientNovi.getFirstName(), patientNovi.getLastName(), patientNovi.getEmail(), patientNovi.getAddress(), patientNovi.getCity(), patientNovi.getCountry(), patientNovi.getMobileNumber(), patientNovi.getJmbg());
 
 		//patientService.save(patient);
 		RequestUser user = new RequestUser(patientNovi.getUsername(), patientNovi.getPassword(), patientNovi.getFirstName(), patientNovi.getLastName(), patientNovi.getEmail(), patientNovi.getAddress(), patientNovi.getCity(), patientNovi.getCountry(), patientNovi.getMobileNumber(), patientNovi.getJmbg());
 		requestService.save(user);
+		System.out.println("USAO U REGISTER" + user.getUsername());
 		System.out.println(user.getUsername());
 		return new ResponseEntity<>(user, HttpStatus.OK);
 
