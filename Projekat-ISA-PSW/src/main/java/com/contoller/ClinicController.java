@@ -60,8 +60,8 @@ public class ClinicController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value="/api/get-search-clinics/{date}", method= RequestMethod.GET)
-    public List<Clinic> getSearchClinic(@PathVariable String date){
+    @RequestMapping(value="/api/get-search-clinics/{date}/{type}", method= RequestMethod.GET)
+    public List<Clinic> getSearchClinic(@PathVariable("date") String date, @PathVariable("type") String type){
 //        System.out.println("usao565656565"+date);
 
         List<MedicalStaff> doctors = medicalStaffService.findByRole("doctor");
@@ -72,12 +72,12 @@ public class ClinicController {
             doctorsId.add(doctor.getId()); //id svih doktora
         }
 
-        System.out.println(doctorsId);
+        //System.out.println(doctorsId);
 //        System.out.println(appointmentService.findByFinished(false));
         List<Long> doctoriKojiSuZauzeti = new ArrayList<>(); //zauzeti doktori za taj datum(njihov id)
         for(Appointment app:appointmentService.findByFinished(false)){
-            System.out.println(app.getDate().split("T")[0]);
-            System.out.println(date);
+            //System.out.println(app.getDate().split("T")[0]);
+            //System.out.println(date);
             if(app.getDate().split("T")[0].equals(date)){
 //                System.out.println(app.getDoctor().getId());
                 if(!doctoriKojiSuZauzeti.contains(app.getDoctor().getId())){
@@ -86,25 +86,41 @@ public class ClinicController {
             }
         }
 
-        System.out.println(doctoriKojiSuZauzeti);
+        //System.out.println(doctoriKojiSuZauzeti);
 
         if(doctoriKojiSuZauzeti.size() != 0){
             for (Long id:doctoriKojiSuZauzeti) {
                 doctorsId.remove(id); //obrisem id doktora koji su zauzeti, ostanu samo slobodni u doctorsId
             }
         }
-        System.out.println(doctorsId);
+        //System.out.println(doctorsId);
 
         List<Clinic> clinics = new ArrayList<>();
         for(MedicalStaff doctor : doctors){
             for(Long id: doctorsId){
-                if(doctor.getId() == id){
-                    if(!clinics.contains(clinicService.findById(((Doctor)doctor).getClinic().getId()))){
-                        clinics.add(clinicService.findById(((Doctor)doctor).getClinic().getId()));
-                        //System.out.println(clinics.get(0).getName());
+                //System.out.println(((Doctor)doctor).getAppointmentType().getName());
+                //System.out.println(type);
+                if(!type.equals("-1")){
+                    if(doctor.getId() == id && ((Doctor)doctor).getAppointmentType().getName().equals(type)){ //proverim i za tip
+                        if(!clinics.contains(clinicService.findById(((Doctor)doctor).getClinic().getId()))){
+                            clinics.add(clinicService.findById(((Doctor)doctor).getClinic().getId()));
+                            //System.out.println(clinics.get(0).getName());
+                        }
+
+                    }
+                }
+                else
+                {
+                    if(doctor.getId() == id){ //proverim i za tip
+                        if(!clinics.contains(clinicService.findById(((Doctor)doctor).getClinic().getId()))){
+                            clinics.add(clinicService.findById(((Doctor)doctor).getClinic().getId()));
+                            //System.out.println(clinics.get(0).getName());
+                        }
+
                     }
 
                 }
+
             }
         }
 
@@ -115,8 +131,8 @@ public class ClinicController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value="/api/get-search-doctors/{date}/{imeKlinike}", method= RequestMethod.GET)
-    public List<Doctor> getSearchDoctors(@PathVariable("date") String date, @PathVariable("imeKlinike") String imeKlinike){
+    @RequestMapping(value="/api/get-search-doctors/{date}/{imeKlinike}/{tipPregleda}", method= RequestMethod.GET)
+    public List<Doctor> getSearchDoctors(@PathVariable("date") String date, @PathVariable("imeKlinike") String imeKlinike, @PathVariable("tipPregleda") String tipPregleda){
 //        System.out.println("usao565656565"+date);
 
         List<MedicalStaff> doctors = medicalStaffService.findByRole("doctor");
@@ -152,9 +168,17 @@ public class ClinicController {
         List<Doctor> ret = new ArrayList<>();
         for(Doctor doc : doctorsInClinic){
             for(Long id : doctorsId){
-                if(doc.getId() == id){
-                    ret.add(doc);
+                if(!tipPregleda.equals("-1")){
+                    if(doc.getId() == id && doc.getAppointmentType().getName().equals(tipPregleda)){
+                        ret.add(doc);
+                    }
                 }
+                else{
+                    if(doc.getId() == id){
+                        ret.add(doc);
+                    }
+                }
+
             }
         }
 

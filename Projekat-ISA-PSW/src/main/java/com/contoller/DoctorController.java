@@ -45,10 +45,13 @@ public class DoctorController {
         List<Appointment> pregledi = appointmentService.findAll();
         List<Doctor> doctors = new ArrayList<>();
         for(Appointment app : pregledi){
-            if(app.getPatient().equals(username) && app.isFinished()){
-                doctors.add(app.getDoctor());
-                //System.out.println(app.getDoctor().getFirstName());
+            if(app.getPatient() != null){
+                if(app.getPatient().equals(username) && app.isFinished()){
+                    doctors.add(app.getDoctor());
+                    //System.out.println(app.getDoctor().getFirstName());
+                }
             }
+
         }
 
         return doctors;
@@ -78,9 +81,12 @@ public class DoctorController {
         List<PatientRatedDoctor> prd = patientRatedDoctorService.findAll();
 
         for(PatientRatedDoctor p1 : prd){
-            if(p1.getPatient().getUsername().equals(username)){
-                doctorsFromPrd.add(p1.getDoctor());
+            if(p1.getPatient() != null){
+                if(p1.getPatient().getUsername().equals(username)){
+                    doctorsFromPrd.add(p1.getDoctor());
+                }
             }
+
         }
 
         for(Doctor doc : doctors){
@@ -128,9 +134,12 @@ public class DoctorController {
         List<PatientRatedClinic> prclinic = patientRatedClinicService.findAll();
 
         for(PatientRatedClinic prclin : prclinic){
-            if(prclin.getPatient().getUsername().equals(username)){
-                clinicsFromPrclinic.add(prclin.getClinic());
+            if(prclin.getPatient() != null){
+                if(prclin.getPatient().getUsername().equals(username)){
+                    clinicsFromPrclinic.add(prclin.getClinic());
+                }
             }
+
         }
 
         for(Clinic c : clinics){
