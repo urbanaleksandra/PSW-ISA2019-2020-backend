@@ -158,6 +158,8 @@ public class EmailService {
                 + ".\n\nAll the best,\nYour clinic.");
     }
 
+
+
     @Async
     public void sendNotificaitionAsync5() throws MailException, InterruptedException {
         System.out.println("Slanje emaila...");
@@ -191,4 +193,21 @@ public class EmailService {
             System.out.println("nije javaMailSender.send(mail); prosao");
         }
     }
+
+    @Async
+    public void sendPatientNotificaition7(Appointment surgery, Patient patient) throws MailException, InterruptedException {
+        System.out.println("Slanje emaila pacijentu...");
+
+        System.out.println(patient.getEmail());
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setTo(patient.getEmail());
+        mail.setFrom(env.getProperty("spring.mail.username"));
+        mail.setSubject("Surgery info");
+
+        mail.setText("Mr/Mrs " + patient.getFirstName() + " " + patient.getLastName() +
+                "," + "\n\nYour appointment for \n\nDate: " + surgery.getDate() +
+                "\nHospital room: " + surgery.getHospitalRoom().getName() + " no." + surgery.getHospitalRoom().getRoom_number()
+                + "has been accepted .\n\nAll the best,\nYour clinic.");
+    }
+
 }

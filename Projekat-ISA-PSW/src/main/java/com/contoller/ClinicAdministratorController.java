@@ -74,6 +74,9 @@ public class ClinicAdministratorController {
         ClinicAdministrator admin=clinicAdministratorService.findByUsername(username);
         Clinic clinic=clinicService.findById(admin.getClinic().getId());
         ClinicDTO clinicDTO=new ClinicDTO(clinic);
+        clinicDTO.setLongitude(clinic.getLongitude());
+        clinicDTO.setLat(clinic.getLat());
+        clinicDTO.setId(clinic.getId());
         return clinicDTO;
      }
 

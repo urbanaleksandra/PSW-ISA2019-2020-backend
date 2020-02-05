@@ -15,6 +15,7 @@ public class PatientRatedDoctor implements Serializable {
     @JoinColumn
     private Doctor doctor;
 
+    @JsonIgnore
     @Id
     @JsonIgnore
     @ManyToOne

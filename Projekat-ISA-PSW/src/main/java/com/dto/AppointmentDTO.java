@@ -25,19 +25,19 @@ public class AppointmentDTO {
 	private String patient;
 
 	private String doctorUsername;
+  
+  private String info;
 
-
-	private ClinicDTO clinicDTO;
+	private ClinicDTO clinic;
 
 	public ClinicDTO getClinicDTO() {
-		return clinicDTO;
+		return clinic;
 	}
 
 	public void setClinicDTO(ClinicDTO clinicDTO) {
-		this.clinicDTO = clinicDTO;
-
-	private String info;
-
+		this.clinic = clinicDTO;
+  }
+		
 	public String getInfo() {
 		return info;
 	}
