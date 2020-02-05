@@ -2,12 +2,17 @@ package com.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Getter
+@Setter
+@Builder
+@ToString
 public class Recipe {
 
 	@Id
@@ -21,7 +26,8 @@ public class Recipe {
 
 	@JsonBackReference
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<Drug> drug = new HashSet<Drug>();
+	@Singular("drug")
+	private Set<Drug> drug;
 
 	@JsonBackReference
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -29,61 +35,16 @@ public class Recipe {
 
 	@OneToOne(fetch = FetchType.LAZY)
 	private Nurse nurse;
-	
-	
-	
-	public Long getId() {
-		return id;
+
+	public Recipe() {
 	}
-	public void setId(Long id) {
+
+	public Recipe(Long id, boolean authenticated, String description, Set<Drug> drug, Appointment appointment, Nurse nurse) {
 		this.id = id;
-	}
-	public boolean isAuthenticated() {
-		return authenticated;
-	}
-	public void setAuthenticated(boolean authenticated) {
 		this.authenticated = authenticated;
-	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public Appointment getAppointment() {
-		return appointment;
-	}
-
-	public Set<Drug> getDrug() {
-		return drug;
-	}
-
-	public void setDrug(Set<Drug> drug) {
 		this.drug = drug;
-	}
-
-	public void setAppointment(Appointment appointment) {
 		this.appointment = appointment;
-	}
-
-	public Nurse getNurse() {
-		return nurse;
-	}
-
-	public void setNurse(Nurse nurse) {
 		this.nurse = nurse;
-	}
-
-	@Override
-	public String toString() {
-		return "Recipe{" +
-				"id=" + id +
-				", authenticated=" + authenticated +
-				", description='" + description + '\'' +
-				", drug=" + drug +
-				", appointment=" + appointment +
-				", nurse=" + nurse +
-				'}';
 	}
 }

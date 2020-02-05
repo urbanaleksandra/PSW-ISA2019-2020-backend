@@ -295,27 +295,29 @@ public class AppointmentsController {
     @RequestMapping(value="/api/set-app-report", method= RequestMethod.POST)
     public void reportAppointment(@RequestBody ReportAppointmentDTO reportAppointmentDTO){
         System.out.println("USAOOOOO U SET REPORT");
-
+        Appointment app2 = new Appointment();
         Appointment app = appointmentService.findById(reportAppointmentDTO.getAppointment().getId());
+        app2.setId(reportAppointmentDTO.getAppointment().getId());
         app.setInfo(reportAppointmentDTO.getAppointment().getInfo());
 
         Diagnosis diagnosis = diagnosisService.findById(reportAppointmentDTO.getDiagnosis().getId());
         app.setDiagnosis(diagnosis);
 
-        Recipe recipe = new Recipe();
-        recipe.setDescription(reportAppointmentDTO.getRecipe().getDescription());
-        recipe.setAppointment(app);
-        recipe.setAuthenticated(false);
+        Recipe recipe = new Recipe().builder()
+                .authenticated(false)
+                .description(reportAppointmentDTO.getRecipe().getDescription())
+                .appointment(app).build();
 
-        System.out.println(recipe);
+        Set<Drug> drugs = new HashSet<>();
         for (Long id : reportAppointmentDTO.getRecipe().getDrugs()){
                 Drug drug = drugService.findById(id);
-                System.out.println(drug);
-                recipe.getDrug().add(drug);
+               drugs.add(drug);
         }
+        recipe.setDrug(drugs);
         app.setRecipe(recipe);
-
+        System.out.println(app);
         Recipe r = recipeService.save(recipe);
+        System.out.println(app);
         Appointment app1 = appointmentService.save(app);
     }
 
