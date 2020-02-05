@@ -98,8 +98,15 @@ INSERT INTO appointments (date, description, duration, patient,finished, type, d
 
 
 INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id, medical_record_id, doctor_username,type2_id) VALUES ('2020-01-30T10:00', 'pregled ledja', 2, 'anaM', 'tip pregleda', false, 3, 5, 'Jovan',1);
-INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id, medical_record_id, doctor_username,type2_id) VALUES ('2020-12-15T16:00', 'opis pregleda', 2, 'markoM', 'tip2', true, 2, 3, 'doctor',2);
-INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id, medical_record_id, doctor_username,type2_id) VALUES ('2020-02-23T16:00', 'pregled grla', 2, 'markoM', 'tip2', true, 3, 3, 'Jovan',1);
+INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id, medical_record_id, doctor_username,type2_id) VALUES ('2020-12-15T16:00', 'opis pregleda', 2, 'markoM', 'tip2', false, 2, 3, 'doctor',2);
+INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id, medical_record_id, doctor_username,type2_id) VALUES ('2020-02-23T16:00', 'pregled grla', 2, 'markoM', 'tip2', false, 2, 3, 'doctor',1);
+INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id, medical_record_id, doctor_username,type2_id) VALUES ('2020-12-15T16:00', 'opis pregleda', 2, 'markoM', 'tip2', false, 2, 3, 'doctor',2);
+INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id, medical_record_id, doctor_username,type2_id) VALUES ('2020-12-15T16:00', 'opis pregleda', 2, 'markoM', 'tip2', false, 2, 3, 'doctor',4);
+INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id, medical_record_id, doctor_username,type2_id) VALUES ('2020-12-15T16:00', 'opis pregleda', 2, 'markoM', 'tip2', false, 2, 3, 'doctor',4);
+INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id, medical_record_id, doctor_username,type2_id) VALUES ('2020-12-15T16:00', 'opis pregleda', 2, 'markoM', 'tip2', false, 2, 3, 'doctor',3);
+INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id, medical_record_id, doctor_username,type2_id) VALUES ('2020-12-15T16:00', 'opis pregleda', 2, 'markoM', 'tip2', false, 2, 3, 'doctor',1);
+INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id, medical_record_id, doctor_username,type2_id) VALUES ('2020-12-15T16:00', 'opis pregleda', 2, 'markoM', 'tip2', false, 2, 3, 'doctor',2);
+INSERT INTO appointments (date, description, duration, patient, type, finished, doctor_id, medical_record_id, doctor_username,type2_id) VALUES ('2020-02-23T16:00', 'pregled grla', 2, 'markoM', 'tip2', false, 3, 3, 'Jovan',1);
 
 INSERT INTO medical_record_appointments(medical_record_id, appointments_id) VALUES (5,1);
 INSERT INTO medical_record_appointments(medical_record_id, appointments_id) VALUES (5,2);
@@ -154,11 +161,14 @@ INSERT INTO recipe_drug(recipe_id, drug_id) VALUES (2,2);
 INSERT INTO recipe_drug(recipe_id, drug_id) VALUES (3,2);
 INSERT INTO recipe_drug(recipe_id, drug_id) VALUES (4,2);
 
-INSERT INTO appointment_type(name) VALUES ("kardioloski");
-INSERT INTO appointment_type(name) VALUES ("stomatoloski");
-INSERT INTO appointment_type(name) VALUES ("opsti");
-INSERT INTO appointment_type(name) VALUES ("hirurski");
-INSERT INTO appointment_type(name) VALUES ("specijalisticki");
+
+INSERT INTO appointment_type(name) VALUES ("Kardioloski");
+INSERT INTO appointment_type(name) VALUES ("Stomatoloski");
+INSERT INTO appointment_type(name) VALUES ("Ginekoloski");
+INSERT INTO appointment_type(name) VALUES ("Oftamoloski");
+INSERT INTO appointment_type(name) VALUES ("Opsti");
+INSERT INTO appointment_type(name) VALUES ("Hirurski");
+INSERT INTO appointment_type(name) VALUES ("Specijalisticki");
 
 
 INSERT INTO clinic_clinic_administrator(clinic_id, clinic_administrator_id) VALUES (1,1);
@@ -178,6 +188,8 @@ INSERT INTO diagnosis(description, name) VALUE ("bol u grlu", "PREHLADA");
 
 INSERT INTO price_list(price,appointment_type_id,clinic_id) values (1200,1,1);
 INSERT INTO price_list(price,appointment_type_id,clinic_id) values (1000,2,1);
+INSERT INTO price_list(price,appointment_type_id,clinic_id) values (3000,3,1);
+INSERT INTO price_list(price,appointment_type_id,clinic_id) values (2000,4,1);
 
 INSERT INTO appointment_type_price_list(appointment_type_id,price_list_id) values (1,1);
 insert  into clinic_price_list(clinic_id,price_list_id) values (1,1);
@@ -185,9 +197,20 @@ insert  into clinic_price_list(clinic_id,price_list_id) values (1,1);
 INSERT INTO appointment_type_price_list(appointment_type_id,price_list_id) values (2,2);
 insert  into clinic_price_list(clinic_id,price_list_id) values (1,2);
 
+INSERT INTO appointment_type_price_list(appointment_type_id,price_list_id) values (3,3);
+insert  into clinic_price_list(clinic_id,price_list_id) values (1,3);
+
+INSERT INTO appointment_type_price_list(appointment_type_id,price_list_id) values (4,4);
+insert  into clinic_price_list(clinic_id,price_list_id) values (1,4);
+
+
 insert into appointment_type_appointments(appointment_type_id,appointments_id) values(1,1);
 insert into appointment_type_appointments(appointment_type_id,appointments_id) values(1,2);
 insert into appointment_type_appointments(appointment_type_id,appointments_id) values(1,3);
 insert into appointment_type_appointments(appointment_type_id,appointments_id) values(2,4);
 insert into appointment_type_appointments(appointment_type_id,appointments_id) values(1,5);
 
+insert into appointment_type_appointments(appointment_type_id,appointments_id) values(4,6);
+insert into appointment_type_appointments(appointment_type_id,appointments_id) values(4,7);
+insert into appointment_type_appointments(appointment_type_id,appointments_id) values(3,8);
+insert into appointment_type_appointments(appointment_type_id,appointments_id) values(1,9);

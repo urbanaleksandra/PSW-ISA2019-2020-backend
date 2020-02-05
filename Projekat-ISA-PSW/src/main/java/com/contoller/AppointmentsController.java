@@ -155,6 +155,13 @@ public class AppointmentsController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value="/appointments", method= RequestMethod.GET)
+    public List<Appointment> getAppointments2(){
+
+        return appointmentService.findAll();
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value="/getAppointmentsMR/{username}", method= RequestMethod.GET)
     public List<Appointment> getAppointmentsMR(@PathVariable String username){
 
