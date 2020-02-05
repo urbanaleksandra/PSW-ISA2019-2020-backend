@@ -25,4 +25,17 @@ public class RecipeService {
     public Recipe findById(Long id){
         return recipeRepository.findById(id).get();
     }
+
+    public Recipe authRecipe(Recipe r){
+        Recipe recipe = new Recipe().builder()
+                .authenticated(true)
+                .nurse(r.getNurse())
+                .appointment(r.getAppointment())
+                .id(r.getId())
+                .description(r.getDescription())
+                .drug(r.getDrug()).build();
+
+        Recipe ret = recipeRepository.save(recipe);
+        return ret;
+    }
 }

@@ -93,7 +93,7 @@ INSERT INTO request_appointments (date, description, duration, patient, type) VA
 INSERT INTO request_appointments (date, description, duration, patient, type) VALUES ('2020-01-23T10:00', 'opis1', 2, 'markoM', 'tip1');
 
 
-INSERT INTO appointments (date, description, duration, patient,finished, type, doctor_id, hospital_room_id, medical_record_id, doctor_username,type2_id) VALUES ('2020-02-03T16:00', 'cold', 2, 'anaM', false,'appointment', 2, 1, 5, 'doctor',1);
+INSERT INTO appointments (date, description, duration, patient,finished, type, doctor_id, hospital_room_id, medical_record_id, doctor_username,type2_id) VALUES ('2020-02-05T16:00', 'cold', 2, 'anaM', false,'appointment', 2, 1, 5, 'doctor',1);
 INSERT INTO appointments (date, description, duration, patient,finished, type, doctor_id, hospital_room_id, medical_record_id, doctor_username,diagnosis_id,type2_id, recipe_id, info) VALUES ('2020-02-03T16:00', 'broken leg', 2, 'anaM',true, 'surgery', 2, 2, 5, 'doctor', 1,1, 1, "pregled zavrsen, pacijen je lakse bolestan");
 
 
@@ -151,7 +151,7 @@ INSERT INTO patient_rated_clinic(ocena, patient_id, clinic_id) VALUES (3, 5, 1);
 
 INSERT INTO drug(name, price, quantity) VALUES ("brufen", 259, 100);
 INSERT INTO drug(name, price, quantity) VALUES ("fervex", 550, 200);
-INSERT INTO recipe(authenticated, description) VALUES (false, "dva puta po dve tablete");
+INSERT INTO recipe(authenticated, description, appointment_id) VALUES (false, "dva puta po dve tablete", 2);
 INSERT INTO recipe(authenticated, description) VALUES (false, "tri kesice na dan");
 INSERT INTO recipe(authenticated, description) VALUES (false, "jedna kesica na dan");
 INSERT INTO recipe(authenticated, description) VALUES (true, "dve kesice na dan");

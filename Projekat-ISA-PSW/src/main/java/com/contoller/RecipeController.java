@@ -72,16 +72,14 @@ public class RecipeController {
     public void authRecipe(@RequestBody RecipeDTO recipeDTO, @PathVariable String username){
         Nurse nurse = (Nurse) medicalStaffService.findByUsername(username);
 
-
         Recipe r = recipeService.findById(recipeDTO.getId());
-        r.setAuthenticated(true);
-        r.setNurse(nurse);
-
-
-        Recipe r1 = recipeService.save(r);
-        Appointment app = appointmentService.findById(r1.getAppointment().getId());
-        app.setFinished(true);
-        Appointment appointment = appointmentService.save(app);
+        Recipe recipe = recipeService.authRecipe(r);
+        try {
+            Appointment app = appointmentService.findById(recipe.getAppointment().getId());
+            Appointment appointment = appointmentService.setFinished(app);
+        }catch (Exception e){
+            System.out.println("recept nema appointment");
+        }
     }
 
     @CrossOrigin(origins = "http://localhost:4200")

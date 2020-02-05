@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 import javax.persistence.*;
-
+import javax.persistence.Version;
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "appointments")
@@ -196,16 +196,18 @@ public class Appointment {
 		return Objects.hashCode(id);
 	}
 
-	@Override
-	public String toString() {
-		return "Course [id=" + id + "]";
-	}
-
 	public AppointmentType getType2() {
 		return type2;
 	}
 
 	public void setType2(AppointmentType type2) {
 		this.type2 = type2;
+	}
+
+	@Override
+	public String toString() {
+		return "Appointment{" +
+				"id=" + id +
+				'}';
 	}
 }
