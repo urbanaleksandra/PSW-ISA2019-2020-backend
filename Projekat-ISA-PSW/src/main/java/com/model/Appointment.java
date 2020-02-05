@@ -2,20 +2,17 @@ package com.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
+import javax.persistence.*;
+import javax.persistence.Version;
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "appointments")
 public class Appointment {
 	
@@ -34,12 +31,17 @@ public class Appointment {
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
 	private MedicalRecord medicalRecord;
 
+	@JsonBackReference
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Recipe recipe;
+
+	@ManyToOne
+	@JsonIgnore
+	private Diagnosis diagnosis;
+
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
 	private AppointmentType type2;
 	
-	@OneToOne(optional=true)
-	 private Recipe recipe;
-
 	@Column(name = "patient", nullable = true)
 	private String patient;
 
@@ -52,7 +54,7 @@ public class Appointment {
 	@Column(name = "description", nullable = false)
 	private String description;
 	
-	@Column(name = "type", nullable = false)
+	@Column(name = "type", nullable = true)
 	private String type ;
 	
 	@Column(name = "duration", nullable = false)
@@ -62,6 +64,25 @@ public class Appointment {
 	@Column(name = "finished", nullable = false)
 	private boolean finished;
 
+	@Column(name = "info", nullable = true)
+	private String info;
+
+
+	public Diagnosis getDiagnosis() {
+		return diagnosis;
+	}
+
+	public void setDiagnosis(Diagnosis diagnosis) {
+		this.diagnosis = diagnosis;
+	}
+
+	public String getInfo() {
+		return info;
+	}
+
+	public void setInfo(String info) {
+		this.info = info;
+	}
 
 	public String getDoctorUsername() {
 		return doctorUsername;
@@ -144,6 +165,17 @@ public class Appointment {
 		this.finished = finished;
 	}
 
+	public Appointment(Long id, String patient, String date, String description, long duration) {
+		this.id = id;
+		this.patient = patient;
+		this.date = date;
+		this.description = description;
+		this.duration = duration;
+	}
+
+	public Appointment() {
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {
@@ -164,16 +196,18 @@ public class Appointment {
 		return Objects.hashCode(id);
 	}
 
-	@Override
-	public String toString() {
-		return "Course [id=" + id + "]";
-	}
-
 	public AppointmentType getType2() {
 		return type2;
 	}
 
 	public void setType2(AppointmentType type2) {
 		this.type2 = type2;
+	}
+
+	@Override
+	public String toString() {
+		return "Appointment{" +
+				"id=" + id +
+				'}';
 	}
 }

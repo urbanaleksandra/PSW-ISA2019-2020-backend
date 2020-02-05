@@ -24,6 +24,26 @@ public class AppointmentType {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     private Set<Appointment> appointments = new HashSet<Appointment>();
 
+    @JsonBackReference
+    @OneToMany(cascade = CascadeType.REFRESH)
+    private Set<Doctor> doctors = new HashSet<Doctor>();
+
+    public Long getId() {
+        return id;
+    }
+
+    public Set<Doctor> getDoctors() {
+        return doctors;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setDoctors(Set<Doctor> doctors) {
+        this.doctors = doctors;
+    }
+
     public AppointmentType() {
     }
 

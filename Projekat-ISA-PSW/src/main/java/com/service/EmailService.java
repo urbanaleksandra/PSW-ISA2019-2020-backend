@@ -2,6 +2,7 @@ package com.service;
 
 
 import com.model.Appointment;
+import com.model.ConfirmationTokenRegistration;
 import com.model.Doctor;
 import com.model.Patient;
 import com.model.Surgery;
@@ -29,15 +30,17 @@ public class EmailService {
      * Anotacija za oznacavanje asinhronog zadatka
      * Vise informacija na: https://docs.spring.io/spring/docs/current/spring-framework-reference/integration.html#scheduling
      */
+
     @Async
-    public void sendNotificaitionAsync(Patient user) throws MailException, InterruptedException {
+    public void sendNotificaitionAsync(Patient user, ConfirmationTokenRegistration confirmationToken) throws MailException, InterruptedException {
         System.out.println("Slanje emaila...");
 
         SimpleMailMessage mail = new SimpleMailMessage();
-        mail.setTo(user.getEmail());
+        mail.setTo("urb.saska@gmail.com");
+        mail.setSubject("Complete Registration!");
         mail.setFrom(env.getProperty("spring.mail.username"));
-        mail.setSubject("Accepted request");
-        mail.setText("Mr/Mrs " + user.getFirstName() + ",\n\nyour request is accepted.");
+        mail.setText("To confirm your account, please click here : "
+                +"http://localhost:4200/confirm-account?token="+confirmationToken.getConfirmationToken());
         try{
             javaMailSender.send(mail);
         }

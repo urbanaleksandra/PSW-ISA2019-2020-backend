@@ -10,8 +10,8 @@ public class AppointmentDTO {
 	//private HospitalRoomDTO hospitalRoom;
 	//private MedicalRecordDTO medicalRecord;
 	//private RecipeDTO recipe;
-	
-	
+
+
 	private String date;
 	
 	private String description;
@@ -25,9 +25,10 @@ public class AppointmentDTO {
 	private String patient;
 
 	private String doctorUsername;
+  
+  private String info;
 
 	private ClinicDTO clinic;
-
 
 	public ClinicDTO getClinicDTO() {
 		return clinic;
@@ -35,6 +36,15 @@ public class AppointmentDTO {
 
 	public void setClinicDTO(ClinicDTO clinicDTO) {
 		this.clinic = clinicDTO;
+  }
+		
+	public String getInfo() {
+		return info;
+	}
+
+	public void setInfo(String info) {
+		this.info = info;
+
 	}
 
 	public String getDoctorUsername() {
@@ -69,6 +79,14 @@ public class AppointmentDTO {
 		this.type=appointment.getType();
 		this.duration=appointment.getDuration();
 		this.patient=appointment.getPatient();
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getPatient() {
@@ -107,6 +125,7 @@ public class AppointmentDTO {
 		this.duration = duration;
 	}
 
+
 	public Long getId() {
 		return id;
 	}
@@ -121,5 +140,20 @@ public class AppointmentDTO {
 
 	public void setDoctor(DoctorDTO doctor) {
 		this.doctor = doctor;
+
+	@Override
+	public String toString() {
+		return "AppointmentDTO{" +
+				"id=" + id +
+				", doctor=" + doctor +
+				", date='" + date + '\'' +
+				", description='" + description + '\'' +
+				", type='" + type + '\'' +
+				", duration=" + duration +
+				", patient='" + patient + '\'' +
+				", doctorUsername='" + doctorUsername + '\'' +
+				", info='" + info + '\'' +
+				'}';
+
 	}
 }
