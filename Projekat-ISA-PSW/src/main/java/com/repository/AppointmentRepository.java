@@ -30,7 +30,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long>{
 
 	List<Appointment> findByFinished(Boolean finished);
 
-	@Lock(LockModeType.PESSIMISTIC_WRITE)
 	Appointment findByDate(String date);
 
 	List<Appointment> findByHospitalRoomId(Long id);

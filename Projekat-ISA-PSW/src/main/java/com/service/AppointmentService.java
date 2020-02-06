@@ -60,11 +60,10 @@ public class AppointmentService implements AppointmentServiceInterface{
 
 
     //transakcija
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
+    @Transactional(rollbackFor = {RuntimeException.class},readOnly = false, propagation = Propagation.REQUIRED, isolation = Isolation.READ_UNCOMMITTED)
     public Appointment schedule(AppointmentDTO appointment){
 
-        //radim pesimisticko zakljucavanje(appointment repository) jer instanciram novi pregled
-        Appointment appointment1 = appointmentRepository.findByDate(appointment.getDate()); //new Appointment(appointment.getId(), appointment.getPatient(), appointment.getDate(), appointment.getDescription(), appointment.getDuration());
+        Appointment appointment1 = appointmentRepository.findById(appointment.getId()).get(); //new Appointment(appointment.getId(), appointment.getPatient(), appointment.getDate(), appointment.getDescription(), appointment.getDuration());
 //        appointment1.setType(appointment.getType());
 //        appointment1.setDoctorUsername(appointment.getDoctorUsername());
 //        Doctor doctor = doctorService.findByUsername(appointment.getDoctorUsername());
@@ -74,14 +73,22 @@ public class AppointmentService implements AppointmentServiceInterface{
         Patient patient = patientService.findByUsername(appointment.getPatient());
         appointment1.setMedicalRecord(medicalRecordService.findByPatientId(patient.getId()));
         appointment1.setPatient(appointment.getPatient());
+        System.out.println(appointment1.getPatient());
+        try{
+            appointmentRepository.save(appointment1);
+        }
+        catch( Exception e ){
+            System.out.println("Pukao kod transakcije");
+            return null;
+        }
 
-        appointmentRepository.save(appointment1);
 
         try {
             emailService.sendNotificaitionAsync4();
         }catch( Exception e ){
             System.out.println("nije poslata poruka");
         }
+
 
         return appointment1;
 

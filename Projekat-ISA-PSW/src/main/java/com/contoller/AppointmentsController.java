@@ -745,7 +745,13 @@ public class AppointmentsController {
     public @ResponseBody ResponseEntity<Appointment> scheduleApp(@RequestBody AppointmentDTO appointment){
 
         //vrsi se transakcija u service
-        Appointment appointment1 = appointmentService.schedule(appointment);
+        Appointment appointment1 = null;
+        try {
+            appointment1 = appointmentService.schedule(appointment);
+        }catch (Exception e){
+            return new ResponseEntity<>(appointment1, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
 
         return new ResponseEntity<>(appointment1, HttpStatus.OK);
 
