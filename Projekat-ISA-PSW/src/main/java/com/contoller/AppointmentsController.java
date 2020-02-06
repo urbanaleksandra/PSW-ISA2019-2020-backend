@@ -363,7 +363,7 @@ public class AppointmentsController {
                             finished = "FINISHED";
                         else
                             finished = "AVAILABLE";
-                        title = app.getId() + "\n" + "appointment" + "\n" + app.getDescription() + "\n" + patient.getFirstName() + " " + patient.getLastName() + "\n" + finished;
+                        title = app.getId() + "\n" + "appointment" + "\n" + app.getDescription() + "\n" + patient.getFirstName() + " " + patient.getLastName() + "\n" + finished + "\n" + patient.getUsername();
                     } catch (Exception e) {
                         title = app.getDescription() + "\nthere is no patient yet.";
                     }

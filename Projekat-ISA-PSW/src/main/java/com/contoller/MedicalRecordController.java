@@ -90,6 +90,8 @@ public class MedicalRecordController {
     private MedicalRecordDTO getMedicalRecordInfo(@PathVariable String username){
         MedicalRecordDTO medicalRecordDTO = new MedicalRecordDTO();
         Patient patient = patientService.findByUsername(username);
+        System.out.println(username);
+        System.out.println(patient.getId());
         MedicalRecord medicalRecord = medicalRecordService.findByPatientId(patient.getId());
         medicalRecordDTO.setBloodType(medicalRecord.getBloodType());
         medicalRecordDTO.setDiopter(medicalRecord.getDiopter());
