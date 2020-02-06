@@ -273,6 +273,11 @@ public class AppointmentsController {
         appointment1.setMedicalRecord(mr);
         appointment1.setDoctorUsername(appointment.getDoctorUsername());
         appointment1.setType(appointment.getType());
+
+        Doctor doctor = doctorService.findByUsername(appointment.getDoctorUsername());
+        appointment1.setDoctor(doctor);
+        appointment1.setClinic(doctor.getClinic());
+
         requestAppointmentService.save(appointment1);
 
 
