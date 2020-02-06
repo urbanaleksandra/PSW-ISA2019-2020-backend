@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -30,6 +31,21 @@ public class HospitalRoomController {
     @GetMapping("sale")
     public List<HospitalRoom> getHospitalRooms() {
         return hospitalRoomService.findAll();
+    }
+
+    @CrossOrigin
+    @GetMapping("sale/{usernameAdmin}")
+    public List<HospitalRoom> getHospitalRooms2(@PathVariable String usernameAdmin)
+    {
+        ClinicAdministrator clinicAdministrator=administratorService.findByUsername(usernameAdmin);
+        List<HospitalRoom> hrooms=hospitalRoomService.findAll();
+        List<HospitalRoom> ret=new ArrayList<>();
+        for(int i=0;i<hrooms.size();i++) {
+            if(hrooms.get(i).getClinic().getId().equals(clinicAdministrator.getClinic().getId())){
+                ret.add(hrooms.get(i));
+            }
+        }
+        return ret;
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
