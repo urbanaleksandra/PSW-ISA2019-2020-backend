@@ -67,6 +67,16 @@ public class Appointment {
 	@Column(name = "info", nullable = true)
 	private String info;
 
+//	@Version
+//	private Long version;
+//
+//	public Long getVersion() {
+//		return version;
+//	}
+//
+//	public void setVersion(Long version) {
+//		this.version = version;
+//	}
 
 	public Diagnosis getDiagnosis() {
 		return diagnosis;

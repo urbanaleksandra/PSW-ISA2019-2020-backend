@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface DoctorRepository extends JpaRepository<Doctor, Long>{
 	
 	List<Doctor> findByFirstName(String firstname);
-	
+
 	Doctor findByUsername(String username);
 
 	List<Doctor> findAll();
