@@ -125,35 +125,12 @@ public class AppointmentDTO {
 		this.duration = duration;
 	}
 
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public DoctorDTO getDoctor() {
 		return doctor;
 	}
 
 	public void setDoctor(DoctorDTO doctor) {
 		this.doctor = doctor;
-
-	@Override
-	public String toString() {
-		return "AppointmentDTO{" +
-				"id=" + id +
-				", doctor=" + doctor +
-				", date='" + date + '\'' +
-				", description='" + description + '\'' +
-				", type='" + type + '\'' +
-				", duration=" + duration +
-				", patient='" + patient + '\'' +
-				", doctorUsername='" + doctorUsername + '\'' +
-				", info='" + info + '\'' +
-				'}';
 
 	}
 }

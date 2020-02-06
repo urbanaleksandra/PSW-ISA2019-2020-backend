@@ -68,9 +68,6 @@ public class AppointmentsController {
     private RecipeService recipeService;
 
     @Autowired
-    private DoctorService doctorService;
-
-    @Autowired
     private NurseService nurseService;
 
     @CrossOrigin(origins = "http//localhost:4200")
@@ -223,8 +220,9 @@ public class AppointmentsController {
             appointment1.setMedicalRecord(mr);
         } catch ( Exception e ){
             System.out.println("Pacijent je null");
+
         }
-        appointment1.setMedicalRecord(mr);
+
         appointment1.setDoctorUsername(appointment.getDoctorUsername());
         Doctor doctor = doctorService.findByUsername(appointment.getDoctorUsername());
         appointment1.setDoctor(doctor);
@@ -350,33 +348,34 @@ public class AppointmentsController {
         List<Surgery> surgeries = surgeryService.findAll();
 
         for (Appointment app: lista) {
-            if (app.getDoctor().getUsername().equals(doctor)) {
-                String title = "";
-                try{
-                    Patient patient = patientService.findByUsername(app.getPatient());
-                    String finished = "";
-                    if(app.isFinished())
-                        finished = "FINISHED";
-                    else
-                        finished = "AVAILABLE";
-                    title = app.getId() + "\n" + "appointment" + "\n" + app.getDescription() + "\n" + patient.getFirstName() + " " + patient.getLastName()+ "\n" + finished;
-                }catch (Exception e){
-                    title = app.getDescription() + "\nthere is no patient yet." ;
+            if(app.getDoctor() != null) {
+                if (app.getDoctor().getUsername().equals(doctor)) {
+                    String title = "";
+                    try {
+                        Patient patient = patientService.findByUsername(app.getPatient());
+                        String finished = "";
+                        if (app.isFinished())
+                            finished = "FINISHED";
+                        else
+                            finished = "AVAILABLE";
+                        title = app.getId() + "\n" + "appointment" + "\n" + app.getDescription() + "\n" + patient.getFirstName() + " " + patient.getLastName() + "\n" + finished;
+                    } catch (Exception e) {
+                        title = app.getDescription() + "\nthere is no patient yet.";
+                    }
+
+                    String color = "green";
+
+                    //dodavanje duration
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+                    Date date = dateFormat.parse(app.getDate());
+                    long millis = date.getTime();
+                    millis += app.getDuration() * 60 * 60 * 1000;
+                    String endDate = dateFormat.format(millis);
+
+                    CalendarEventsDTO eventsDTO = new CalendarEventsDTO(title, app.getDate(), endDate, app.getId(), color);
+                    eventsDTOS.add(eventsDTO);
                 }
-
-                String color = "green";
-
-                //dodavanje duration
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
-                Date date = dateFormat.parse(app.getDate());
-                long millis = date.getTime();
-                millis += app.getDuration() * 60 * 60 * 1000;
-                String endDate = dateFormat.format(millis);
-
-                CalendarEventsDTO eventsDTO = new CalendarEventsDTO(title, app.getDate(), endDate, app.getId(), color);
-                eventsDTOS.add(eventsDTO);
             }
-
         }
         Doctor doc = doctorService.findByUsername(doctor);
         for (Surgery s : surgeries){
@@ -442,8 +441,12 @@ public class AppointmentsController {
                 }
 
             }
+
+
         }
 
+        return ret;
+    }
     //DODATI OVU FJU KAD SE DODA KLINIKA U NURSE
 //    @CrossOrigin(origins = "http://localhost:4200")
 //    @RequestMapping(value="/api/getAllAppointments/{nurse}", method= RequestMethod.GET)
@@ -678,7 +681,7 @@ public class AppointmentsController {
         appointment1.setDoctor(req.getDoctor());
 
         Appointment a = this.appointmentService.save(appointment1);
-
+        this.requestAppointmentService.delete(req);
 
             Doctor doctor = this.doctorService.findById(reservationHospitalRoomDTO.getDoctor());
             doctor.getAppointments().add(a);
