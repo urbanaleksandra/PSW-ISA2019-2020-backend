@@ -102,6 +102,15 @@ public class SurgeriesContoller {
                 if(available)
                     surgery.getDoctor().add(doctor);
                 Surgery surgeriesave = surgeryService.save(surgery);
+
+                try{
+                    Patient patient = patientService.findByUsername(surgeryDTO.getPatient());
+                    MedicalRecord mr = medicalRecordService.findByPatientId(patient.getId());
+                    mr.getSurgeries().add(surgeriesave);
+                    MedicalRecord mr2 = medicalRecordService.save(mr);
+                }catch(Exception e){
+                    System.out.println("ne moze da se doda operacija u zdravstveni karton");
+                }
             }
         return new ResponseEntity<>(surgeryDTO, HttpStatus.OK);
     }
