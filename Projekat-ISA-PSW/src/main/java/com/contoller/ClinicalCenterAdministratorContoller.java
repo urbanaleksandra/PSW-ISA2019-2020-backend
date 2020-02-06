@@ -1,12 +1,10 @@
 package com.contoller;
 
 import com.dto.ClinicalCenterAdministratorDTO;
-import com.dto.PatientDTO;
 import com.model.*;
-import com.repository.ClinicAdministratorRepository;
 import com.repository.ClinicalCenterAdministratorRepository;
 import com.repository.ConfirmationTokenRepository;
-import com.security.JwtAuthenticationRequest;
+import com.security.auth.JwtAuthenticationRequest;
 import com.security.TokenUtils;
 import com.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.naming.AuthenticationException;
-import javax.print.DocFlavor;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
@@ -47,6 +43,9 @@ public class ClinicalCenterAdministratorContoller {
 	private PatientService patientService;
 
 	@Autowired
+	private CustomUserDetailsService userDetailsService;
+
+	@Autowired
 	private ClinicAdministratorService clinicAdministratorService;
 
 	@Autowired
@@ -69,19 +68,25 @@ public class ClinicalCenterAdministratorContoller {
 
 	@Autowired
 	private ClinicalCenterAdministratorService service;
-	 
+
+
 	@CrossOrigin(origins = "http://localhost:4200")
 	//@PostMapping(value = "/findByUsernameAndPassword")
-	@RequestMapping(value="/findByUsernameAndPassword", method= RequestMethod.POST)
+	@RequestMapping(value="/auth/login", method= RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<?> postCCAByUsernameAndPassword(@RequestBody JwtAuthenticationRequest authenticationRequest,
 														  HttpServletResponse response) throws AuthenticationException, IOException {
 
-		// ne brisati zakomentarisane delove!!
+		//
 
-		final Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
-				authenticationRequest.getPassword()));
+		//final Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
+			//	authenticationRequest.getPassword()));
 //
+		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
+				authenticationRequest.getUsername(), authenticationRequest.getPassword());
+		System.out.println(token);
+		Authentication authentication = authenticationManager.authenticate(token);
+
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
 		System.out.println("usao");

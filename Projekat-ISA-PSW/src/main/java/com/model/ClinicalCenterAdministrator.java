@@ -1,4 +1,5 @@
 package com.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -8,6 +9,10 @@ import java.util.*;
 @Entity
 public class ClinicalCenterAdministrator implements UserDetails{
 
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -15,6 +20,8 @@ public class ClinicalCenterAdministrator implements UserDetails{
 	@Column(name = "email")
 	private String email;
 
+	@Column(name = "enabled")
+	private boolean enabled;
 	@Column(nullable = false)
 	private String firstName;
 	@Column(nullable = false)
@@ -146,27 +153,32 @@ public class ClinicalCenterAdministrator implements UserDetails{
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.authorities;
 	}
+
+	@JsonIgnore
 	@Override
 	public boolean isAccountNonExpired() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
+
+	@JsonIgnore
 	@Override
 	public boolean isAccountNonLocked() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
+	@JsonIgnore
 	@Override
 	public boolean isCredentialsNonExpired() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 	@Override
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
-		return false;
+		return enabled;
 	}
 	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

@@ -2,17 +2,12 @@ package com.contoller;
 
 import com.model.*;
 import com.repository.ClinicalCenterAdministratorRepository;
-import com.security.JwtAuthenticationRequest;
 import com.security.TokenUtils;
 import com.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
-
-import javax.naming.AuthenticationException;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -50,7 +45,7 @@ public class LoginController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     //@PostMapping(value = "/findByUsernameAndPassword")
-    @RequestMapping(value="/login", method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value="/login1", method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public User postCCAByUsernameAndPassword(@RequestBody User user) {
 

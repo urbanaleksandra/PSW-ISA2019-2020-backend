@@ -16,8 +16,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import com.security.TokenUtils;
-import com.security.RestAuthenticationEntryPoint;
-import com.security.TokenAuthenticationFilter;
+import com.security.auth.RestAuthenticationEntryPoint;
+import com.security.auth.TokenAuthenticationFilter;
 import com.service.CustomUserDetailsService;
 
 @Configuration
@@ -82,7 +82,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(WebSecurity web) {
 		// TokenAut henticationFilter ce ignorisati sve ispod navedene putanje
-		web.ignoring().antMatchers(HttpMethod.POST, "/register");
+		web.ignoring().antMatchers(HttpMethod.POST, "/registration");
 		web.ignoring().antMatchers(HttpMethod.POST, "/auth/login");
 		web.ignoring().antMatchers(HttpMethod.GET, "/", "/webjars/**", "/*.html", "/favicon.ico", "/**/*.html",
 				"/**/*.css", "/**/*.js");

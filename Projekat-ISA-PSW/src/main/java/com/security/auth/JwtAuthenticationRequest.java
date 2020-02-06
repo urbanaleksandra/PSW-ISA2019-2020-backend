@@ -1,4 +1,4 @@
-package com.security;
+package com.security.auth;
 
 public class JwtAuthenticationRequest {
 
