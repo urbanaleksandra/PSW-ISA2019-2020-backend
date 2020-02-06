@@ -766,21 +766,14 @@ public class AppointmentsController {
     @RequestMapping(value="/scheduleApp", method=RequestMethod.POST,  produces=MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody ResponseEntity<Appointment> scheduleApp(@RequestBody AppointmentDTO appointment){
 
-        Appointment appointment1 = new Appointment(appointment.getId(), appointment.getPatient(), appointment.getDate(), appointment.getDescription(), appointment.getDuration());
-        appointment1.setType(appointment.getType());
-        appointment1.setDoctorUsername(appointment.getDoctorUsername());
-        System.out.println(appointment.getId());
-
-        Patient patient = patientService.findByUsername(appointment.getPatient());
-
-        //appointment1.setMedicalRecord(medicalRecordService.findByPatientId(patient.getId()));
-        appointmentService.save(appointment1);
-
+        //vrsi se transakcija u service
+        Appointment appointment1 = null;
         try {
-            emailService.sendNotificaitionAsync4();
-        }catch( Exception e ){
-            System.out.println("nije poslata poruka");
+            appointment1 = appointmentService.schedule(appointment);
+        }catch (Exception e){
+            return new ResponseEntity<>(appointment1, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
 
         return new ResponseEntity<>(appointment1, HttpStatus.OK);
 

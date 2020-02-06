@@ -1,6 +1,9 @@
 package com.service;
 
+import com.dto.AppointmentDTO;
 import com.model.Appointment;
+import com.model.Doctor;
+import com.model.Patient;
 import com.repository.AppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +18,21 @@ public class AppointmentService implements AppointmentServiceInterface{
     @Autowired
     private AppointmentRepository appointmentRepository;
 
+    @Autowired
+    private DoctorService doctorService;
+
+    @Autowired
+    private PatientService patientService;
+
+    @Autowired
+    private MedicalRecordService medicalRecordService;
+
+    @Autowired
+    private AppointmentService appointmentService;
+
+    @Autowired
+    private EmailService emailService;
+
 
     public Appointment save(Appointment appointment){
         return appointmentRepository.save(appointment);
@@ -27,8 +45,7 @@ public class AppointmentService implements AppointmentServiceInterface{
     public List<Appointment> findByFinished(Boolean finished){ return appointmentRepository.findByFinished(finished); }
 
 
-
-    public List<Appointment> findByDate(String date){ return appointmentRepository.findByDate(date); }
+    public Appointment findByDate(String date){ return appointmentRepository.findByDate(date); }
 
     public List<Appointment> findByHospitalRoomId(Long id) { return appointmentRepository.findByHospitalRoomId(id); }
 
@@ -39,6 +56,42 @@ public class AppointmentService implements AppointmentServiceInterface{
         app.setFinished(true);
         Appointment savedApp = appointmentRepository.save(app);
         return savedApp;
+    }
+
+
+    //transakcija
+    @Transactional(rollbackFor = {RuntimeException.class},readOnly = false, propagation = Propagation.REQUIRED, isolation = Isolation.READ_UNCOMMITTED)
+    public Appointment schedule(AppointmentDTO appointment){
+
+        Appointment appointment1 = appointmentRepository.findById(appointment.getId()).get(); //new Appointment(appointment.getId(), appointment.getPatient(), appointment.getDate(), appointment.getDescription(), appointment.getDuration());
+//        appointment1.setType(appointment.getType());
+//        appointment1.setDoctorUsername(appointment.getDoctorUsername());
+//        Doctor doctor = doctorService.findByUsername(appointment.getDoctorUsername());
+//
+//        appointment1.setDoctor(doctor);
+
+        Patient patient = patientService.findByUsername(appointment.getPatient());
+        appointment1.setMedicalRecord(medicalRecordService.findByPatientId(patient.getId()));
+        appointment1.setPatient(appointment.getPatient());
+        System.out.println(appointment1.getPatient());
+        try{
+            appointmentRepository.save(appointment1);
+        }
+        catch( Exception e ){
+            System.out.println("Pukao kod transakcije");
+            return null;
+        }
+
+
+        try {
+            emailService.sendNotificaitionAsync4();
+        }catch( Exception e ){
+            System.out.println("nije poslata poruka");
+        }
+
+
+        return appointment1;
+
     }
 
 

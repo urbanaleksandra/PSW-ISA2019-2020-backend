@@ -1,5 +1,6 @@
 package com.service;
 
+import com.dto.AppointmentDTO;
 import com.model.Appointment;
 import com.repository.AppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +15,13 @@ public interface AppointmentServiceInterface {
 
     public List<Appointment> findByFinished(Boolean finished);
 
-    public List<Appointment> findByDate(String date);
+    public Appointment findByDate(String date);
 
     public List<Appointment> findByHospitalRoomId(Long id);
 
     public Appointment findById(Long id);
 
     public Appointment setFinished(Appointment app);
+
+    public Appointment schedule(AppointmentDTO appointment);
 }
