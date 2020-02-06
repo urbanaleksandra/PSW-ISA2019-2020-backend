@@ -312,6 +312,28 @@ public class AppointmentsController {
 
         return ret;
     }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value="/api/all-requestAppointments/{usernameAdmin}", method= RequestMethod.GET)
+    public List<RequestAppointment> getAllRequestAppointmentsOfClinic(@PathVariable String usernameAdmin){
+
+        List<RequestAppointment> apps = requestAppointmentService.findAll();
+        List<RequestAppointment> ret = new ArrayList<>();
+        ClinicAdministrator clinicAdministrator=clinicAdministratorService.findByUsername(usernameAdmin);
+        try{
+            for(RequestAppointment app:apps){
+                if(app.getClinic().getId().equals(clinicAdministrator.getClinic().getId())) {
+                    ret.add(app);
+                }
+            }
+        }catch (Exception e){
+            System.out.println("neka polja su prazna");
+        }
+
+        return ret;
+    }
+
+
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value="/api/all-patient-appointment/{username}", method= RequestMethod.GET)
     public List<Appointment> getAllAppointments(@PathVariable String username){
