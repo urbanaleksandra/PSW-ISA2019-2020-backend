@@ -41,11 +41,11 @@ INSERT INTO medical_record (blood_type, diopter, height, weight, patient_id) VAL
 INSERT INTO medical_record (blood_type, diopter, height, weight, patient_id) VALUES ('B-', '-5.0', '150', '45',5);
 
 
-INSERT INTO hospital_room (name,room_number,clinic_id) VALUES ('Glavna sala',1, 1);
-INSERT INTO hospital_room (name,room_number,clinic_id) VALUES ('Operaciona sala',2, 1);
-INSERT INTO hospital_room (name,room_number,clinic_id) VALUES ('Operaciona sala',3, 1);
-INSERT INTO hospital_room (name,room_number,clinic_id) VALUES ('Mala sala',23, 2);
-INSERT INTO hospital_room (name,room_number,clinic_id) VALUES ('Velika sala',24, 2);
+INSERT INTO hospital_room (name,room_number,clinic_id,version) VALUES ('Glavna sala',1, 1,0);
+INSERT INTO hospital_room (name,room_number,clinic_id,version) VALUES ('Operaciona sala',2, 1,0);
+INSERT INTO hospital_room (name,room_number,clinic_id,version) VALUES ('Operaciona sala',3, 1,0);
+INSERT INTO hospital_room (name,room_number,clinic_id,version) VALUES ('Mala sala',23, 2,0);
+INSERT INTO hospital_room (name,room_number,clinic_id,version) VALUES ('Velika sala',24, 2,0);
 
 INSERT INTO surgery (date, description, patient, duration, clinic_id, medical_record_id) VALUES ("2020-02-22T16:00", 'operacija nosa', 'anaM', 2, 1, 5);
 INSERT INTO surgery (date, description, patient, duration, clinic_id, medical_record_id) VALUES ("2020-02-22T16:00", 'operacija kicme', 'markoM', 2, 2, 3);

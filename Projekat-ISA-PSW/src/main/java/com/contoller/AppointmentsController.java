@@ -164,7 +164,7 @@ public class AppointmentsController {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value="/api/add-room-app", method=RequestMethod.POST,  produces=MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody ResponseEntity<Appointment> addApp(@RequestBody AppointmentDTO appointment) {
-        Appointment appointment1 = new Appointment();
+       /* Appointment appointment1 = new Appointment();
        appointment1.setDate(appointment.getDate());
         appointment1.setDescription(appointment.getDescription());
         appointment1.setDoctorUsername(appointment.getDoctorUsername());
@@ -195,8 +195,21 @@ public class AppointmentsController {
         }
 
         requestAppointmentService.delete(requestAppointmentService.findById(appointment.getId()));
+        return new ResponseEntity<>(appointment1, HttpStatus.OK);*/
+        //vrsi se transakcija u service
+        Appointment appointment1 = null;
+        try {
+            appointment1 = appointmentService.acceptAppointment(appointment);
+        }catch (Exception e){
+            return new ResponseEntity<>(appointment1, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+
         return new ResponseEntity<>(appointment1, HttpStatus.OK);
+
     }
+
+
 
 
     @CrossOrigin(origins = "http://localhost:4200")

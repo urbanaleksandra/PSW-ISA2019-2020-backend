@@ -17,6 +17,9 @@ public class HospitalRoom {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Version
+	private Long version;
+
 	@JsonBackReference
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
 	private Set<Surgery> surgeries = new HashSet<Surgery>();
@@ -88,6 +91,14 @@ public class HospitalRoom {
 
 	public void setClinic(Clinic clinic) {
 		this.clinic = clinic;
+	}
+
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
 	}
 
 	public HospitalRoom() {
