@@ -8,6 +8,8 @@ import com.model.Recipe;
 import com.repository.MedicalStaffRepository;
 import com.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -69,18 +71,24 @@ public class RecipeController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/api/auth-recipe/{username}")
-    public void authRecipe(@RequestBody RecipeDTO recipeDTO, @PathVariable String username){
-        Nurse nurse = (Nurse) medicalStaffService.findByUsername(username);
+    public @ResponseBody
+    ResponseEntity authRecipe(@RequestBody RecipeDTO recipeDTO, @PathVariable String username){
 
-        Recipe r = recipeService.findById(recipeDTO.getId());
-        r.setNurse(nurse);
-        Recipe recipe = recipeService.authRecipe(r);
+
+
         try {
-            Appointment app = appointmentService.findById(recipe.getAppointment().getId());
-            Appointment appointment = appointmentService.setFinished(app);
-        }catch (Exception e){
-            System.out.println("recept nema appointment");
+            Recipe recipe = recipeService.authRecipe(recipeDTO, username);
+            try {
+                Appointment app = appointmentService.findById(recipe.getAppointment().getId());
+                Appointment appointment = appointmentService.setFinished(app);
+            }catch (Exception e){
+                System.out.println("recept nema appointment");
+            }
+            return new ResponseEntity(HttpStatus.OK);
+        }catch(Exception e){
+            return  new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
     }
 
     @CrossOrigin(origins = "http://localhost:4200")

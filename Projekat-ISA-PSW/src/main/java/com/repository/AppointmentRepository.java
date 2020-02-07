@@ -19,7 +19,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long>{
 	@Override
 	List<Appointment> findAllById(Iterable<Long> longs);
 
-	@Override
 	Optional<Appointment> findById(Long aLong);
 
 	@Override

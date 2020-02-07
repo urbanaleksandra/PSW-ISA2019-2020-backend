@@ -1,10 +1,8 @@
-package com.controller;
+package com.IsaPsw.controller;
 
 import static org.junit.Assert.assertEquals;
-import static com.constants.ClinicCenterAdministratorConstants.*;
+import static com.IsaPsw.constants.ClinicCenterAdministratorConstants.*;
 import com.model.ClinicalCenterAdministrator;
-import com.model.User;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

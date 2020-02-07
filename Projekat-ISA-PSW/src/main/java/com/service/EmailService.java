@@ -205,6 +205,18 @@ public class EmailService {
                 "\nHospital room: " + surgery.getHospitalRoom().getName() + " no." + surgery.getHospitalRoom().getRoom_number()
                 + "has been accepted .\n\nAll the best,\nYour clinic.");
     }
+    @Async
+    public void sendPatientNotificaition7(Nurse nurse) throws MailException, InterruptedException {
+        System.out.println("Slanje emaila pacijentu...");
+
+        System.out.println(nurse.getEmail());
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setTo(nurse.getEmail());
+        mail.setFrom(env.getProperty("spring.mail.username"));
+        mail.setSubject("Nurse info");
+
+        mail.setText("Mr/Mrs " + nurse.getFirstName() + ".");
+    }
 
     @Async
     public void sendNotificaitionAsync8(ClinicAdministrator ca) throws MailException, InterruptedException {

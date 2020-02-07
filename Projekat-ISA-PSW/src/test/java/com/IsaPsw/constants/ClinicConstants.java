@@ -1,4 +1,4 @@
-package com.constants;
+package com.IsaPsw.constants;
 
 public class ClinicConstants {
 

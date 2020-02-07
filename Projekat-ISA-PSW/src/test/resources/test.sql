@@ -23,3 +23,7 @@ INSERT INTO public.clinic (id,address, description, name, pricelist, profit, rat
 INSERT INTO public.clinic (id,address, description, name, pricelist, profit, rating,longitude,lat) VALUES (nextval('clinic_id_seq'),'Pasterova 2', 'New York City Health Department clinics offer patients health', 'Klinika za fizikalnu medicinu i rehabilitaciju', 0, 0, 4,44.797860, 20.458775);
 
 INSERT INTO public.clinical_center_administrator (id, username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, first_log) VALUES (nextval('clinical_center_administrator_id_seq'),'tacajo', '123', 'tacajovicic@gmail.com', 'Tamara', 'Jovicic', '1401998', 'Bulevar Oslobodjenja 150', 'Novi Sad', 'Serbia', '6551585', 1);
+INSERT INTO public.clinic_administrator (id,username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, clinic_id) VALUES (nextval('clinic_administrator_id_seq'),'cadmin', 'cadmin', 'zeki.sipovac@gmail.com', 'Zeljana', 'Sipovac', '354168465', 'Glavna 54', 'Nevesinje', 'Bosna i Hercegovina', '0645865455', 1);
+
+
+INSERT INTO public.appointments (id, version, date, description, duration, patient,finished, type, doctor_id, hospital_room_id, medical_record_id, doctor_username,type2_id) VALUES (nextval('appointments_id_seq'),0,'2020-02-05T16:00', 'cold', 2, 'anaM', false,'appointment', null, null, null, 'doctor',null);
