@@ -2,8 +2,7 @@ package com.service;
 
 import com.dto.AppointmentDTO;
 import com.model.Appointment;
-import com.repository.AppointmentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+
 
 import java.util.List;
 
