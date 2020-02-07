@@ -41,8 +41,20 @@ public class ClinicDTO {
 		//this.longitude=longitude;
 		this.id=id;
 	}
-	
-	public ClinicDTO(String name, String address, int pricelist, String description, int profit,int rating) {
+
+	public ClinicDTO(Long id, String name, String address, int pricelist, String description, int profit, int rating, double longitude, double lat) {
+		this.id = id;
+		this.name = name;
+		this.address = address;
+		this.pricelist = pricelist;
+		this.description = description;
+		this.profit = profit;
+		this.rating = rating;
+		this.longitude = longitude;
+		this.lat = lat;
+	}
+
+	public ClinicDTO(String name, String address, int pricelist, String description, int profit, int rating) {
 		super();
 		this.name = name;
 		this.address = address;
@@ -123,5 +135,20 @@ public class ClinicDTO {
 
 	public void setLat(double lat) {
 		this.lat = lat;
+	}
+
+	@Override
+	public String toString() {
+		return "ClinicDTO{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", address='" + address + '\'' +
+				", pricelist=" + pricelist +
+				", description='" + description + '\'' +
+				", profit=" + profit +
+				", rating=" + rating +
+				", longitude=" + longitude +
+				", lat=" + lat +
+				'}';
 	}
 }
