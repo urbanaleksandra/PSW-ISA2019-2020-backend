@@ -248,9 +248,16 @@ public class ClinicalCenterAdministratorContoller {
 
 	@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value="/api/get-admin/{username}", method= RequestMethod.GET)
-	private ClinicalCenterAdministrator getAdmin(@PathVariable String username){
-		ClinicalCenterAdministrator cca = service.findByUsername(username);
-		return cca;
+	private ResponseEntity  getAdmin(@PathVariable String username){
+		if(username != null) {
+			ClinicalCenterAdministrator cca = service.findByUsername(username);
+			if (cca != null) {
+				return new ResponseEntity<>(cca, HttpStatus.OK);
+			}
+			return new ResponseEntity<>("No admin with this username", HttpStatus.NOT_ACCEPTABLE);
+		}
+		return new ResponseEntity<>("username is null!",
+				HttpStatus.UNPROCESSABLE_ENTITY);
 	}
 
 	@CrossOrigin(origins = "http://localhost:4200")

@@ -1,5 +1,6 @@
 package com.contoller;
 
+import com.dto.ClinicAdministratorDTO;
 import com.dto.ClinicDTO;
 import com.model.*;
 import com.repository.ClinicAdministratorRepository;
@@ -54,9 +55,16 @@ public class ClinicController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value="/api/get-clinics", method= RequestMethod.GET)
-    public List<Clinic> getClinic(){
-        List<Clinic> ret = clinicService.findAll();
-        return ret;
+    public ResponseEntity<List<ClinicDTO>> getClinic(){
+        List<Clinic> clinics = clinicService.findAll();
+        List<ClinicDTO> clinisDTOS = new ArrayList<>();
+        for(Clinic c: clinics){
+            ClinicDTO CDTO = new ClinicDTO(c.getId(), c.getName(), c.getAddress(),
+            c.getPricelist(), c.getDescription(), c.getProfit(), c.getRating(), c.getLongitude(), c.getLat());
+            clinisDTOS.add(CDTO);
+        }
+        return new ResponseEntity<List<ClinicDTO>>(clinisDTOS, HttpStatus.OK);
+
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
