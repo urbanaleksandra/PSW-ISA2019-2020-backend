@@ -44,7 +44,7 @@ public class PatientContoller {
 
 	@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value="/changePatientInfo", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResponseEntity<Patient> changePatientInfo(@RequestBody Patient patientNovi){
+	public @ResponseBody ResponseEntity<Patient> changePatientInfo(@RequestBody PatientDTO patientNovi){
 
 		Patient patient1 = patientService.findByUsername(patientNovi.getUsername());
 		if(patient1 != null){
@@ -75,8 +75,23 @@ public class PatientContoller {
 
 	@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value="/pacijent/{username}", method= RequestMethod.GET)
-	public Patient getPatient(@PathVariable String username){
+	public PatientDTO getPatient(@PathVariable String username){
 
-		return patientService.findByUsername(username);
+		Patient patient = patientService.findByUsername(username);
+		PatientDTO patientDTO = new PatientDTO();
+		patientDTO.setFirstName(patient.getFirstName());
+		patientDTO.setLastName(patient.getLastName());
+		patientDTO.setAddress(patient.getAddress());
+		patientDTO.setCity(patient.getCity());
+		patientDTO.setCountry(patient.getCountry());
+		patientDTO.setEmail(patient.getEmail());
+		patientDTO.setId(patient.getId());
+		patientDTO.setJmbg(patient.getJmbg());
+		patientDTO.setMobileNumber(patient.getMobileNumber());
+		patientDTO.setUsername(patient.getUsername());
+		patientDTO.setPassword(patient.getPassword());
+
+		System.out.println(patient.getFirstName());
+		return patientDTO;
 	}
 }

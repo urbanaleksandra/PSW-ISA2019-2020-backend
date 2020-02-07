@@ -50,6 +50,17 @@ public class RequestAppointment {
     @Column(name = "duration", nullable = true)
     private long duration;
 
+    @Version
+    private Long version;
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
+
     public RequestAppointment(String date, String description, long duration) {
         this.date=date;
         this.description = description;
