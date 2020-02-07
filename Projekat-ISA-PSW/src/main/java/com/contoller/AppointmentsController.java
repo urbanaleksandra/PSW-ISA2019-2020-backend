@@ -259,33 +259,18 @@ public class AppointmentsController {
     @RequestMapping(value="/api/add-requestApp-from-patient", method=RequestMethod.POST,  produces=MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody ResponseEntity<RequestAppointment> addRequestAppFromPatient(@RequestBody AppointmentDTO appointment){
 
-        RequestAppointment appointment1 = new RequestAppointment(appointment.getPatient(),appointment.getDate(),appointment.getDescription(),appointment.getDuration());
-        //requestAppointmentService.save(appointment1);
+        //vrsi se transakcija u service
+        RequestAppointment appointment1 = null;
+        try{
+            appointment1 = appointmentService.addRequestApp(appointment);
+            if(appointment1 == null){
+                return new ResponseEntity<>(appointment1, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
 
-        Patient pa = patientService.findByUsername(appointment.getPatient());
-        System.out.println(pa.getUsername());
-        Long paID = pa.getId();
-
-        MedicalRecord mr = medicalRecordService.findByPatientId(paID);
-//        mr.addRequestAppointment(appointment1);
-//        medicalRecordService.save(mr);
-//        System.out.println(mr.getId());
-        appointment1.setMedicalRecord(mr);
-        appointment1.setDoctorUsername(appointment.getDoctorUsername());
-        appointment1.setType(appointment.getType());
-
-        Doctor doctor = doctorService.findByUsername(appointment.getDoctorUsername());
-        appointment1.setDoctor(doctor);
-        appointment1.setClinic(doctor.getClinic());
-
-        requestAppointmentService.save(appointment1);
-
-
-        try {
-            emailService.sendNotificaitionAsync4();
-        }catch( Exception e ){
-            System.out.println("nije poslata poruka");
+        }catch (Exception e){
+            return new ResponseEntity<>(appointment1, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
 
         return new ResponseEntity<>(appointment1, HttpStatus.OK);
 

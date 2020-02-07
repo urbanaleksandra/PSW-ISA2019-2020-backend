@@ -1,11 +1,11 @@
 package com.service;
 
 import com.dto.AppointmentDTO;
-import com.model.Appointment;
-import com.model.Doctor;
-import com.model.Patient;
+import com.model.*;
 import com.repository.AppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -32,6 +32,9 @@ public class AppointmentService implements AppointmentServiceInterface{
 
     @Autowired
     private EmailService emailService;
+
+    @Autowired
+    private RequestAppointmentService requestAppointmentService;
 
 
     public Appointment save(Appointment appointment){
@@ -89,6 +92,49 @@ public class AppointmentService implements AppointmentServiceInterface{
             System.out.println("nije poslata poruka");
         }
 
+
+        return appointment1;
+
+    }
+
+    //transakcija
+    @Transactional(rollbackFor = {RuntimeException.class},readOnly = false, propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
+    public RequestAppointment addRequestApp(AppointmentDTO appointment){
+
+        List<RequestAppointment> requestAppointments = requestAppointmentService.findAll();
+        for(RequestAppointment reqApp : requestAppointments){
+            if(reqApp.getDate().equals(appointment.getDate()) && reqApp.getDoctor().getUsername().equals(appointment.getDoctorUsername())){
+                return null; //new ResponseEntity<>(reqApp, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+
+        RequestAppointment appointment1 = new RequestAppointment(appointment.getPatient(),appointment.getDate(),appointment.getDescription(),appointment.getDuration());
+        //requestAppointmentService.save(appointment1);
+
+        Patient pa = patientService.findByUsername(appointment.getPatient());
+        //System.out.println(pa.getUsername());
+        Long paID = pa.getId();
+
+        MedicalRecord mr = medicalRecordService.findByPatientId(paID);
+//        mr.addRequestAppointment(appointment1);
+//        medicalRecordService.save(mr);
+//        System.out.println(mr.getId());
+        appointment1.setMedicalRecord(mr);
+        appointment1.setDoctorUsername(appointment.getDoctorUsername());
+        appointment1.setType(appointment.getType());
+
+        Doctor doctor = doctorService.findByUsername(appointment.getDoctorUsername());
+        appointment1.setDoctor(doctor);
+        appointment1.setClinic(doctor.getClinic());
+
+        requestAppointmentService.save(appointment1);
+
+
+        try {
+            emailService.sendNotificaitionAsync4();
+        }catch( Exception e ){
+            System.out.println("nije poslata poruka");
+        }
 
         return appointment1;
 
