@@ -14,6 +14,7 @@ public class ClinicAdministratorService {
     @Autowired
     private ClinicAdministratorRepository clinicAdministratorRepository;
 
+
     public ClinicAdministrator findByUsername(String username) {
         return  clinicAdministratorRepository.findByUsername(username);
     }
