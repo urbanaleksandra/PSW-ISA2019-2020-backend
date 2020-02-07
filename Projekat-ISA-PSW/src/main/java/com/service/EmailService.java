@@ -1,11 +1,7 @@
 package com.service;
 
 
-import com.model.Appointment;
-import com.model.ConfirmationTokenRegistration;
-import com.model.Doctor;
-import com.model.Patient;
-import com.model.Surgery;
+import com.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.MailException;
@@ -36,7 +32,7 @@ public class EmailService {
         System.out.println("Slanje emaila...");
 
         SimpleMailMessage mail = new SimpleMailMessage();
-        mail.setTo("urb.saska@gmail.com");
+        mail.setTo(user.getEmail());
         mail.setSubject("Complete Registration!");
         mail.setFrom(env.getProperty("spring.mail.username"));
         mail.setText("To confirm your account, please click here : "
@@ -87,14 +83,14 @@ public class EmailService {
     }
 
     @Async
-    public void sendNotificaitionAsync4() throws MailException, InterruptedException {
+    public void sendNotificaitionAsync4(Patient patient) throws MailException, InterruptedException {
         System.out.println("Slanje emaila...");
 
         SimpleMailMessage mail = new SimpleMailMessage();
-        mail.setTo("urb.saska@gmail.com");
+        mail.setTo(patient.getEmail());
         mail.setFrom(env.getProperty("spring.mail.username"));
-        mail.setSubject("New request");
-        mail.setText("Mr/Mrs, you have a new request to make a new appointment. Please check your list with requests. ");
+        mail.setSubject("Accepted");
+        mail.setText("Your appointment is accepted. ");
         try{
             javaMailSender.send(mail);
         }
@@ -208,6 +204,23 @@ public class EmailService {
                 "," + "\n\nYour appointment for \n\nDate: " + surgery.getDate() +
                 "\nHospital room: " + surgery.getHospitalRoom().getName() + " no." + surgery.getHospitalRoom().getRoom_number()
                 + "has been accepted .\n\nAll the best,\nYour clinic.");
+    }
+
+    @Async
+    public void sendNotificaitionAsync8(ClinicAdministrator ca) throws MailException, InterruptedException {
+        System.out.println("Slanje emaila...");
+
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setTo(ca.getEmail());
+        mail.setFrom(env.getProperty("spring.mail.username"));
+        mail.setSubject("New request");
+        mail.setText("Mr/Mrs, you have a new request to make a new appointment. Please check your list with requests. ");
+        try{
+            javaMailSender.send(mail);
+        }
+        catch( Exception e ){
+            System.out.println("nije javaMailSender.send(mail); prosao");
+        }
     }
 
 }

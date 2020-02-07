@@ -34,6 +34,9 @@ public class AppointmentService implements AppointmentServiceInterface{
     private EmailService emailService;
 
     @Autowired
+    private ClinicAdministratorService clinicAdministratorService;
+
+    @Autowired
     private RequestAppointmentService requestAppointmentService;
 
 
@@ -87,7 +90,7 @@ public class AppointmentService implements AppointmentServiceInterface{
 
 
         try {
-            emailService.sendNotificaitionAsync4();
+            emailService.sendNotificaitionAsync4(patient);
         }catch( Exception e ){
             System.out.println("nije poslata poruka");
         }
@@ -131,7 +134,8 @@ public class AppointmentService implements AppointmentServiceInterface{
 
 
         try {
-            emailService.sendNotificaitionAsync4();
+            ClinicAdministrator ca = clinicAdministratorService.findByClinicId(doctor.getClinic().getId()).get(0);
+            emailService.sendNotificaitionAsync8(ca);
         }catch( Exception e ){
             System.out.println("nije poslata poruka");
         }
