@@ -26,7 +26,7 @@ public class AppointmentDTO {
 
 	private String doctorUsername;
   
-  private String info;
+	private String info;
 
 	private ClinicDTO clinic;
 
