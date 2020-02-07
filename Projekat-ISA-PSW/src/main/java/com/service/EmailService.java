@@ -235,4 +235,17 @@ public class EmailService {
         }
     }
 
+    @Async
+    public void sendPatientNotificaition9(Nurse nurse) throws MailException, InterruptedException {
+        System.out.println("Slanje emaila pacijentu...");
+
+        System.out.println(nurse.getEmail());
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setTo(nurse.getEmail());
+        mail.setFrom(env.getProperty("spring.mail.username"));
+        mail.setSubject("Nurse info");
+
+        mail.setText("Mr/Mrs " + nurse.getFirstName() + ".");
+    }
+
 }

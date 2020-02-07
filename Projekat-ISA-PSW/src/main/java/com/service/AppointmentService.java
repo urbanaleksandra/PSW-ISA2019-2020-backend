@@ -46,8 +46,6 @@ public class AppointmentService implements AppointmentServiceInterface{
     @Autowired
     private ClinicAdministratorService clinicAdministratorService;
 
-    @Autowired
-    private RequestAppointmentService requestAppointmentService;
 
 
     public Appointment save(Appointment appointment){

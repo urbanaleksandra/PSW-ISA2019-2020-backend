@@ -49,7 +49,7 @@ public class RecipeService implements RecipeServiceInterface{
 
         recipe.setAuthenticated(true);
         try {
-            emailService.sendNotificaitionAsync4();
+            emailService.sendPatientNotificaition9(nurse);
         }catch( Exception e ){
             System.out.println("nije poslata poruka");
         }
