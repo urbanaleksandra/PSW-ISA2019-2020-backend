@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Builder;
 
 
 import java.util.Objects;
@@ -219,5 +220,22 @@ public class Appointment {
 		return "Appointment{" +
 				"id=" + id +
 				'}';
+	}
+
+	public Appointment(Doctor doctor, HospitalRoom hospitalRoom, MedicalRecord medicalRecord, Recipe recipe, Diagnosis diagnosis, AppointmentType type2, String patient, String doctorUsername, String date, String description, String type, long duration, boolean finished, String info) {
+		this.doctor = doctor;
+		this.hospitalRoom = hospitalRoom;
+		this.medicalRecord = medicalRecord;
+		this.recipe = recipe;
+		this.diagnosis = diagnosis;
+		this.type2 = type2;
+		this.patient = patient;
+		this.doctorUsername = doctorUsername;
+		this.date = date;
+		this.description = description;
+		this.type = type;
+		this.duration = duration;
+		this.finished = finished;
+		this.info = info;
 	}
 }

@@ -1,11 +1,11 @@
-package com.controller;
+package com.IsaPsw.controller;
 
 
 import static org.junit.Assert.assertEquals;
-import static com.constants.ClinicConstants.*;
 
+import com.IsaPsw.constants.ClinicConstants;
 import com.dto.ClinicDTO;
-import com.model.Clinic;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,13 +49,13 @@ public class ClinicControllerTest {
         }
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        assertEquals(DB_CLINIC_COUNT, clinics.length);
-        assertEquals(DB_CLINIC_ID, clinics[3].getId());
-        assertEquals(DB_CLINIC_NAME, clinics[3].getName());
-        assertEquals(DB_CLINIC_ADDRESS, clinics[3].getAddress());
-        assertEquals(DB_CLINIC_DESCRIPTION, clinics[3].getDescription());
-        assertEquals(DB_CLINIC_PROFIT, clinics[3].getProfit());
-        assertEquals(DB_CLINIC_RATING, clinics[3].getRating());
+        Assert.assertEquals(ClinicConstants.DB_CLINIC_COUNT, clinics.length);
+        Assert.assertEquals(ClinicConstants.DB_CLINIC_ID, clinics[3].getId());
+        Assert.assertEquals(ClinicConstants.DB_CLINIC_NAME, clinics[3].getName());
+        Assert.assertEquals(ClinicConstants.DB_CLINIC_ADDRESS, clinics[3].getAddress());
+        Assert.assertEquals(ClinicConstants.DB_CLINIC_DESCRIPTION, clinics[3].getDescription());
+        Assert.assertEquals(ClinicConstants.DB_CLINIC_PROFIT, clinics[3].getProfit());
+        Assert.assertEquals(ClinicConstants.DB_CLINIC_RATING, clinics[3].getRating());
         System.out.println("prosao sve aserte");
     }
 }

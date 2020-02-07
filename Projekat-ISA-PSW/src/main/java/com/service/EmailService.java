@@ -1,11 +1,7 @@
 package com.service;
 
 
-import com.model.Appointment;
-import com.model.ConfirmationTokenRegistration;
-import com.model.Doctor;
-import com.model.Patient;
-import com.model.Surgery;
+import com.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.MailException;
@@ -208,6 +204,18 @@ public class EmailService {
                 "," + "\n\nYour appointment for \n\nDate: " + surgery.getDate() +
                 "\nHospital room: " + surgery.getHospitalRoom().getName() + " no." + surgery.getHospitalRoom().getRoom_number()
                 + "has been accepted .\n\nAll the best,\nYour clinic.");
+    }
+    @Async
+    public void sendPatientNotificaition7(Nurse nurse) throws MailException, InterruptedException {
+        System.out.println("Slanje emaila pacijentu...");
+
+        System.out.println(nurse.getEmail());
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setTo(nurse.getEmail());
+        mail.setFrom(env.getProperty("spring.mail.username"));
+        mail.setSubject("Nurse info");
+
+        mail.setText("Mr/Mrs " + nurse.getFirstName() + ".");
     }
 
 }

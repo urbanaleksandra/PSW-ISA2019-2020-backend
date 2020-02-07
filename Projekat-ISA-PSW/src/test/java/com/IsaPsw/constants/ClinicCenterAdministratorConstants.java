@@ -1,4 +1,4 @@
-package com.constants;
+package com.IsaPsw.constants;
 
 public class ClinicCenterAdministratorConstants {
     public static final Long DB_CLINIC_CENTER_ADMIN_ID = 1L;

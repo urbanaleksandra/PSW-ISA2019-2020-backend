@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Builder;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -230,4 +231,7 @@ public class Clinic {
                 ", profit=" + profit +
                 '}';
     }*/
+
+    public Clinic() {
+    }
 }

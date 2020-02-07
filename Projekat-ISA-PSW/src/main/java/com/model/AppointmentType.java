@@ -74,4 +74,9 @@ public class AppointmentType {
     public void setAppointments(Set<Appointment> appointments) {
         this.appointments = appointments;
     }
+
+    public AppointmentType(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }
