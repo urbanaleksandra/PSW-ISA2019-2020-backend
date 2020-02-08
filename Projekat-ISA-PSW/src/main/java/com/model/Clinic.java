@@ -75,6 +75,9 @@ public class Clinic {
     @Column(name = "lat", nullable = true)
     private double lat;
 
+    @Version
+    private Long version;
+
     public int getRating() {
         return rating;
     }
@@ -85,6 +88,14 @@ public class Clinic {
 
     public void setRating(int rating) {
         this.rating = rating;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
     }
 
     public Long getId() {

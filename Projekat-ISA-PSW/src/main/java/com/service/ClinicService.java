@@ -1,5 +1,6 @@
 package com.service;
 
+import com.dto.ClinicDTO;
 import com.model.Appointment;
 import com.model.Clinic;
 import com.model.Doctor;
@@ -7,6 +8,9 @@ import com.model.MedicalStaff;
 import com.repository.ClinicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +31,9 @@ public class ClinicService implements ClinicServiceInterface {
 
     @Autowired
     AppointmentService appointmentService;
+
+    @Autowired
+    EmailService emailService;
 
     public Clinic save(Clinic clinic) {
         return clinicRepository.save(clinic);
@@ -145,6 +152,34 @@ public class ClinicService implements ClinicServiceInterface {
             ret = null;
         }
         return ret;
+
+    }
+
+    @Transactional(rollbackFor = {RuntimeException.class},readOnly = false, propagation = Propagation.REQUIRED, isolation = Isolation.READ_UNCOMMITTED)
+    public Clinic changeInfo(ClinicDTO newClinic, String name){
+        Clinic c = (Clinic) clinicRepository.findByName(name);
+        if(c != null){
+            c.setLongitude(newClinic.getLongitude());
+            c.setLat(newClinic.getLat());
+            c.setAddress(newClinic.getAddress());
+            c.setDescription(newClinic.getDescription());
+            c.setName(newClinic.getName());
+            clinicRepository.save(c);
+
+            try {
+                emailService.sendNotificaitionAsync3();
+            }catch( Exception e ){
+                System.out.println("nije poslata poruka");
+            }
+
+            return  c;
+
+        }
+        else{
+            // Patient patient = new Patient(patientNovi.getUsername(), patientNovi.getPassword(), patientNovi.getFirstName(), patientNovi.getLastName(), patientNovi.getEmail(), patientNovi.getAddress(), patientNovi.getCity(), patientNovi.getCountry(), patientNovi.getMobileNumber(), patientNovi.getJmbg());
+                return null;
+            // patientService.save(patient);
+        }
 
     }
 
