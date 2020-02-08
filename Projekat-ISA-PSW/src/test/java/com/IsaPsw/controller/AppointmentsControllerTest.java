@@ -67,6 +67,7 @@ public class AppointmentsControllerTest {
         appointment.setType("tip1");
         appointment.setDoctorUsername("Ivana");
         appointment.setRoomID(1L);
+        appointment.setPrice(2000);
 
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         HttpHeaders header = new HttpHeaders();
@@ -129,6 +130,7 @@ public class AppointmentsControllerTest {
         appointment.setPatient("masa");
         appointment.setType("tip1");
         appointment.setDoctorUsername("Ivana");
+        appointment.setPrice(2000);
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         HttpHeaders header = new HttpHeaders();
 
