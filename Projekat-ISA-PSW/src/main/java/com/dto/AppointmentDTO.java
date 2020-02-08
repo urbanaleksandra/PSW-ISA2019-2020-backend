@@ -133,4 +133,18 @@ public class AppointmentDTO {
 		this.doctor = doctor;
 
 	}
+
+	public AppointmentDTO(Long id, DoctorDTO doctor, String date, String description, String type, long duration, Long roomID, String patient, String doctorUsername, String info, ClinicDTO clinic) {
+		this.id = id;
+		this.doctor = doctor;
+		this.date = date;
+		this.description = description;
+		this.type = type;
+		this.duration = duration;
+		this.roomID = roomID;
+		this.patient = patient;
+		this.doctorUsername = doctorUsername;
+		this.info = info;
+		this.clinic = clinic;
+	}
 }

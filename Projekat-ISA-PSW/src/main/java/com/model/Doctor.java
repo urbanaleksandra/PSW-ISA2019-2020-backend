@@ -42,7 +42,7 @@ public class Doctor extends MedicalStaff {
 
 	//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.REFRESH)
+	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
 	private Clinic clinic;
 	
 	@Column(name = "review", nullable = false)
@@ -109,13 +109,5 @@ public class Doctor extends MedicalStaff {
 		this.requestAppointments = requestAppointments;
 	}
 
-	@Override
-	public String toString() {
-		return "Doctor{" +
-				"surgeries=" + surgeries +
-				", appointments=" + appointments +
-				", clinic=" + clinic +
-				", review=" + review +
-				'}';
-	}
+
 }
