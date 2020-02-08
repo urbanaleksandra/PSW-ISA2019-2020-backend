@@ -30,6 +30,24 @@ public class AppointmentDTO {
 
 	private ClinicDTO clinic;
 
+	private HospitalRoomDTO hospitalRoom;
+
+	public HospitalRoomDTO getHospitalRoom() {
+		return hospitalRoom;
+	}
+
+	public void setHospitalRoom(HospitalRoomDTO hospitalRoom) {
+		this.hospitalRoom = hospitalRoom;
+	}
+
+	public ClinicDTO getClinic() {
+		return clinic;
+	}
+
+	public void setClinic(ClinicDTO clinic) {
+		this.clinic = clinic;
+	}
+
 	public ClinicDTO getClinicDTO() {
 		return clinic;
 	}

@@ -105,8 +105,10 @@ public class AppointmentService implements AppointmentServiceInterface{
         }catch( Exception e ){
             System.out.println("nije poslata poruka");
         }
-
-        requestAppointmentService.delete(requestAppointmentService.findById(appointment.getId()));
+        System.out.println(appointment.getId());
+        RequestAppointment ra= requestAppointmentService.findById(appointment.getId());
+        System.out.println(ra.getId());
+        requestAppointmentService.delete(ra);
 
         return appointment1;
 

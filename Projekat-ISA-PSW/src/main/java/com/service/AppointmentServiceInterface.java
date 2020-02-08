@@ -2,6 +2,7 @@ package com.service;
 
 import com.dto.AppointmentDTO;
 import com.model.Appointment;
+import com.model.RequestAppointment;
 
 
 import java.util.List;
@@ -23,4 +24,6 @@ public interface AppointmentServiceInterface {
     public Appointment setFinished(Appointment app);
 
     public Appointment schedule(AppointmentDTO appointment);
+
+    public RequestAppointment addRequestApp(AppointmentDTO appointment);
 }
