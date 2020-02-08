@@ -12,12 +12,17 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import javax.validation.ValidationException;
+import java.util.List;
+import java.util.Optional;
+
 
 @Service
 public class AppointmentService implements AppointmentServiceInterface{
@@ -104,12 +109,7 @@ public class AppointmentService implements AppointmentServiceInterface{
         Long paID = pa.getId();
 
         MedicalRecord mr = medicalRecordService.findByPatientId(paID);
-//        mr.addRequestAppointment(appointment1);
-//        medicalRecordService.save(mr);
-//        System.out.println(mr.getId());
         appointment1.setMedicalRecord(mr);
-        //Doctor doc= (Doctor) medicalStaffService.findByUsername(appointment.getDoctor().getUsername());
-        //appointment1.setDoctor(doc);
         appointmentService.save(appointment1);
 
         try {
@@ -126,21 +126,16 @@ public class AppointmentService implements AppointmentServiceInterface{
 
     }
 
-
-
-    //transakcija
+    //transakcija 3.12-brzi pregled
     @Transactional(rollbackFor = {RuntimeException.class},readOnly = false, propagation = Propagation.REQUIRED, isolation = Isolation.READ_UNCOMMITTED)
     public Appointment schedule(AppointmentDTO appointment){
 
-        Appointment appointment1 = appointmentRepository.findById(appointment.getId()).get(); //new Appointment(appointment.getId(), appointment.getPatient(), appointment.getDate(), appointment.getDescription(), appointment.getDuration());
-//        appointment1.setType(appointment.getType());
-//        appointment1.setDoctorUsername(appointment.getDoctorUsername());
-//        Doctor doctor = doctorService.findByUsername(appointment.getDoctorUsername());
-//
-//        appointment1.setDoctor(doctor);
+        Appointment appointment1 = appointmentRepository.findById(appointment.getId()).get();
 
         Patient patient = patientService.findByUsername(appointment.getPatient());
-        appointment1.setMedicalRecord(medicalRecordService.findByPatientId(patient.getId()));
+        System.out.println(patient);
+        MedicalRecord mr = medicalRecordService.findByPatientId(patient.getId());
+        appointment1.setMedicalRecord(mr);
         appointment1.setPatient(appointment.getPatient());
         System.out.println(appointment1.getPatient());
         try{
@@ -150,8 +145,6 @@ public class AppointmentService implements AppointmentServiceInterface{
             System.out.println("Pukao kod transakcije");
             return null;
         }
-
-
         try {
             emailService.sendNotificaitionAsync4(patient);
         }catch( Exception e ){
@@ -175,16 +168,11 @@ public class AppointmentService implements AppointmentServiceInterface{
         }
 
         RequestAppointment appointment1 = new RequestAppointment(appointment.getPatient(),appointment.getDate(),appointment.getDescription(),appointment.getDuration());
-        //requestAppointmentService.save(appointment1);
 
         Patient pa = patientService.findByUsername(appointment.getPatient());
-        //System.out.println(pa.getUsername());
         Long paID = pa.getId();
 
         MedicalRecord mr = medicalRecordService.findByPatientId(paID);
-//        mr.addRequestAppointment(appointment1);
-//        medicalRecordService.save(mr);
-//        System.out.println(mr.getId());
         appointment1.setMedicalRecord(mr);
         appointment1.setDoctorUsername(appointment.getDoctorUsername());
         appointment1.setType(appointment.getType());
@@ -205,6 +193,18 @@ public class AppointmentService implements AppointmentServiceInterface{
 
         return appointment1;
 
+    }
+
+    public Appointment findOne(Long id) {
+
+        Optional<Appointment> appointment = appointmentRepository.findById(id);
+
+        if(appointment.isPresent()) {
+            return appointment.get();
+        }
+        else {
+            throw new ValidationException("Appointment does not exist!");
+        }
     }
 
 
