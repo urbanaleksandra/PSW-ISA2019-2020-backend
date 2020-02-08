@@ -12,6 +12,7 @@ public class ClinicConstants {
     public static final int DB_CLINIC_RATING = 4;
 
     public static final int DB_CLINIC_COUNT = 5;
-    public static final String DB_DATE = "2020-02-12T12:00";
+    public static final String DB_DATE = "2020-05-12T12:00";
     public static final String DB_TYPE = "Kardioloski";
+    public static final String DB_CLINIC_NAME_SEARCH_DOCTOR = "Klinika za pulmologiju";
 }

@@ -11,7 +11,10 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.ValidationException;
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class AppointmentService implements AppointmentServiceInterface{
 
@@ -174,6 +177,18 @@ public class AppointmentService implements AppointmentServiceInterface{
 
         return appointment1;
 
+    }
+
+    public Appointment findOne(Long id) {
+
+        Optional<Appointment> appointment = appointmentRepository.findById(id);
+
+        if(appointment.isPresent()) {
+            return appointment.get();
+        }
+        else {
+            throw new ValidationException("Appointment does not exist!");
+        }
     }
 
 

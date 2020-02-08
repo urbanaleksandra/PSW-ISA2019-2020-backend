@@ -115,32 +115,35 @@ public class ClinicService implements ClinicServiceInterface {
             }
         }
 
-
+        System.out.println("88888usao " +"+++"+  date +"+++"+ imeKlinike +"+++"+ tipPregleda);
         if(doctoriKojiSuZauzeti.size() != 0){
             for (Long id:doctoriKojiSuZauzeti) {
                 doctorsId.remove(id); //obrisem id doktora koji su zauzeti, ostanu samo slobodni u doctorsId
             }
         }
         Clinic klinika = clinicRepository.findByName(imeKlinike);
-        Set<Doctor> doctorsInClinic = klinika.getDoctors();
 
         List<Doctor> ret = new ArrayList<>();
-        for(Doctor doc : doctorsInClinic){
-            for(Long id : doctorsId){
-                if(!tipPregleda.equals("-1")){
-                    if(doc.getId() == id && doc.getAppointmentType().getName().equals(tipPregleda)){
-                        ret.add(doc);
-                    }
-                }
-                else{
-                    if(doc.getId() == id){
-                        ret.add(doc);
-                    }
-                }
+        if(klinika.getDoctors().size() != 0) {
+            Set<Doctor> doctorsInClinic = klinika.getDoctors();
 
+            for (Doctor doc : doctorsInClinic) {
+                for (Long id : doctorsId) {
+                    if (!tipPregleda.equals("-1")) {
+                        if (doc.getId() == id && doc.getAppointmentType().getName().equals(tipPregleda)) {
+                            ret.add(doc);
+                        }
+                    } else {
+                        if (doc.getId() == id) {
+                            ret.add(doc);
+                        }
+                    }
+
+                }
             }
+        }else{
+            ret = null;
         }
-
         return ret;
 
     }

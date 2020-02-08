@@ -43,7 +43,7 @@ public class Clinic {
     private Set<ClinicAdministrator> clinicAdministrator = new HashSet<ClinicAdministrator>();
 
     @JsonBackReference
-    @OneToMany(cascade = CascadeType.REFRESH)
+    @OneToMany(cascade = CascadeType.REFRESH,fetch = FetchType.EAGER )
     //@JoinColumn(name="clinicAdministrator_id")
     private Set<Doctor> doctors = new HashSet<Doctor>();
 
