@@ -73,7 +73,7 @@ public class AppointmentsController {
     @CrossOrigin(origins = "http//localhost:4200")
     @RequestMapping(value = "/api/availableRoomsAppointment", method = RequestMethod.POST)
     public List<HospitalRoom> availableRooms(@RequestBody AppointmentDTO appointmentDTO) throws ParseException {
-        System.out.println("USAO U AVAILABLE ROOMS");
+      /*  System.out.println("USAO U AVAILABLE ROOMS");
         List<HospitalRoom> ret = new ArrayList<>();
         System.out.println(appointmentDTO);
         RequestAppointment appointment = null;
@@ -128,8 +128,8 @@ public class AppointmentsController {
                 ret.add(hospitalRoom);
             Set<Appointment> roomAppointments = hospitalRoom.getAppointments();
         }
-
-        return ret;
+*/
+        return appointmentService.availableRooms(appointmentDTO);
     }
 
     // cadmina prosledjujem kako bih znala u kojoj je on klinici,
@@ -168,38 +168,7 @@ public class AppointmentsController {
         RequestAppointment ra= requestAppointmentService.findById(appointment.getId());
         System.out.println(ra.getId());
         requestAppointmentService.delete(ra);
-       /* Appointment appointment1 = new Appointment();
-       appointment1.setDate(appointment.getDate());
-        appointment1.setDescription(appointment.getDescription());
-        appointment1.setDoctorUsername(appointment.getDoctorUsername());
-        appointment1.setHospitalRoom(this.hospitalRoomService.findById(appointment.getRoomID()));
-        appointment1.setDuration(appointment.getDuration());
-        appointment1.setType(appointment.getType());
-        appointment1.setPatient(appointment.getPatient());
-        appointment1.setDoctor((Doctor) medicalStaffService.findByUsername(appointment.getDoctorUsername()));
 
-
-        Patient pa = patientService.findByUsername(appointment.getPatient());
-        System.out.println(pa.getUsername());
-        Long paID = pa.getId();
-
-        MedicalRecord mr = medicalRecordService.findByPatientId(paID);
-//        mr.addRequestAppointment(appointment1);
-//        medicalRecordService.save(mr);
-//        System.out.println(mr.getId());
-        appointment1.setMedicalRecord(mr);
-        //Doctor doc= (Doctor) medicalStaffService.findByUsername(appointment.getDoctor().getUsername());
-        //appointment1.setDoctor(doc);
-        appointmentService.save(appointment1);
-
-        try {
-            emailService.sendPatientNotificaition7(appointment1,pa);
-        }catch( Exception e ){
-            System.out.println("nije poslata poruka");
-        }
-
-        requestAppointmentService.delete(requestAppointmentService.findById(appointment.getId()));
-        return new ResponseEntity<>(appointment1, HttpStatus.OK);*/
         //vrsi se transakcija u service
         Appointment appointment1 = null;
         System.out.println(appointment.getId());

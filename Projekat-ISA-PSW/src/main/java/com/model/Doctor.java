@@ -109,7 +109,7 @@ public class Doctor extends MedicalStaff {
 		this.requestAppointments = requestAppointments;
 	}
 
-	@Override
+	/*@Override
 	public String toString() {
 		return "Doctor{" +
 				"surgeries=" + surgeries +
@@ -117,5 +117,5 @@ public class Doctor extends MedicalStaff {
 				", clinic=" + clinic +
 				", review=" + review +
 				'}';
-	}
+	}*/
 }

@@ -10,8 +10,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
+
 @Service
 public class AppointmentService implements AppointmentServiceInterface{
 
@@ -46,6 +53,11 @@ public class AppointmentService implements AppointmentServiceInterface{
     @Autowired
     private ClinicAdministratorService clinicAdministratorService;
 
+    @Autowired
+    private SurgeryService surgeryService;
+
+    @Autowired
+    private ClinicService clinicService;
 
 
     public Appointment save(Appointment appointment){
@@ -194,6 +206,69 @@ public class AppointmentService implements AppointmentServiceInterface{
         return appointment1;
 
     }
+
+
+    public List<HospitalRoom> availableRooms(AppointmentDTO appointmentDTO) throws ParseException {
+        System.out.println("USAO U AVAILABLE ROOMS");
+        List<HospitalRoom> ret = new ArrayList<>();
+        System.out.println(appointmentDTO);
+        RequestAppointment appointment = null;
+        try{
+            appointment = requestAppointmentService.findById(appointmentDTO.getId());
+        }catch (Exception e){
+            return null;
+        }
+
+        Clinic clinic = appointment.getClinic();
+        if(clinic==null)
+        {
+            Clinic c=clinicService.findById(appointmentDTO.getClinicDTO().getId());
+            appointment.setClinic(c);
+        }
+
+        System.out.println(clinic.getId());
+        //nalazim milisecs koje su vezane za moj zakazani pregled
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+        Date date = dateFormat.parse(appointmentDTO.getDate());
+
+        // prolazim kroz sve sale i gledam koja je slobodna u tom periodu
+        List<HospitalRoom> allRooms = hospitalRoomService.findByClinicId(clinic.getId());
+        for (HospitalRoom hospitalRoom:allRooms) {
+            boolean nadjenaOperacijaKojaJeUTomTerminu = false;
+            //gledam da li je zakazana neka operacija tad
+            List<Surgery> roomSurgeries = surgeryService.findByHospitalId(hospitalRoom.getId());
+            for (Surgery s:roomSurgeries) {
+                if(nadjenaOperacijaKojaJeUTomTerminu == false){
+                    //poredim datum moje operacije i datum operacije u ovom for-u
+                    if(appointment.getDate().equals(s.getDate())){
+                        nadjenaOperacijaKojaJeUTomTerminu = true;
+
+                    }
+                }
+            }
+
+            List<Appointment> appsRoom = this.appointmentService.findByHospitalRoomId(hospitalRoom.getId());
+
+            for(Appointment appointment1:appsRoom){
+                if(nadjenaOperacijaKojaJeUTomTerminu == false){
+                    //poredim datum moje operacije i datum operacije u ovom for-u, ako je 0 onda su jednaki
+                    if(appointment1.getDate().equals(appointment.getDate())){
+                        //moram sad da proverim satnice dal se poklapaju
+                        nadjenaOperacijaKojaJeUTomTerminu = true;
+
+                    }
+                }
+            }
+
+            if(!nadjenaOperacijaKojaJeUTomTerminu)
+                ret.add(hospitalRoom);
+            Set<Appointment> roomAppointments = hospitalRoom.getAppointments();
+        }
+
+        return ret;
+
+    }
+
 
 
 }

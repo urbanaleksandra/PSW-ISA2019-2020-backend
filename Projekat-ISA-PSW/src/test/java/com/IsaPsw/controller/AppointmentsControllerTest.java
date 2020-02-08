@@ -61,7 +61,6 @@ public class AppointmentsControllerTest {
         AppointmentDTO appointment = new AppointmentDTO();
         appointment.setId(1L);
         appointment.setDate("2020-04-02T10:00");
-        appointment.setDuration(600000);
         appointment.setDescription("opis1");
         appointment.setDuration(2);
         appointment.setPatient("masa");
@@ -80,12 +79,15 @@ public class AppointmentsControllerTest {
                 restTemplate.exchange(URL_PREFIX + "/api/add-room-app", HttpMethod.POST, httpEntity, AppointmentDTO.class);
 
 
-        //checks if starting appointment id equals return appointment id
+
         AppointmentDTO appointmentDTO = responseEntity.getBody();
+        //check if it has HTTP 200 OK STATUS
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        // check if date is good
         assertEquals(appointmentDTO.getDate(),appointment.getDate());
+        //check if chosen room is set
         assertEquals(appointmentDTO.getHospitalRoom().getId(),appointment.getRoomID());
-      //  assertEquals(ClinicConstants.DB_ID, appt.getClinic().getId());
+
     }
 
     //negative
@@ -95,7 +97,6 @@ public class AppointmentsControllerTest {
         AppointmentDTO appointment = new AppointmentDTO();
         appointment.setId(1L);
         appointment.setDate("2020-04-02T10:00");
-        appointment.setDuration(600000);
         appointment.setDescription("opis1");
         appointment.setDuration(2);
         appointment.setPatient("masa");
@@ -111,12 +112,37 @@ public class AppointmentsControllerTest {
         ResponseEntity<AppointmentDTO> responseEntity =
                 restTemplate.exchange(URL_PREFIX + "/api/add-room-app", HttpMethod.POST, httpEntity, AppointmentDTO.class);
 
-        //checks if starting appointment id equals return appointment id
         AppointmentDTO appointmentDTO = responseEntity.getBody();
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
         //  assertEquals(ClinicConstants.DB_ID, appt.getClinic().getId());
     }
 
 
+    @Test
+    public void scheduleApp() throws Exception
+    {
+        AppointmentDTO appointment = new AppointmentDTO();
+        appointment.setId(1L);
+        appointment.setDate("2020-04-02T10:00");
+        appointment.setDescription("opis1");
+        appointment.setDuration(2);
+        appointment.setPatient("masa");
+        appointment.setType("tip1");
+        appointment.setDoctorUsername("Ivana");
+        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+        HttpHeaders header = new HttpHeaders();
+
+        header.add("Content-Type", "application/json");
+
+        httpEntity = new HttpEntity<>(ow.writeValueAsString(appointment), header);
+
+        ResponseEntity<AppointmentDTO> responseEntity =
+                restTemplate.exchange(URL_PREFIX + "/scheduleApp", HttpMethod.POST, httpEntity, AppointmentDTO.class);
+
+
+        AppointmentDTO appointmentDTO = responseEntity.getBody();
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+
+    }
 
 }
