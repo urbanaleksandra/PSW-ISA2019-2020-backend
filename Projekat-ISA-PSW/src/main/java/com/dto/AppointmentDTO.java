@@ -32,6 +32,16 @@ public class AppointmentDTO {
 
 	private HospitalRoomDTO hospitalRoom;
 
+	private double price;
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
 	public HospitalRoomDTO getHospitalRoom() {
 		return hospitalRoom;
 	}

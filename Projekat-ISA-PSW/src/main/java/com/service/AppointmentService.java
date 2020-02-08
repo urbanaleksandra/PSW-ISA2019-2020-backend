@@ -97,7 +97,7 @@ public class AppointmentService implements AppointmentServiceInterface{
         appointment1.setType(appointment.getType());
         appointment1.setPatient(appointment.getPatient());
         appointment1.setDoctor((Doctor) medicalStaffService.findByUsername(appointment.getDoctorUsername()));
-
+        appointment1.setPrice(appointment.getPrice());
 
         Patient pa = patientService.findByUsername(appointment.getPatient());
         System.out.println(pa.getUsername());
