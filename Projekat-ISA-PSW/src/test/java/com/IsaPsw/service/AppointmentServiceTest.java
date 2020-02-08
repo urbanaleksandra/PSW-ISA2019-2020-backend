@@ -18,6 +18,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.ValidationException;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -79,5 +80,10 @@ public class AppointmentServiceTest {
     @Test //positive
     public void findAllTest() throws Exception {
         List<Appointment> apps = appointmentService.findAll();
+    }
+
+    @Test(expected = ValidationException.class) //negative
+    public void findByIdFail() throws Exception {
+        Appointment app = appointmentService.findOne(15L);
     }
 }
