@@ -3,7 +3,9 @@ package com.IsaPsw.repository;
 import com.IsaPsw.constants.AppointmentConstants;
 import com.model.*;
 import com.repository.AppointmentRepository;
-import org.junit.Assert;
+import static org.junit.Assert.*;
+
+import com.service.AppointmentService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -24,13 +26,16 @@ public class AppointmentsRepositoryTest {
     private AppointmentRepository appointmentRepository;
 
     @Autowired
+    private AppointmentService appointmentService;
+
+    @Autowired
     private TestEntityManager entityManager;
 
     @Test
     public void findById() {
         System.out.println("usao u test");
         Appointment app = appointmentRepository.findById(AppointmentConstants.DB_APPOINTMENTS_ID).get();
-        Assert.assertEquals(AppointmentConstants.DB_APPOINTMENTS_ID, app.getId());
+        assertEquals(AppointmentConstants.DB_APPOINTMENTS_ID, app.getId());
     }
 
     @Test
