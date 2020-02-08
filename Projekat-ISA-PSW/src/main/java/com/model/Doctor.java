@@ -52,6 +52,8 @@ public class Doctor extends MedicalStaff {
 	@ManyToOne(cascade = CascadeType.REFRESH)
 	private AppointmentType appointmentType;
 
+
+
 	public AppointmentType getAppointmentType() {
 		return appointmentType;
 	}
