@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -69,8 +70,25 @@ public class PatientContoller {
 
 	@CrossOrigin
 	@GetMapping("pacijenti")
-	public List<Patient> getPatients(){
-		return patientService.findAll();
+	public List<PatientDTO> getPatients(){
+		List<PatientDTO> patientDTOS = new ArrayList<>();
+		for (Patient patient:patientService.findAll()){
+			PatientDTO patientDTO = new PatientDTO();
+			patientDTO.setFirstName(patient.getFirstName());
+			patientDTO.setLastName(patient.getLastName());
+			patientDTO.setAddress(patient.getAddress());
+			patientDTO.setCity(patient.getCity());
+			patientDTO.setCountry(patient.getCountry());
+			patientDTO.setEmail(patient.getEmail());
+			patientDTO.setId(patient.getId());
+			patientDTO.setJmbg(patient.getJmbg());
+			patientDTO.setMobileNumber(patient.getMobileNumber());
+			patientDTO.setUsername(patient.getUsername());
+			patientDTO.setPassword(patient.getPassword());
+			patientDTOS.add(patientDTO);
+		}
+
+		return patientDTOS;
 	}
 
 	@CrossOrigin(origins = "http://localhost:4200")

@@ -25,5 +25,7 @@ public interface AppointmentServiceInterface {
 
     public Appointment schedule(AppointmentDTO appointment);
 
+    public Appointment acceptAppointment(AppointmentDTO appointment);
+
     public RequestAppointment addRequestApp(AppointmentDTO appointment);
 }

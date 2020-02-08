@@ -12,4 +12,5 @@ public class ClinicCenterAdministratorConstants {
     public static final String DB_CLINIC_CENTER_ADMIN_COUNTRY = "Serbia";
     public static final int DB_CLINIC_CENTER_ADMIN_MOBILE_NUMBER = 6551585;
     public static final int DB_CLINIC_CENTER_ADMIN_FIRST_LOG = 1;
+    public static final String DB_CLINIC_CENTER_ADMIN_FAIL = "test";
 }

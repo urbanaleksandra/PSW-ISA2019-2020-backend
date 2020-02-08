@@ -5,6 +5,8 @@ import static org.junit.Assert.assertEquals;
 
 import com.IsaPsw.constants.ClinicConstants;
 import com.dto.ClinicDTO;
+import com.dto.DoctorDTO;
+import com.model.Clinic;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -58,4 +60,27 @@ public class ClinicControllerTest {
         Assert.assertEquals(ClinicConstants.DB_CLINIC_RATING, clinics[3].getRating());
         System.out.println("prosao sve aserte");
     }
+
+    @Test //positive
+    public void getSearchClinic() throws Exception{
+        ResponseEntity<ClinicDTO[]> responseEntity =
+                restTemplate.exchange(URL_PREFIX + "api/get-search-clinics/"+ClinicConstants.DB_DATE + "/" + ClinicConstants.DB_TYPE, HttpMethod.GET, httpEntity, ClinicDTO[].class);
+
+        //checks if returns list
+        ClinicDTO[] appts = responseEntity.getBody();
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        assert appts != null;
+    }
+
+    @Test //positive
+    public void getSearchDoctors() throws Exception{
+        ResponseEntity<DoctorDTO[]> responseEntity =
+                restTemplate.exchange(URL_PREFIX + "api/get-search-doctors/"+ClinicConstants.DB_DATE + "/" + ClinicConstants.DB_CLINIC_NAME + "/" + ClinicConstants.DB_TYPE, HttpMethod.GET, httpEntity, DoctorDTO[].class);
+
+        //checks if returns list
+        DoctorDTO[] appts = responseEntity.getBody();
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        assert appts != null;
+    }
+
 }

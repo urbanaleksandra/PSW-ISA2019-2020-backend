@@ -62,4 +62,26 @@ public class ClinicalCenterAdministratorContollerTest {
 
     }
 
+    @Test
+    public void getAdminFailUsername() throws Exception {
+
+        ResponseEntity<String> responseEntity =
+                restTemplate.exchange(URL_PREFIX + "api/get-admin/"+ DB_CLINIC_CENTER_ADMIN_FAIL,
+                        HttpMethod.GET, httpEntity, String.class);
+
+        assertEquals(HttpStatus.NOT_ACCEPTABLE, responseEntity.getStatusCode());
+
+    }
+
+    @Test
+    public void getAdminEmptyUsername() throws Exception {
+
+        ResponseEntity<ClinicalCenterAdministrator> responseEntity =
+                restTemplate.exchange(URL_PREFIX + "api/get-admin",
+                        HttpMethod.GET, httpEntity, ClinicalCenterAdministrator.class);
+
+        assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
+
+    }
+
 }

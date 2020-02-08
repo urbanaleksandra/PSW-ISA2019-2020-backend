@@ -2,6 +2,7 @@ package com.contoller;
 
 import com.dto.ClinicAdministratorDTO;
 import com.dto.ClinicDTO;
+import com.dto.DoctorDTO;
 import com.model.*;
 import com.repository.ClinicAdministratorRepository;
 import com.service.AppointmentService;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.print.Doc;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -69,131 +71,47 @@ public class ClinicController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value="/api/get-search-clinics/{date}/{type}", method= RequestMethod.GET)
-    public List<Clinic> getSearchClinic(@PathVariable("date") String date, @PathVariable("type") String type){
-//        System.out.println("usao565656565"+date);
+    public ResponseEntity getSearchClinic(@PathVariable("date") String date, @PathVariable("type") String type){
 
-        List<MedicalStaff> doctors = medicalStaffService.findByRole("doctor");
-        List<Long> doctorsId = new ArrayList<>();
-        //System.out.println(doctors);
-        for (MedicalStaff doctor:doctors) {
-            //System.out.println(doctor.getId());
-            doctorsId.add(doctor.getId()); //id svih doktora
-        }
-
-        //System.out.println(doctorsId);
-//        System.out.println(appointmentService.findByFinished(false));
-        List<Long> doctoriKojiSuZauzeti = new ArrayList<>(); //zauzeti doktori za taj datum(njihov id)
-        for(Appointment app:appointmentService.findByFinished(false)){
-            //System.out.println(app.getDate().split("T")[0]);
-            //System.out.println(date);
-            if(app.getDate().split("T")[0].equals(date)){
-//                System.out.println(app.getDoctor().getId());
-                if(!doctoriKojiSuZauzeti.contains(app.getDoctor().getId())){
-                    doctoriKojiSuZauzeti.add(app.getDoctor().getId());
-                }
+        try{
+            List<Clinic> clinics = clinicService.getSearchClinics(date,type);
+            List<ClinicDTO> clinisDTOS = new ArrayList<>();
+            for(Clinic c: clinics){
+                ClinicDTO CDTO = new ClinicDTO(c.getId(), c.getName(), c.getAddress(),
+                        c.getPricelist(), c.getDescription(), c.getProfit(), c.getRating(), c.getLongitude(), c.getLat());
+                clinisDTOS.add(CDTO);
             }
+            return new ResponseEntity<>(clinisDTOS, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>("Invalid clinics", HttpStatus.NOT_FOUND);
         }
 
-        //System.out.println(doctoriKojiSuZauzeti);
-
-        if(doctoriKojiSuZauzeti.size() != 0){
-            for (Long id:doctoriKojiSuZauzeti) {
-                doctorsId.remove(id); //obrisem id doktora koji su zauzeti, ostanu samo slobodni u doctorsId
-            }
-        }
-        //System.out.println(doctorsId);
-
-        List<Clinic> clinics = new ArrayList<>();
-        for(MedicalStaff doctor : doctors){
-            for(Long id: doctorsId){
-                //System.out.println(((Doctor)doctor).getAppointmentType().getName());
-                //System.out.println(type);
-                if(!type.equals("-1")){
-                    if(doctor.getId() == id && ((Doctor)doctor).getAppointmentType().getName().equals(type)){ //proverim i za tip
-                        if(!clinics.contains(clinicService.findById(((Doctor)doctor).getClinic().getId()))){
-                            clinics.add(clinicService.findById(((Doctor)doctor).getClinic().getId()));
-                            //System.out.println(clinics.get(0).getName());
-                        }
-
-                    }
-                }
-                else
-                {
-                    if(doctor.getId() == id){ //proverim i za tip
-                        if(!clinics.contains(clinicService.findById(((Doctor)doctor).getClinic().getId()))){
-                            clinics.add(clinicService.findById(((Doctor)doctor).getClinic().getId()));
-                            //System.out.println(clinics.get(0).getName());
-                        }
-
-                    }
-
-                }
-
-            }
-        }
-
-
-//        System.out.println(medicalStaffService.findByRole("doctor").get(0).getId());
-
-        return clinics;
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value="/api/get-search-doctors/{date}/{imeKlinike}/{tipPregleda}", method= RequestMethod.GET)
-    public List<Doctor> getSearchDoctors(@PathVariable("date") String date, @PathVariable("imeKlinike") String imeKlinike, @PathVariable("tipPregleda") String tipPregleda){
-//        System.out.println("usao565656565"+date);
+    public ResponseEntity getSearchDoctors(@PathVariable("date") String date, @PathVariable("imeKlinike") String imeKlinike, @PathVariable("tipPregleda") String tipPregleda){
 
-        List<MedicalStaff> doctors = medicalStaffService.findByRole("doctor");
-        List<Long> doctorsId = new ArrayList<>();
-        //System.out.println(doctors);
-        for (MedicalStaff doctor:doctors) {
-            //System.out.println(doctor.getId());
-            doctorsId.add(doctor.getId()); //id svih doktora
-        }
-
-        List<Long> doctoriKojiSuZauzeti = new ArrayList<>(); //zauzeti doktori za taj datum(njihov id)
-        for(Appointment app:appointmentService.findByFinished(false)){
-            if(app.getDate().split("T")[0].equals(date)){
-//                System.out.println(app.getDoctor().getId());
-                if(!doctoriKojiSuZauzeti.contains(app.getDoctor().getId())){
-                    doctoriKojiSuZauzeti.add(app.getDoctor().getId());
-                }
+        try{
+            List<Doctor> doctors = clinicService.getSearchDoctor(date, imeKlinike, tipPregleda);
+            List<DoctorDTO> doctorsDTO = new ArrayList<>();
+            for(Doctor doc : doctors){
+                DoctorDTO DDTO = new DoctorDTO(doc.getId(), doc.getUsername(), doc.getPassword(), doc.getFirstName(), doc.getLastName());
+                DDTO.setRole(doc.getRole());
+                DDTO.setAddress(doc.getAddress());
+                DDTO.setCity(doc.getCity());
+                DDTO.setCountry(doc.getCountry());
+                DDTO.setEmail(doc.getEmail());
+                DDTO.setJmbg(doc.getJmbg());
+                DDTO.setMobileNumber(doc.getMobileNumber());
+                DDTO.setPocetakRadnogVremena(doc.getPocetakRadnogVremena());
+                DDTO.setKrajRadnogVremena(doc.getKrajRadnogVremena());
+                doctorsDTO.add(DDTO);
             }
+            return new ResponseEntity<>(doctorsDTO, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>("Invalid doctors", HttpStatus.NOT_FOUND);
         }
-
-//        System.out.println(doctoriKojiSuZauzeti);
-
-        if(doctoriKojiSuZauzeti.size() != 0){
-            for (Long id:doctoriKojiSuZauzeti) {
-                doctorsId.remove(id); //obrisem id doktora koji su zauzeti, ostanu samo slobodni u doctorsId
-            }
-        }
-//        System.out.println(doctorsId);
-
-        Clinic klinika = clinicService.findByName(imeKlinike);
-        Set<Doctor> doctorsInClinic = klinika.getDoctors();
-
-        List<Doctor> ret = new ArrayList<>();
-        for(Doctor doc : doctorsInClinic){
-            for(Long id : doctorsId){
-                if(!tipPregleda.equals("-1")){
-                    if(doc.getId() == id && doc.getAppointmentType().getName().equals(tipPregleda)){
-                        ret.add(doc);
-                    }
-                }
-                else{
-                    if(doc.getId() == id){
-                        ret.add(doc);
-                    }
-                }
-
-            }
-        }
-
-
-        //System.out.println(ret);
-
-        return ret;
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
