@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -55,7 +56,10 @@ public class HolidayRequestController {
             dto.setId(h.getId());
             dto.setConfirmed(h.isConfirmed());
 
-            list2.add(dto);
+            if(!h.isFinished()){
+                list2.add(dto);
+            }
+
         }
         return list2;
     }
@@ -63,22 +67,15 @@ public class HolidayRequestController {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value="/changeConfirmation/{message}", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody ResponseEntity<HolidayRequestDTO> change(@RequestBody HolidayRequestDTO holidayreq,@PathVariable String message){
-        HolidayRequest holidayRequest = holidayRequestService.findById(holidayreq.getId());
-        System.out.println(holidayreq.getConfirmed());
-        holidayRequest.setConfirmed(holidayreq.getConfirmed());
-        holidayRequestService.save(holidayRequest);
-        HolidayRequestDTO h=new HolidayRequestDTO();
-        try {
-            if(holidayRequest.isConfirmed()){
-            emailService.sendNotificaitionAsync5(); }
-            else {
-                emailService.sendNotificaitionAsync6(message);
-            }
-        }catch( Exception e ){
-            System.out.println("nije poslata poruka");
+
+        HolidayRequestDTO holidayRequest = new HolidayRequestDTO();
+        try{
+            holidayRequest = holidayRequestService.changeConfirmation(holidayreq, message);
+            return new ResponseEntity<>(holidayRequest, HttpStatus.OK);
+        }catch (NoSuchElementException e){
+            return new ResponseEntity<>(holidayRequest, HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<>(h, HttpStatus.OK);
     }
 
 
