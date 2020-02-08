@@ -53,6 +53,18 @@ public class RequestAppointment {
     @Version
     private Long version;
 
+
+    @Column(name = "price", nullable = true)
+    private double price;
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
     public Long getVersion() {
         return version;
     }

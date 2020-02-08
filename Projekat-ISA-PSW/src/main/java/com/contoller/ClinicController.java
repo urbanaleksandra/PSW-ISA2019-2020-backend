@@ -127,6 +127,8 @@ public class ClinicController {
     public @ResponseBody ResponseEntity<ClinicDTO> changeInfo(@RequestBody ClinicDTO newClinic,@PathVariable String name){
         Clinic c = (Clinic) clinicService.findByName(name);
         if(c != null){
+            c.setLongitude(newClinic.getLongitude());
+            c.setLat(newClinic.getLat());
             c.setAddress(newClinic.getAddress());
             c.setDescription(newClinic.getDescription());
             c.setName(newClinic.getName());

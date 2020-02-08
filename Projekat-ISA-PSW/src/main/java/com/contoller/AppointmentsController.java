@@ -237,6 +237,7 @@ public class AppointmentsController {
         ClinicAdministrator ca=clinicAdministratorService.findByUsername(username);
         Clinic c=clinicService.findById(ca.getClinic().getId());
         appointment1.setClinic(c);
+        appointment1.setPrice(appointment.getPrice());
         requestAppointmentService.save(appointment1);
 
         return new ResponseEntity<>(appointment1, HttpStatus.OK);
@@ -679,7 +680,7 @@ public class AppointmentsController {
         appointment1.setPatient(null);
         appointment1.setHospitalRoom(req.getHospitalRoom());
         appointment1.setDoctor(req.getDoctor());
-
+        appointment1.setPrice(req.getPrice());
         Appointment a = this.appointmentService.save(appointment1);
         this.requestAppointmentService.delete(req);
 
