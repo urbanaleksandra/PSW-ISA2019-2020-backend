@@ -24,7 +24,9 @@ public class RequestAppointmentService {
     public RequestAppointment findById(Long id){ return requestAppointmentRepositoryt.findById(id).get(); }
 
     public void delete(RequestAppointment appointment){
+        System.out.println("usao");
         requestAppointmentRepositoryt.delete(appointment);
+        System.out.println("obrisao");
     }
 
     public List<RequestAppointment> findAll(){

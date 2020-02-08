@@ -44,7 +44,7 @@ INSERT INTO medical_record (blood_type, diopter, height, weight, patient_id) VAL
 
 INSERT INTO hospital_room (name,room_number,clinic_id,version) VALUES ('Glavna sala',1, 1,0);
 INSERT INTO hospital_room (name,room_number,clinic_id,version) VALUES ('Operaciona sala',2, 1,0);
-INSERT INTO hospital_room (name,room_number,clinic_id,version) VALUES ('Operaciona sala',3, 1,0);
+INSERT INTO hospital_room (name,room_number,clinic_id,version) VALUES ('Operaciona sala2',3, 1,0);
 INSERT INTO hospital_room (name,room_number,clinic_id,version) VALUES ('Mala sala',23, 2,0);
 INSERT INTO hospital_room (name,room_number,clinic_id,version) VALUES ('Velika sala',24, 2,0);
 
