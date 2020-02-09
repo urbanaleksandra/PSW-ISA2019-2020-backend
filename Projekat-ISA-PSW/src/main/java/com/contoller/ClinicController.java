@@ -49,6 +49,8 @@ public class ClinicController {
         clinic.setAddress(clinicDTO.getAddress());
         clinic.setPricelist(clinicDTO.getPricelist());
         clinic.setProfit(clinicDTO.getProfit());
+        clinic.setLat(clinicDTO.getLat());
+        clinic.setLongitude(clinicDTO.getLongitude());
         System.out.println(clinic.getName());
         clinicService.save(clinic);
 
