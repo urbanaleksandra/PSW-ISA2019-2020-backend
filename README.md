@@ -1,5 +1,10 @@
 # PSW-ISA2019-2020-backend
 
+Authors
+- [Tamara Jovicic] (tacajovicic@gmial.com)
+-Aleksandra Urban
+-Zeljana Sipovac
+
 Minimal [Spring Boot](http://projects.spring.io/spring-boot/) sample app.
 
 ## Requirements
@@ -18,6 +23,4 @@ Use IntelliJ or Eclipse to open and run the application.
 ## Port http://localhost:8080
 You hove to open your browser, to run server and client side on port http://localhost:4200.
 
--Tamara Jovicic 
--Aleksandra Urban
--Zeljana Sipovac
+
