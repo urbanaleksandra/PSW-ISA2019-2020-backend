@@ -70,6 +70,7 @@ public class AppointmentsController {
     @Autowired
     private NurseService nurseService;
 
+
     @CrossOrigin(origins = "http//localhost:4200")
     @RequestMapping(value = "/api/availableRoomsAppointment", method = RequestMethod.POST)
     public List<HospitalRoom> availableRooms(@RequestBody AppointmentDTO appointmentDTO) throws ParseException {
@@ -159,6 +160,7 @@ public class AppointmentsController {
         }
         return ret;
     }
+
 
 
     @CrossOrigin(origins = "http://localhost:4200")
