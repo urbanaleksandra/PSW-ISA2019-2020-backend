@@ -43,7 +43,6 @@ INSERT INTO public.request_appointments (price,id,date, description, duration, p
 
 
 INSERT INTO public.hospital_room (name,room_number,clinic_id,version) VALUES ('Glavna sala',1, 1,0);
-INSERT INTO public.appointments (price,id, version, date, description, duration, patient,finished, type, doctor_id, hospital_room_id, medical_record_id, doctor_username,type2_id) VALUES (2000,nextval('appointments_id_seq'),0,'2020-02-05T16:00', 'cold', 2, 'masa', false,'appointment', 2, 1, 1, 'doctor',1);
 INSERT INTO public.request_appointments (price,id,date, description, duration, patient, type,clinic_id) VALUES (2000,nextval('request_appointments_id_seq'),'2020-04-02T10:00', 'opis1', 2, 'markoM', 'tip1',1);
 INSERT INTO public.clinic_doctors(clinic_id, doctors_id) VALUES (1,2);
 INSERT INTO public.clinic_doctors(clinic_id, doctors_id) VALUES (4,3);

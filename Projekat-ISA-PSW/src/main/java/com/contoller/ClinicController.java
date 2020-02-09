@@ -125,7 +125,7 @@ public class ClinicController {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value="/clinicChangeInfo/{name}", method= RequestMethod.POST)
     public @ResponseBody ResponseEntity<ClinicDTO> changeInfo(@RequestBody ClinicDTO newClinic,@PathVariable String name){
-        Clinic c = (Clinic) clinicService.findByName(name);
+        /*Clinic c = (Clinic) clinicService.findByName(name);
         if(c != null){
             c.setLongitude(newClinic.getLongitude());
             c.setLat(newClinic.getLat());
@@ -138,10 +138,22 @@ public class ClinicController {
             // Patient patient = new Patient(patientNovi.getUsername(), patientNovi.getPassword(), patientNovi.getFirstName(), patientNovi.getLastName(), patientNovi.getEmail(), patientNovi.getAddress(), patientNovi.getCity(), patientNovi.getCountry(), patientNovi.getMobileNumber(), patientNovi.getJmbg());
 
             // patientService.save(patient);
+        }*/
+
+        //vrsi se transakcija u service
+        Clinic c= new Clinic();
+        try {
+            c = clinicService.changeInfo(newClinic,name);
+        }catch (Exception e){
+            ClinicDTO clinicDTO=new ClinicDTO(c);
+            return new ResponseEntity<>(clinicDTO, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
         ClinicDTO clinicDTO=new ClinicDTO(c);
         return new ResponseEntity<>(clinicDTO, HttpStatus.OK);
 
     }
+
+
 
 }
