@@ -92,7 +92,7 @@ public class AppointmentService implements AppointmentServiceInterface{
     //transakcija
     @Transactional(rollbackFor = {RuntimeException.class},readOnly = false, propagation = Propagation.REQUIRED, isolation = Isolation.READ_UNCOMMITTED)
     public Appointment acceptAppointment(AppointmentDTO appointment){
-
+        System.out.println("USAO1");
         Appointment appointment1 = new Appointment();
         appointment1.setDate(appointment.getDate());
         appointment1.setDescription(appointment.getDescription());
@@ -103,7 +103,7 @@ public class AppointmentService implements AppointmentServiceInterface{
         appointment1.setPatient(appointment.getPatient());
         appointment1.setDoctor((Doctor) medicalStaffService.findByUsername(appointment.getDoctorUsername()));
         appointment1.setPrice(appointment.getPrice());
-
+        System.out.println("USAO2");
         Patient pa = patientService.findByUsername(appointment.getPatient());
         System.out.println(pa.getUsername());
         Long paID = pa.getId();
