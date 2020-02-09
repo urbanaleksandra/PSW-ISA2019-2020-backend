@@ -455,7 +455,7 @@ public class AppointmentsController {
         List<Appointment> lista = appointmentService.findAll();
         List<CalendarEventsDTO> eventsDTOS = new ArrayList<CalendarEventsDTO>();
         List<Surgery> surgeries = surgeryService.findAll();
-        Nurse nur = nurseService.findByUsername(nurse);
+        Nurse nur = (Nurse)medicalStaffService.findByUsername(nurse);
         for (Appointment app: lista) {
             //ovde poredim da li je to klinika u kojoj se nalazi ta med sestra
             if (app.getDoctor().getClinic().getId() == nur.getClinic().getId() ) {
