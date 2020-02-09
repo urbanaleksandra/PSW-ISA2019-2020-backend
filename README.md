@@ -5,6 +5,8 @@ Authors
 - Aleksandra Urban - urb.saska@gmail.com
 - Zeljana Sipovac - zeki.sipovac@gmail.com
 
+Heroku: https://projekat-isa-psw.herokuapp.com/
+
 Minimal [Spring Boot](http://projects.spring.io/spring-boot/) sample app.
 
 ## Requirements
