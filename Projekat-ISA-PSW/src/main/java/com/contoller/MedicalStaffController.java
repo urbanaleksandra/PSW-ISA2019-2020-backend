@@ -122,8 +122,8 @@ public class MedicalStaffController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value="/osobljePromjena", method= RequestMethod.POST)
-    public @ResponseBody ResponseEntity<Doctor> changeInfo(@RequestBody MedicalStaffDTO mdNovi){
-        Doctor md = (Doctor) medicalStaffService.findByUsername(mdNovi.getUsername());
+    public @ResponseBody ResponseEntity<MedicalStaff> changeInfo(@RequestBody MedicalStaffDTO mdNovi){
+        MedicalStaff md = medicalStaffService.findByUsername(mdNovi.getUsername());
         if(md != null){
             md.setPassword(mdNovi.getPassword());
             System.out.println(md.getPassword());

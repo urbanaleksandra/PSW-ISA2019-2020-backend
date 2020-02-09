@@ -1,10 +1,7 @@
 package com.service;
 
 import com.dto.ClinicDTO;
-import com.model.Appointment;
-import com.model.Clinic;
-import com.model.Doctor;
-import com.model.MedicalStaff;
+import com.model.*;
 import com.repository.ClinicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -166,10 +163,15 @@ public class ClinicService implements ClinicServiceInterface {
             c.setName(newClinic.getName());
             clinicRepository.save(c);
 
-            try {
-                emailService.sendNotificaitionAsync3();
-            }catch( Exception e ){
-                System.out.println("nije poslata poruka");
+            for(ClinicAdministrator ca : c.getClinicAdministrator()) {
+
+
+
+                try {
+                    emailService.sendNotificaitionAsyncc3(ca);
+                } catch (Exception e) {
+                    System.out.println("nije poslata poruka");
+                }
             }
 
             return  c;
