@@ -15,6 +15,8 @@ public class ClinicalCenterAdministrator implements UserDetails{
 	@Column(name = "email")
 	private String email;
 
+
+
 	@Column(nullable = false)
 	private String firstName;
 	@Column(nullable = false)
@@ -66,6 +68,13 @@ public class ClinicalCenterAdministrator implements UserDetails{
 	private String username;
 	@Column(name = "password", nullable = false)
 	private String password;
+
+	@Column(name = "enabled")
+	private boolean enabled;
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
 
 	public String getEmail() {
 		return email;
@@ -146,29 +155,29 @@ public class ClinicalCenterAdministrator implements UserDetails{
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.authorities;
 	}
 	@Override
 	public boolean isAccountNonExpired() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 	@Override
 	public boolean isAccountNonLocked() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 	@Override
 	public boolean isCredentialsNonExpired() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 	@Override
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
-	
+
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "user_authority",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),

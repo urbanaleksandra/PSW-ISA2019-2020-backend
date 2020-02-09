@@ -25,6 +25,7 @@ import javax.naming.AuthenticationException;
 import javax.print.DocFlavor;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -38,10 +39,11 @@ public class ClinicalCenterAdministratorContoller {
 	private RequestService requestService;
 
 	@Autowired
-	TokenUtils tokenUtils;
+	private TokenUtils tokenUtils;
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
+
 
 	@Autowired
 	private PatientService patientService;
@@ -77,9 +79,17 @@ public class ClinicalCenterAdministratorContoller {
 	public ResponseEntity<?> postCCAByUsernameAndPassword(@RequestBody JwtAuthenticationRequest authenticationRequest,
 														  HttpServletResponse response) throws AuthenticationException, IOException {
 
-		// ne brisati zakomentarisane delove!!
+		AuthenticationManager a = new AuthenticationManager() {
+			@Override
+			public Authentication authenticate(Authentication authentication) throws org.springframework.security.core.AuthenticationException {
+				String name = authentication.getName();
+				String password = authentication.getCredentials().toString();
+				return new UsernamePasswordAuthenticationToken(
+						name, password, new ArrayList<>());
+			}
+		};
 
-		final Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
+		final Authentication authentication = a.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
 				authenticationRequest.getPassword()));
 //
 		SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -91,7 +101,8 @@ public class ClinicalCenterAdministratorContoller {
 //		ClinicAdministrator ca = null;
 //		Doctor doc = null;
 //		Nurse nur = null;
-		ClinicalCenterAdministrator cca = (ClinicalCenterAdministrator) authentication.getPrincipal();
+		String username  = (String) authentication.getPrincipal();
+		ClinicalCenterAdministrator cca = (ClinicalCenterAdministrator) clinicalCenterAdministratorService.findByUsername(username);
 //		if(cca == null) {
 //
 //			pa = patientService.findByUsername(authenticationRequest.getUsername());

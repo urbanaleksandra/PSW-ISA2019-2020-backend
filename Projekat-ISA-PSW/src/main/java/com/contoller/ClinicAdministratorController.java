@@ -4,29 +4,37 @@ import com.dto.ClinicAdministratorDTO;
 import com.dto.ClinicDTO;
 import com.model.Clinic;
 import com.model.ClinicAdministrator;
+import com.model.ClinicalCenterAdministrator;
 import com.repository.ClinicAdministratorRepository;
 import com.repository.ClinicRepository;
+import com.repository.ClinicalCenterAdministratorRepository;
 import com.service.ClinicAdministratorService;
 import com.service.ClinicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:4200")
 @RestController
-public class ClinicAdministratorController {
+public class ClinicAdministratorController  {
 
     @Autowired
     private ClinicAdministratorService clinicAdministratorService;
 
     @Autowired
     private ClinicService clinicService;
+
+    @Autowired
+    private ClinicalCenterAdministratorRepository clinicalCenterAdministratorRepository;
 
     @Autowired
     private ClinicRepository clinicRepository;
@@ -104,5 +112,6 @@ public class ClinicAdministratorController {
         return new ResponseEntity<>(d, HttpStatus.OK);
 
     }
+
 
 }
