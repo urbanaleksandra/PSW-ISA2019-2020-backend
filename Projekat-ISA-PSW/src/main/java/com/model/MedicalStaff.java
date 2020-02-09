@@ -52,6 +52,17 @@ public abstract class MedicalStaff {
 	@OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	private Set<HolidayRequest> holidayRequests = new HashSet<HolidayRequest>();
 
+	@Version
+	private Long version;
+
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
+	}
+
 	public Long getId() {
 		return id;
 	}

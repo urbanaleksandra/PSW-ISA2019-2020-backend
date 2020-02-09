@@ -195,6 +195,7 @@ public class AppointmentService implements AppointmentServiceInterface{
 
     }
 
+
     public Appointment findOne(Long id) {
 
         Optional<Appointment> appointment = appointmentRepository.findById(id);
