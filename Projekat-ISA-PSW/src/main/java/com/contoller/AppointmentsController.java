@@ -165,9 +165,6 @@ public class AppointmentsController {
     @RequestMapping(value="/api/add-room-app", method=RequestMethod.POST,  produces=MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody ResponseEntity<Appointment> addApp(@RequestBody AppointmentDTO appointment) {
 
-        RequestAppointment ra= requestAppointmentService.findById(appointment.getId());
-        System.out.println(ra.getId());
-        requestAppointmentService.delete(ra);
 
         //vrsi se transakcija u service
         Appointment appointment1 = null;
