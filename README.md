@@ -1,9 +1,9 @@
 # PSW-ISA2019-2020-backend
 
 Authors
-- [Tamara Jovicic] (tacajovicic@gmial.com)
--Aleksandra Urban
--Zeljana Sipovac
+- Tamara Jovicic - tacajovicic@gmial.com
+- Aleksandra Urban - urb.saska@gmail.com
+- Zeljana Sipovac - zeki.sipovac@gmail.com
 
 Minimal [Spring Boot](http://projects.spring.io/spring-boot/) sample app.
 
