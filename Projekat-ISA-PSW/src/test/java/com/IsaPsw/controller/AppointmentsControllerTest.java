@@ -43,16 +43,16 @@ public class AppointmentsControllerTest {
 
 
 
-    @Test
-    public void getAppointments2() {
-        ResponseEntity<AppointmentDTO[]> responseEntity =
-                restTemplate.exchange(URL_PREFIX + "/appointments", HttpMethod.GET, httpEntity, AppointmentDTO[].class);
-
-        //checks if returns list
-        AppointmentDTO[] appts = responseEntity.getBody();
-        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        assert appts != null;
-    }
+//    @Test
+//    public void getAppointments2() {
+//        ResponseEntity<AppointmentDTO[]> responseEntity =
+//                restTemplate.exchange(URL_PREFIX + "/appointments", HttpMethod.GET, httpEntity, AppointmentDTO[].class);
+//
+//        //checks if returns list
+//        AppointmentDTO[] appts = responseEntity.getBody();
+//        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+//        assert appts != null;
+//    }
 
     //positive
      @Test
