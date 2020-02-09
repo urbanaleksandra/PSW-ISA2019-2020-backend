@@ -1,7 +1,10 @@
 INSERT INTO clinic_administrator (username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, clinic_id) VALUES ('cadmin', 'cadmin', 'zeki.sipovac@gmail.com', 'Zeljana', 'Sipovac', '354168465', 'Glavna 54', 'Nevesinje', 'Bosna i Hercegovina', '0645865455', 1);
-INSERT INTO clinical_center_administrator (username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, first_log) VALUES ('ccadmin', 'ccadmin', 'tacajovicic@gmail.com', 'Tamara', 'Jovicic', '58768', 'Doze Djerdja 13', 'Novi Sad', 'Srbija', '06648246', 1);
-INSERT INTO clinical_center_administrator (username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, first_log) VALUES ('tam', '123', 'tacajovicic@gmail.com', 'Tamara', 'Jovicic', '58768', 'Doze Djerdja 13', 'Novi Sad', 'Srbija', '06648246', 0);
-INSERT INTO clinic_administrator (username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, clinic_id) VALUES ('tac', 'tac', 'zeki.sipovac@gmail.com', 'Zana', 'Sipa', '354168465', 'Bulevar Oslobodjenja 10', 'Pazova', 'Srbija', '0645854585', 1);
+
+INSERT INTO clinic_administrator (username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, clinic_id) VALUES ('cadmin1', 'cadmin1', 'zeki.sipovac@gmail.com', 'Marija', 'Peric', '354168465', 'Glavna 20', 'Nevesinje', 'Bosna i Hercegovina', '0645865455', 1);
+
+INSERT INTO clinical_center_administrator (username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, first_log,enabled) VALUES ('ccadmin', 'ccadmin', 'tacajovicic@gmail.com', 'Tamara', 'Jovicic', '58768', 'Doze Djerdja 13', 'Novi Sad', 'Srbija', '06648246', 1,true);
+INSERT INTO clinical_center_administrator (username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, first_log,enabled) VALUES ('tam', '123', 'tacajovicic@gmail.com', 'Tamara', 'Jovicic', '58768', 'Doze Djerdja 13', 'Novi Sad', 'Srbija', '06648246', 0,true);
+
 
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_PATIENT');
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_ADMIN');
@@ -45,7 +48,7 @@ INSERT INTO medical_record (blood_type, diopter, height, weight, patient_id) VAL
 
 INSERT INTO hospital_room (name,room_number,clinic_id,version) VALUES ('Glavna sala',1, 1,0);
 INSERT INTO hospital_room (name,room_number,clinic_id,version) VALUES ('Operaciona sala',2, 1,0);
-INSERT INTO hospital_room (name,room_number,clinic_id,version) VALUES ('Operaciona sala',3, 1,0);
+INSERT INTO hospital_room (name,room_number,clinic_id,version) VALUES ('Operaciona sala2',3, 1,0);
 INSERT INTO hospital_room (name,room_number,clinic_id,version) VALUES ('Mala sala',23, 2,0);
 INSERT INTO hospital_room (name,room_number,clinic_id,version) VALUES ('Velika sala',24, 2,0);
 
@@ -99,17 +102,17 @@ INSERT INTO medical_staff_request_appointments(doctor_id,request_appointments_id
 
 
 
-INSERT INTO appointments (version, date, description, duration, patient,finished, type, doctor_id, hospital_room_id, medical_record_id, doctor_username,type2_id) VALUES (0,'2020-02-05T16:00', 'cold', 2, 'anaM', false,'appointment', 2, 1, 5, 'doctor',1);
-INSERT INTO appointments (version, date, description, duration, patient,finished, type, doctor_id, hospital_room_id, medical_record_id, doctor_username,diagnosis_id,type2_id, recipe_id, info) VALUES (0,'2020-02-03T16:00', 'broken leg', 2, 'anaM',true, 'surgery', 2, 2, 5, 'doctor', 1,1, 1, "pregled zavrsen, pacijen je lakse bolestan");
+INSERT INTO appointments (price,version, date, description, duration, patient,finished, type, doctor_id, hospital_room_id, medical_record_id, doctor_username,type2_id) VALUES (1,0,'2020-02-05T16:00', 'cold', 2, 'anaM', false,'appointment', 2, 1, 5, 'doctor',1);
+INSERT INTO appointments (price,version, date, description, duration, patient,finished, type, doctor_id, hospital_room_id, medical_record_id, doctor_username,diagnosis_id,type2_id, recipe_id, info) VALUES (1,0,'2020-02-03T16:00', 'broken leg', 2, 'anaM',true, 'surgery', 2, 2, 5, 'doctor', 1,1, 1, "pregled zavrsen, pacijen je lakse bolestan");
 
 
-INSERT INTO appointments (version, date, description, duration, patient, type, finished, doctor_id, medical_record_id, doctor_username,type2_id) VALUES (0,'2020-01-30T10:00', 'pregled ledja', 2, 'anaM', 'tip pregleda', false, 3, 5, 'Jovan',1);
-INSERT INTO appointments (version, date, description, duration, patient, type, finished, doctor_id, medical_record_id, doctor_username,type2_id) VALUES (0,'2020-12-15T16:00', 'opis pregleda', 2, 'markoM', 'tip2', false, 2, 3, 'doctor',2);
-INSERT INTO appointments (version, date, description, duration, patient, type, finished, doctor_id, medical_record_id, doctor_username,type2_id) VALUES (0,'2020-02-23T16:00', 'pregled grla', 2, 'markoM', 'tip2', false, 2, 3, 'doctor',1);
-INSERT INTO appointments (version, date, description, duration, patient, type, finished, doctor_id, medical_record_id, doctor_username,type2_id) VALUES (0,'2020-12-15T16:00', 'opis pregleda', 2, 'markoM', 'tip2', false, 2, 3, 'doctor',2);
-INSERT INTO appointments (version, date, description, duration, patient, type, finished, doctor_id, medical_record_id, doctor_username,type2_id) VALUES (0,'2020-12-15T16:00', 'opis pregleda', 2, 'markoM', 'tip2', false, 2, 3, 'doctor',4);
-INSERT INTO appointments (version, date, description, duration, patient, type, finished, doctor_id, medical_record_id, doctor_username,type2_id) VALUES (0,'2020-12-15T16:00', 'opis pregleda', 2, 'markoM', 'tip2', false, 2, 3, 'doctor',4);
-INSERT INTO appointments (version, date, description, duration, patient, type, finished, doctor_id, medical_record_id, doctor_username,type2_id) VALUES (0,'2020-12-15T16:00', 'opis pregleda', 2, 'markoM', 'tip2', false, 2, 3, 'doctor',3);
+INSERT INTO appointments (price,version, date, description, duration, patient, type, finished, doctor_id, medical_record_id, doctor_username,type2_id) VALUES (1,0,'2020-01-30T10:00', 'pregled ledja', 2, 'anaM', 'tip pregleda', false, 3, 5, 'Jovan',1);
+INSERT INTO appointments (price,version, date, description, duration, patient, type, finished, doctor_id, medical_record_id, doctor_username,type2_id) VALUES (1,0,'2020-12-15T16:00', 'opis pregleda', 2, 'markoM', 'tip2', false, 2, 3, 'doctor',2);
+INSERT INTO appointments (price,version, date, description, duration, patient, type, finished, doctor_id, medical_record_id, doctor_username,type2_id) VALUES (1,0,'2020-02-23T16:00', 'pregled grla', 2, 'markoM', 'tip2', false, 2, 3, 'doctor',1);
+INSERT INTO appointments (price,version, date, description, duration, patient, type, finished, doctor_id, medical_record_id, doctor_username,type2_id) VALUES (1,0,'2020-12-15T16:00', 'opis pregleda', 2, 'markoM', 'tip2', false, 2, 3, 'doctor',2);
+INSERT INTO appointments (price,version, date, description, duration, patient, type, finished, doctor_id, medical_record_id, doctor_username,type2_id) VALUES (1,0,'2020-12-15T16:00', 'opis pregleda', 2, 'markoM', 'tip2', false, 2, 3, 'doctor',4);
+INSERT INTO appointments (price,version, date, description, duration, patient, type, finished, doctor_id, medical_record_id, doctor_username,type2_id) VALUES (1,0,'2020-12-15T16:00', 'opis pregleda', 2, 'markoM', 'tip2', false, 2, 3, 'doctor',4);
+INSERT INTO appointments (price,version, date, description, duration, patient, type, finished, doctor_id, medical_record_id, doctor_username,type2_id) VALUES (1,0,'2020-12-15T16:00', 'opis pregleda', 2, 'markoM', 'tip2', false, 2, 3, 'doctor',3);
 
 
 INSERT INTO medical_record_appointments(medical_record_id, appointments_id) VALUES (5,1);
@@ -218,3 +221,5 @@ insert into appointment_type_appointments(appointment_type_id,appointments_id) v
 insert into appointment_type_appointments(appointment_type_id,appointments_id) values(4,7);
 insert into appointment_type_appointments(appointment_type_id,appointments_id) values(3,8);
 insert into appointment_type_appointments(appointment_type_id,appointments_id) values(1,9);
+
+INSERT INTO holiday_request(version, finished, confirmed, date_end, date_start, medical_staff_id) values (0, false, false, '2020-03-16', '2020-02-10', 2);

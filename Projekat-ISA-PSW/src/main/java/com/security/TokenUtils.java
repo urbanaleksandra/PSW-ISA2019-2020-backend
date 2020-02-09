@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.model.ClinicalCenterAdministrator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -94,7 +95,7 @@ public class TokenUtils {
 
 	// Funkcija za validaciju JWT tokena
 	public Boolean validateToken(String token, UserDetails userDetails) {
-		Patient user = (Patient) userDetails;
+		ClinicalCenterAdministrator user = (ClinicalCenterAdministrator) userDetails;
 		final String username = getUsernameFromToken(token);
 		final Date created = getIssuedAtDateFromToken(token);
 		

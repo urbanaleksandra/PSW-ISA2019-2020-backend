@@ -61,6 +61,9 @@ public class Appointment {
 	@Column(name = "duration", nullable = false)
 	private long duration;
 
+	@Column(name = "price", nullable = true)
+	private double price;
+
 
 	@Column(name = "finished", nullable = false)
 	private boolean finished;
@@ -70,6 +73,14 @@ public class Appointment {
 
 	@Version
 	private Long version;
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
 
 	public Long getVersion() {
 		return version;

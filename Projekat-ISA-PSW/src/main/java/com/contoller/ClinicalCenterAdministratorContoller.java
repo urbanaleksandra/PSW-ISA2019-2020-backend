@@ -25,6 +25,7 @@ import javax.naming.AuthenticationException;
 import javax.print.DocFlavor;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -38,7 +39,7 @@ public class ClinicalCenterAdministratorContoller {
 	private RequestService requestService;
 
 	@Autowired
-	TokenUtils tokenUtils;
+	private TokenUtils tokenUtils;
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -72,14 +73,22 @@ public class ClinicalCenterAdministratorContoller {
 	 
 	@CrossOrigin(origins = "http://localhost:4200")
 	//@PostMapping(value = "/findByUsernameAndPassword")
-	@RequestMapping(value="/findByUsernameAndPassword", method= RequestMethod.POST)
+	@RequestMapping(value="/auth/login", method= RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<?> postCCAByUsernameAndPassword(@RequestBody JwtAuthenticationRequest authenticationRequest,
 														  HttpServletResponse response) throws AuthenticationException, IOException {
 
-		// ne brisati zakomentarisane delove!!
+		AuthenticationManager a = new AuthenticationManager() {
+			@Override
+			public Authentication authenticate(Authentication authentication) throws org.springframework.security.core.AuthenticationException {
+				String name = authentication.getName();
+				String password = authentication.getCredentials().toString();
+				return new UsernamePasswordAuthenticationToken(
+						name, password, new ArrayList<>());
+			}
+		};
 
-		final Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
+		final Authentication authentication = a.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
 				authenticationRequest.getPassword()));
 //
 		SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -87,50 +96,47 @@ public class ClinicalCenterAdministratorContoller {
 		System.out.println("usao");
 		//ClinicalCenterAdministrator cca = clinicalCenterAdministratorService.findByUsername(authenticationRequest.getUsername());
 //		String ret = "none";
-//		Patient pa = null;
-//		ClinicAdministrator ca = null;
-//		Doctor doc = null;
-//		Nurse nur = null;
-		ClinicalCenterAdministrator cca = (ClinicalCenterAdministrator) authentication.getPrincipal();
-//		if(cca == null) {
-//
-//			pa = patientService.findByUsername(authenticationRequest.getUsername());
-//			if(pa == null){
-//
-//					ca = clinicAdministratorService.findByUsername(authenticationRequest.getUsername());
-//					if(ca == null) {
-//
-//						doc = doctorService.findByUsername(authenticationRequest.getUsername());
-//						if(doc == null) {
-//
-//							nur = nurseService.findByUsername(authenticationRequest.getUsername());
-//							if(nur == null){
-//								ret = "none";
-//							}
-//							else{
-//								ret = "nur";
-//							}
-//
-//						}
-//						else{
-//							ret = "doc";
-//						}
-//					}
-//					else{
-//						ret = "ca";
-//					}
-//			}
-//			else{
-//				ret = "pa";
-//			}
-//		}
-//		else{
-//			ret = "cca";
-//		}
-
 		String jwt = "";
-		if(cca != null){
-			jwt = tokenUtils.generateToken(cca.getUsername()); //user.username
+		Patient pa = null;
+		ClinicAdministrator ca = null;
+		Doctor doc = null;
+		Nurse nur = null;
+		String username  = (String) authentication.getPrincipal();
+		ClinicalCenterAdministrator cca = (ClinicalCenterAdministrator) clinicalCenterAdministratorService.findByUsername(username);
+       if(cca == null) {
+
+			pa = patientService.findByUsername(username);
+			if(pa == null){
+
+					ca = clinicAdministratorService.findByUsername(username);
+					if(ca == null) {
+
+						doc = doctorService.findByUsername(username);
+						if(doc == null) {
+
+							nur = nurseService.findByUsername(username);
+							if(nur == null){
+								jwt = "";
+							}
+							else{
+								jwt = tokenUtils.generateToken(username);
+							}
+
+						}
+						else{
+							jwt = tokenUtils.generateToken(username);
+						}
+					}
+					else{
+						jwt = tokenUtils.generateToken(username);
+					}
+			}
+			else{
+				jwt = tokenUtils.generateToken(username);
+			}
+		}
+		else{
+		   jwt = tokenUtils.generateToken(username);
 		}
 
 		int expiresIn = tokenUtils.getExpiredIn();
