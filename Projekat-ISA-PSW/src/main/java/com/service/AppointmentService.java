@@ -28,7 +28,7 @@ import java.util.Optional;
 public class AppointmentService implements AppointmentServiceInterface{
 
     @Autowired
-    private AppointmentRepository appointmentRepository;
+    public AppointmentRepository appointmentRepository;
 
     @Autowired
     private DoctorService doctorService;

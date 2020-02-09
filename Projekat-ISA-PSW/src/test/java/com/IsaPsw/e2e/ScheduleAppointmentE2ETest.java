@@ -50,6 +50,7 @@ public class ScheduleAppointmentE2ETest {
         browser.findElement(By.id("password")).sendKeys("123");
         browser.findElement(By.id("loginButton")).click();
 
+        browser.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
         (new WebDriverWait(browser, 7))
                 .until(ExpectedConditions.elementToBeClickable(By.id("loginButton")));
         (new WebDriverWait(browser, 10))
@@ -103,8 +104,10 @@ public class ScheduleAppointmentE2ETest {
         browser.findElement(By.id("email")).sendKeys("masa");
         browser.findElement(By.id("password")).sendKeys("masa");
         browser.findElement(By.id("loginButton")).click();
+        browser.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
         (new WebDriverWait(browser, 50))
                 .until(ExpectedConditions.visibilityOf(browser.findElement(By.id("clinicSearch"))));
+        browser.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
         assertEquals(browser.getCurrentUrl(),"http://localhost:4200/patient-home-page");
         browser.findElement(By.id("clinicSearch")).click();
         (new WebDriverWait(browser, 50))

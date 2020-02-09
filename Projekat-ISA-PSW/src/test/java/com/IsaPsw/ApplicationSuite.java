@@ -7,6 +7,7 @@ import com.IsaPsw.e2e.ScheduleAppointmentE2ETest;
 import com.IsaPsw.repository.AppointmentsRepositoryTest;
 import com.IsaPsw.repository.ClinicAdministratorRepositoryTest;
 
+import com.IsaPsw.service.AppointmentServiceUnitTest;
 import com.service.AppointmentService;
 import com.IsaPsw.service.AppointmentServiceTest;
 
@@ -19,9 +20,7 @@ import org.junit.runners.Suite;
         ClinicControllerTest.class,
         AppointmentsControllerTest.class,
         AppointmentServiceTest.class,
-        ScheduleAppointmentE2ETest.class
-
-
+        ScheduleAppointmentE2ETest.class,
 })
 public class ApplicationSuite {
 }

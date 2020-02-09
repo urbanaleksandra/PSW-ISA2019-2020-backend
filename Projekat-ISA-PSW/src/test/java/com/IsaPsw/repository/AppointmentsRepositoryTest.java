@@ -62,7 +62,7 @@ public class AppointmentsRepositoryTest {
         AppointmentType at = new AppointmentType(1L,"test");
         this.entityManager.persist(at);
 
-        Appointment app = new Appointment(null, null, null, r, d, at, "ana", "doctor",
+        Appointment app = new Appointment(1L, null, null, null, r, d, at, "ana", "doctor",
                 "2020-02-22T16:00", "test", "stomatoloski", 2L, true, "test");
 
 

@@ -233,7 +233,8 @@ public class Appointment {
 				'}';
 	}
 
-	public Appointment(Doctor doctor, HospitalRoom hospitalRoom, MedicalRecord medicalRecord, Recipe recipe, Diagnosis diagnosis, AppointmentType type2, String patient, String doctorUsername, String date, String description, String type, long duration, boolean finished, String info) {
+	public Appointment(Long id, Doctor doctor, HospitalRoom hospitalRoom, MedicalRecord medicalRecord, Recipe recipe, Diagnosis diagnosis, AppointmentType type2, String patient, String doctorUsername, String date, String description, String type, long duration, boolean finished, String info) {
+		this.id = id;
 		this.doctor = doctor;
 		this.hospitalRoom = hospitalRoom;
 		this.medicalRecord = medicalRecord;

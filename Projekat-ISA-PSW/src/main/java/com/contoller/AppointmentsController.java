@@ -41,7 +41,7 @@ public class AppointmentsController {
     private HospitalRoomService hospitalRoomService;
 
     @Autowired
-    private AppointmentService appointmentService;
+    public AppointmentService appointmentService;
 
     @Autowired
     private ClinicService clinicService;

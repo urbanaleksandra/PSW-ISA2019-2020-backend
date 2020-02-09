@@ -124,4 +124,10 @@ public class HospitalRoom {
 				", room_number=" + room_number +
 				'}';
 	}*/
+
+	public HospitalRoom(Long id, String name, int room_number) {
+		this.id = id;
+		this.name = name;
+		this.room_number = room_number;
+	}
 }

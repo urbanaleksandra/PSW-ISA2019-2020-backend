@@ -35,22 +35,6 @@ public class AppointmentServiceTest {
     @Test
     @Transactional
     public void sheduleTest(){
-//        Recipe r = new Recipe().builder()
-//                .authenticated(true).build();
-//        Diagnosis d = new Diagnosis();
-//        d.setName("upala pluca") ;
-//        d.setDescription("temperatura");
-//        Clinic c = new Clinic();
-//        c.setName("test");
-//        c.setDescription("test");
-//        c.setLat(25);
-//        c.setLongitude(552);
-//        c.setProfit(0);
-//        c.setRating(4);
-//        c.setAddress("test");
-//        AppointmentType at = new AppointmentType(1L,"test");
-//        AppointmentDTO app = new AppointmentDTO(null, null, null, r, d, at, "ana", "doctor",
-//                "2020-02-22T16:00", "test", "stomatoloski", 2L, true, "test");
 
         AppointmentDTO appDTO =new AppointmentDTO(1L,null, "2020-02-05T16:00", "cold", "test",
                 2L,1L, "masa", "test", "test", null);
