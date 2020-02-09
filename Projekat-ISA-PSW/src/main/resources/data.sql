@@ -92,9 +92,9 @@ INSERT INTO clinic_surgeries (clinic_id, surgeries_id) VALUES (1,6);
 INSERT INTO clinic_surgeries (clinic_id, surgeries_id) VALUES (1,7);
 INSERT INTO clinic_surgeries (clinic_id, surgeries_id) VALUES (1,8);
 
-INSERT INTO request_appointments (price,date, description, duration, patient, type,clinic_id,doctor_id,doctor_username) VALUES (500,'2020-01-27T16:00', 'opis1', 2, 'anaM', 'tip1',1,2,'doctor');
-INSERT INTO request_appointments (price,date, description, duration, patient, type,clinic_id,doctor_id,doctor_username) VALUES (300,'2020-01-23T10:00', 'opis1', 2, 'markoM', 'tip1',1,2,'doctor');
-INSERT INTO request_appointments (price,date, description, duration, patient, type,clinic_id,doctor_id,doctor_username) VALUES (200,'2020-04-02T10:00', 'opis1', 2, 'markoM', 'tip1',1,3,'Jovan');
+INSERT INTO request_appointments (version,price,date, description, duration, patient, type,clinic_id,doctor_id,doctor_username) VALUES (0,500,'2020-01-27T16:00', 'opis1', 2, 'anaM', 'tip1',1,2,'doctor');
+INSERT INTO request_appointments (version,price,date, description, duration, patient, type,clinic_id,doctor_id,doctor_username) VALUES (0,300,'2020-01-23T10:00', 'opis1', 2, 'markoM', 'tip1',1,2,'doctor');
+INSERT INTO request_appointments (version,price,date, description, duration, patient, type,clinic_id,doctor_id,doctor_username) VALUES (0,200,'2020-04-02T10:00', 'opis1', 2, 'markoM', 'tip1',1,3,'Jovan');
 
 INSERT INTO medical_staff_request_appointments(doctor_id,request_appointments_id) values (2,1);
 INSERT INTO medical_staff_request_appointments(doctor_id,request_appointments_id) values (2,2);
