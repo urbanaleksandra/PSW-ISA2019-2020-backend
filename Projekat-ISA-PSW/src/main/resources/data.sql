@@ -1,4 +1,6 @@
 INSERT INTO clinic_administrator (username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, clinic_id) VALUES ('cadmin', 'cadmin', 'zeki.sipovac@gmail.com', 'Zeljana', 'Sipovac', '354168465', 'Glavna 54', 'Nevesinje', 'Bosna i Hercegovina', '0645865455', 1);
+INSERT INTO clinic_administrator (username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, clinic_id) VALUES ('cadmin1', 'cadmin1', 'zeki.sipovac@gmail.com', 'Marija', 'Peric', '354168465', 'Glavna 20', 'Nevesinje', 'Bosna i Hercegovina', '0645865455', 1);
+
 INSERT INTO clinical_center_administrator (username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, first_log) VALUES ('ccadmin', 'ccadmin', 'tacajovicic@gmail.com', 'Tamara', 'Jovicic', '58768', 'Doze Djerdja 13', 'Novi Sad', 'Srbija', '06648246', 1);
 INSERT INTO clinical_center_administrator (username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, first_log) VALUES ('tam', '123', 'tacajovicic@gmail.com', 'Tamara', 'Jovicic', '58768', 'Doze Djerdja 13', 'Novi Sad', 'Srbija', '06648246', 0);
 
@@ -217,3 +219,5 @@ insert into appointment_type_appointments(appointment_type_id,appointments_id) v
 insert into appointment_type_appointments(appointment_type_id,appointments_id) values(4,7);
 insert into appointment_type_appointments(appointment_type_id,appointments_id) values(3,8);
 insert into appointment_type_appointments(appointment_type_id,appointments_id) values(1,9);
+
+INSERT INTO holiday_request(version, finished, confirmed, date_end, date_start, medical_staff_id) values (0, false, false, '2020-03-16', '2020-02-10', 2);

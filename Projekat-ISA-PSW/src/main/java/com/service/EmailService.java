@@ -161,7 +161,7 @@ public class EmailService {
         System.out.println("Slanje emaila...");
 
         SimpleMailMessage mail = new SimpleMailMessage();
-        mail.setTo("zekica997@gmail.com");
+        mail.setTo("urb.saska@gmail.com"); //"zekica997@gmail.com"
         mail.setFrom(env.getProperty("spring.mail.username"));
         mail.setSubject("New request");
         mail.setText("Mr/Mrs, your request for holiday has been approved. Enjoy your holiday. ");
@@ -178,7 +178,7 @@ public class EmailService {
         System.out.println("Slanje emaila...");
 
         SimpleMailMessage mail = new SimpleMailMessage();
-        mail.setTo("zekica997@gmail.com");
+        mail.setTo("urb.saska@gmail.com"); //"zekica997@gmail.com"
         mail.setFrom(env.getProperty("spring.mail.username"));
         mail.setSubject("New request");
         mail.setText("Mr/Mrs, your request for holiday has been rejected. Here is a short explanation why: "+ message);
