@@ -48,6 +48,11 @@ public class Clinic {
     private Set<Doctor> doctors = new HashSet<Doctor>();
 
     @JsonBackReference
+    @OneToMany(cascade = CascadeType.REFRESH,fetch = FetchType.EAGER )
+    //@JoinColumn(name="clinicAdministrator_id")
+    private Set<Nurse> nurses = new HashSet<Nurse>();
+
+    @JsonBackReference
     @OneToMany(fetch = FetchType.LAZY)
     private Set<HospitalRoom> hospitalRooms = new HashSet<HospitalRoom>();
 
@@ -210,6 +215,14 @@ public class Clinic {
 
     public void setSurgeries(Set<Surgery> surgeries) {
         this.surgeries = surgeries;
+    }
+
+    public Set<Nurse> getNurses() {
+        return nurses;
+    }
+
+    public void setNurses(Set<Nurse> nurses) {
+        this.nurses = nurses;
     }
 
     public double getLongitude() {

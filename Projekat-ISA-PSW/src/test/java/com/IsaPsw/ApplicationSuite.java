@@ -3,6 +3,7 @@ package com.IsaPsw;
 import com.IsaPsw.controller.AppointmentsControllerTest;
 import com.IsaPsw.controller.ClinicalCenterAdministratorContollerTest;
 import com.IsaPsw.controller.ClinicControllerTest;
+import com.IsaPsw.e2e.ScheduleAppointmentE2ETest;
 import com.IsaPsw.repository.AppointmentsRepositoryTest;
 import com.IsaPsw.repository.ClinicAdministratorRepositoryTest;
 
@@ -17,7 +18,8 @@ import org.junit.runners.Suite;
         ClinicalCenterAdministratorContollerTest.class,
         ClinicControllerTest.class,
         AppointmentsControllerTest.class,
-        AppointmentServiceTest.class
+        AppointmentServiceTest.class,
+        ScheduleAppointmentE2ETest.class
 
 
 })

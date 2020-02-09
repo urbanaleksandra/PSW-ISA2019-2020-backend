@@ -28,16 +28,16 @@ INSERT INTO patient (address, city, country, email, first_name, jmbg, last_name,
 INSERT INTO patient (address, city, country, email, first_name, jmbg, last_name, mobile_number, password, username, record_id, is_enabled) VALUES ('Mise Dimitrijevica 7', 'Novi Sad', 'Serbia', 'tacajovicic@gmail.com', 'Marko2', 1497,'Markovic2', '0640589536', 'marko', 'marko1', '4', true);
 INSERT INTO patient (address, city, country, email, first_name, jmbg, last_name, mobile_number, password, username, record_id, is_enabled) VALUES ('Mise Dimitrijevica 7', 'Novi Sad', 'Serbia', 'urb.saska@gmail.com', 'Ana', 5097,'Markovic', '0640589536', 'anaM', 'anaM', '5', true);
 
-INSERT INTO medical_staff (version,medical_staff_type, username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, review, role,pocetak_radnog_vremena,kraj_radnog_vremena) VALUES (0,'2', 'nurse', '123', 'tacajovicic@gmail.com', 'Ivana', 'Petrovic', '315787', 'Bulevar Oslobodjenja 103', 'Novi Sad', 'Serbia', '06658651', 2, 'nurse',"07:00","14:00");
 
-INSERT INTO medical_staff (version, medical_staff_type, username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, review, role, clinic_id,pocetak_radnog_vremena,kraj_radnog_vremena, appointment_type_id) VALUES (0,'1', 'doctor', '123', 'tacajovicic@gmail.com', 'Djordje', 'Rakic', '6872368', 'Bulevar Kralja Petra I 2', 'Beograd', 'Serbia', '0612645665', 1, 'doctor', 1,"08:00","15:00", 1);
-INSERT INTO medical_staff (version,medical_staff_type, username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, review, role, clinic_id,pocetak_radnog_vremena,kraj_radnog_vremena, appointment_type_id) VALUES (0,'1', 'Jovan', '123', 'tacajovicic@gmail.com', 'Jovan', 'Jovic', '2855558', 'Bulevar Cara Dusana 5', 'Novi Sad', 'Serbia', '0655555565', 3, 'doctor', 2,"08:00","15:00", 1);
-INSERT INTO medical_staff (version,medical_staff_type, username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, review, role, clinic_id,pocetak_radnog_vremena,kraj_radnog_vremena, appointment_type_id) VALUES (0,'1', 'Milan', '123', 'tacajovicic@gmail.com', 'Milan', 'Milic', '566987', 'Bulevar Cara Lazara 65', 'Novi Sad', 'Serbia', '0623566665', 0, 'doctor', 3,"09:00","16:00", 2);
-INSERT INTO medical_staff (version,medical_staff_type, username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, review, role, clinic_id,pocetak_radnog_vremena,kraj_radnog_vremena, appointment_type_id) VALUES (0,'1', 'drPera', '123', 'tacajovicic@gmail.com', 'Pera', 'Simic', '1111558', 'Danila Kisa 5', 'Novi Sad', 'Serbia', '0644455565', 4, 'doctor', 1,"07:00","14:00", 5);
-INSERT INTO medical_staff (version,medical_staff_type, username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, review, role, clinic_id,pocetak_radnog_vremena,kraj_radnog_vremena, appointment_type_id) VALUES (0,'1', 'drMr', '123', 'tacajovicic@gmail.com', 'Tamara', 'Jovicic', '6546546', 'Glavna 123', 'Novi Sad', 'Serbia', '065684652', 4, 'doctor', 1,"07:00","14:00", 3);
-INSERT INTO medical_staff (version,medical_staff_type, username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, review, role, clinic_id,pocetak_radnog_vremena,kraj_radnog_vremena, appointment_type_id) VALUES (0,'1', 'drMr', '123', 'tacajovicic@gmail.com', 'Mila', 'Katic', '6595026', 'Bulevar Oslobodjenja 13', 'Novi Sad', 'Serbia', '063585526', 4, 'doctor', 1,"07:00","14:00", 3);
-INSERT INTO medical_staff (version,medical_staff_type, username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, review, role,pocetak_radnog_vremena,kraj_radnog_vremena) VALUES (0,'2', 'taca', '123', 'tacajovicic@gmail.com', 'Ivana', 'Petrovic', '315787', 'Bulevar Oslobodjenja 103', 'Novi Sad', 'Serbia', '06658651', 2, 'nurse',"07:00","14:00");
+INSERT INTO medical_staff (medical_staff_type, username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, review, role,pocetak_radnog_vremena,kraj_radnog_vremena, clinic_id) VALUES ('2', 'nurse', '123', 'tacajovicic@gmail.com', 'Ivana', 'Petrovic', '315787', 'Bulevar Oslobodjenja 103', 'Novi Sad', 'Serbia', '06658651', 2, 'nurse',"07:00","14:00",1);
 
+INSERT INTO medical_staff (medical_staff_type, username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, review, role, clinic_id,pocetak_radnog_vremena,kraj_radnog_vremena, appointment_type_id) VALUES ('1', 'doctor', '123', 'tacajovicic@gmail.com', 'Djordje', 'Rakic', '6872368', 'Bulevar Kralja Petra I 2', 'Beograd', 'Serbia', '0612645665', 1, 'doctor', 1,"08:00","15:00", 1);
+INSERT INTO medical_staff (medical_staff_type, username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, review, role, clinic_id,pocetak_radnog_vremena,kraj_radnog_vremena, appointment_type_id) VALUES ('1', 'Jovan', '123', 'tacajovicic@gmail.com', 'Jovan', 'Jovic', '2855558', 'Bulevar Cara Dusana 5', 'Novi Sad', 'Serbia', '0655555565', 3, 'doctor', 2,"08:00","15:00", 1);
+INSERT INTO medical_staff (medical_staff_type, username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, review, role, clinic_id,pocetak_radnog_vremena,kraj_radnog_vremena, appointment_type_id) VALUES ('1', 'Milan', '123', 'tacajovicic@gmail.com', 'Milan', 'Milic', '566987', 'Bulevar Cara Lazara 65', 'Novi Sad', 'Serbia', '0623566665', 0, 'doctor', 3,"09:00","16:00", 2);
+INSERT INTO medical_staff (medical_staff_type, username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, review, role, clinic_id,pocetak_radnog_vremena,kraj_radnog_vremena, appointment_type_id) VALUES ('1', 'drPera', '123', 'tacajovicic@gmail.com', 'Pera', 'Simic', '1111558', 'Danila Kisa 5', 'Novi Sad', 'Serbia', '0644455565', 4, 'doctor', 1,"07:00","14:00", 5);
+INSERT INTO medical_staff (medical_staff_type, username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, review, role, clinic_id,pocetak_radnog_vremena,kraj_radnog_vremena, appointment_type_id) VALUES ('1', 'drMr', '123', 'tacajovicic@gmail.com', 'Tamara', 'Jovicic', '6546546', 'Glavna 123', 'Novi Sad', 'Serbia', '065684652', 4, 'doctor', 1,"07:00","14:00", 3);
+INSERT INTO medical_staff (medical_staff_type, username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, review, role, clinic_id,pocetak_radnog_vremena,kraj_radnog_vremena, appointment_type_id) VALUES ('1', 'drMr', '123', 'tacajovicic@gmail.com', 'Mila', 'Katic', '6595026', 'Bulevar Oslobodjenja 13', 'Novi Sad', 'Serbia', '063585526', 4, 'doctor', 1,"07:00","14:00", 3);
+INSERT INTO medical_staff (medical_staff_type, username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, review, role,pocetak_radnog_vremena,kraj_radnog_vremena, clinic_id) VALUES ('2', 'taca', '123', 'tacajovicic@gmail.com', 'Ivana', 'Petrovic', '315787', 'Bulevar Oslobodjenja 103', 'Novi Sad', 'Serbia', '06658651', 2, 'nurse',"07:00","14:00",1);
 
 INSERT INTO medical_record (blood_type, diopter, height, weight, patient_id) VALUES ('A', '+2.25', '185', '95',1);
 INSERT INTO medical_record (blood_type, diopter, height, weight, patient_id) VALUES ('AB', '-2.25', '192', '82',2);
@@ -92,9 +92,9 @@ INSERT INTO clinic_surgeries (clinic_id, surgeries_id) VALUES (1,6);
 INSERT INTO clinic_surgeries (clinic_id, surgeries_id) VALUES (1,7);
 INSERT INTO clinic_surgeries (clinic_id, surgeries_id) VALUES (1,8);
 
-INSERT INTO request_appointments (date, description, duration, patient, type,clinic_id,doctor_id,doctor_username) VALUES ('2020-01-27T16:00', 'opis1', 2, 'anaM', 'tip1',1,2,'doctor');
-INSERT INTO request_appointments (date, description, duration, patient, type,clinic_id,doctor_id,doctor_username) VALUES ('2020-01-23T10:00', 'opis1', 2, 'markoM', 'tip1',1,2,'doctor');
-INSERT INTO request_appointments (date, description, duration, patient, type,clinic_id,doctor_id,doctor_username) VALUES ('2020-04-02T10:00', 'opis1', 2, 'markoM', 'tip1',1,3,'Jovan');
+INSERT INTO request_appointments (price,date, description, duration, patient, type,clinic_id,doctor_id,doctor_username) VALUES (500,'2020-01-27T16:00', 'opis1', 2, 'anaM', 'tip1',1,2,'doctor');
+INSERT INTO request_appointments (price,date, description, duration, patient, type,clinic_id,doctor_id,doctor_username) VALUES (300,'2020-01-23T10:00', 'opis1', 2, 'markoM', 'tip1',1,2,'doctor');
+INSERT INTO request_appointments (price,date, description, duration, patient, type,clinic_id,doctor_id,doctor_username) VALUES (200,'2020-04-02T10:00', 'opis1', 2, 'markoM', 'tip1',1,3,'Jovan');
 
 INSERT INTO medical_staff_request_appointments(doctor_id,request_appointments_id) values (2,1);
 INSERT INTO medical_staff_request_appointments(doctor_id,request_appointments_id) values (2,2);
@@ -128,8 +128,8 @@ INSERT INTO hospital_room_appointments(hospital_room_id, appointments_id) VALUES
 
 
 --brzi pregledi(Nemaju dodeljenog pacijenta, ni medical_record)
-INSERT INTO appointments (version, date, description, duration, type, finished, doctor_id, hospital_room_id, doctor_username) VALUES (0,'2020-08-20T12:00', 'opsti pregled', 2, 'tip7', false, 3, 4, 'Jovan');
-INSERT INTO appointments (version, date, description, duration, type, finished, doctor_id, hospital_room_id, doctor_username) VALUES (0,'2020-10-15T08:00', 'opsti pregled', 2, 'tip5', false, 2, 5, 'doctor');
+INSERT INTO appointments (price,version, date, description, duration, type, finished, doctor_id, hospital_room_id, doctor_username) VALUES (200,0,'2020-08-20T12:00', 'opsti pregled', 2, 'tip7', false, 3, 4, 'Jovan');
+INSERT INTO appointments (price,version, date, description, duration, type, finished, doctor_id, hospital_room_id, doctor_username) VALUES (500,0,'2020-10-15T08:00', 'opsti pregled', 2, 'tip5', false, 2, 5, 'doctor');
 
 INSERT INTO medical_staff_appointments(doctor_id, appointments_id) VALUES(2, 1);
 INSERT INTO medical_staff_appointments(doctor_id, appointments_id) VALUES(2, 2);
@@ -146,6 +146,9 @@ INSERT INTO clinic_doctors(clinic_id, doctors_id) VALUES (1,5);
 INSERT INTO clinic_doctors(clinic_id, doctors_id) VALUES (3,4);
 INSERT INTO clinic_doctors(clinic_id, doctors_id) VALUES (1,6);
 INSERT INTO clinic_doctors(clinic_id, doctors_id) VALUES (1,7);
+
+INSERT INTO clinic_nurses(clinic_id, nurses_id) VALUES (1,1);
+INSERT INTO clinic_nurses(clinic_id, nurses_id) VALUES (1,8);
 
 
 INSERT INTO patient_rated_doctor(ocena, patient_id, doctor_id) VALUES (5, 5, 2);

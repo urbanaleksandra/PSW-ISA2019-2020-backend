@@ -30,7 +30,7 @@ INSERT INTO public.appointment_type(id,name) VALUES (nextval('appointment_type_i
 INSERT INTO public.medical_staff (id, medical_staff_type, username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, review, role,pocetak_radnog_vremena,kraj_radnog_vremena) VALUES (nextval('medical_staff_id_seq'),'2', 'nurse', '123', 'tacajovicic@gmail.com', 'Ivana', 'Petrovic', '315787', 'Bulevar Oslobodjenja 103', 'Novi Sad', 'Serbia', '06658651', 2, 'nurse','07:00','14:00');
 INSERT INTO public.medical_staff (id,medical_staff_type, username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, review, role, clinic_id,pocetak_radnog_vremena,kraj_radnog_vremena, appointment_type_id) VALUES (nextval('medical_staff_id_seq'),'1', 'doctor', '123', 'tacajovicic@gmail.com', 'Djordje', 'Rakic', '6872368', 'Bulevar Kralja Petra I 2', 'Beograd', 'Serbia', '0612645665', 1, 'doctor', 1,'08:00','15:00', 1);
 
-INSERT INTO public.hospital_room (name,room_number,clinic_id,version) VALUES ('Glavna sala',1, 1,0);
+INSERT INTO public.hospital_room (name,room_number,clinic_id,version) VALUES ('Glavna',1, 1,0);
 
 INSERT INTO public.medical_staff (id,medical_staff_type, username, password, email, first_name, last_name, jmbg, address, city, country, mobile_number, review, role, clinic_id,pocetak_radnog_vremena,kraj_radnog_vremena, appointment_type_id) VALUES (nextval('medical_staff_id_seq'),'1', 'doctorPera', '123', 'tacajovicic@gmail.com', 'Pera', 'Peric', '6566565', 'Bulevar Kralja Petra 12', 'Beograd', 'Serbia', '0612645665', 1, 'doctor', 4,'08:00','15:00', 1);
 
@@ -42,8 +42,11 @@ INSERT INTO public.appointments (price,id, version, date, description, duration,
 INSERT INTO public.request_appointments (price,id,date, description, duration, patient, type,clinic_id) VALUES (2000,nextval('request_appointments_id_seq'),'2020-04-02T10:00', 'opis1', 2, 'markoM', 'tip1',1);
 
 
-INSERT INTO public.hospital_room (name,room_number,clinic_id,version) VALUES ('Glavna sala',1, 1,0);
+INSERT INTO public.hospital_room (name,room_number,clinic_id,version) VALUES ('Mala',1, 1,0);
 INSERT INTO public.request_appointments (price,id,date, description, duration, patient, type,clinic_id) VALUES (2000,nextval('request_appointments_id_seq'),'2020-04-02T10:00', 'opis1', 2, 'markoM', 'tip1',1);
 INSERT INTO public.clinic_doctors(clinic_id, doctors_id) VALUES (1,2);
 INSERT INTO public.clinic_doctors(clinic_id, doctors_id) VALUES (4,3);
-
+INSERT INTO clinic_hospital_rooms(clinic_id, hospital_rooms_id) VALUES (1,1);
+INSERT INTO public.appointments (id,price,version, date, description, duration, type, finished, doctor_id, hospital_room_id, doctor_username) VALUES (nextval('patient_id_seq'),200,0,'2020-08-20T12:00', 'opsti pregled', 2, 'tip7', false, 2, 1, 'Jovan');
+INSERT INTO hospital_room_appointments(hospital_room_id, appointments_id) VALUES (1,2);
+INSERT INTO medical_staff_appointments(doctor_id, appointments_id) VALUES(2, 2);
