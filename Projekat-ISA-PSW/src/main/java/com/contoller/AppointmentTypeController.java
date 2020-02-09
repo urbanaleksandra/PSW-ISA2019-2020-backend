@@ -1,6 +1,8 @@
 package com.contoller;
 
+import com.dto.AppointmentTypeDTO;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.model.Appointment;
 import com.model.AppointmentType;
 import com.service.AppointmentTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +26,20 @@ public class AppointmentTypeController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value="/add-appType", method= RequestMethod.POST)
-    public void addApp(@RequestBody AppointmentType appointmentType){
+    public void addApp(@RequestBody AppointmentTypeDTO appointmentType){
         System.out.println((appointmentType));
-        appointmentTypeService.save(appointmentType);
-
+        List<AppointmentType> appointmentTypes= appointmentTypeService.findAll();
+        boolean postojiVec=false;
+        for(int i=0;i<appointmentTypes.size();i++){
+            if(appointmentTypes.get(i).getName().equals(appointmentType.getName())) {
+                postojiVec=true;
+            }
+        }
+        if(postojiVec==false) {
+            AppointmentType appointmentType1=new AppointmentType();
+            appointmentType1.setName(appointmentType.getName());
+            appointmentTypeService.save(appointmentType1);
+        }
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -40,7 +52,7 @@ public class AppointmentTypeController {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value="/delete-type", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
     public  @ResponseBody
-    ResponseEntity<AppointmentType> deleteType(@RequestBody AppointmentType type){
+    ResponseEntity<AppointmentType> deleteType(@RequestBody AppointmentTypeDTO type){
 
         System.out.println(type.getName());
         AppointmentType hr=appointmentTypeService.findByName(type.getName());
@@ -54,7 +66,7 @@ public class AppointmentTypeController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value="/changeTypeInfo/{name}", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody ResponseEntity<AppointmentType> changeInfo(@RequestBody AppointmentType type, @PathVariable String name){
+    public @ResponseBody ResponseEntity<AppointmentType> changeInfo(@RequestBody AppointmentTypeDTO type, @PathVariable String name){
 
         AppointmentType type1 = appointmentTypeService.findByName(name);
         if(type1 != null){
