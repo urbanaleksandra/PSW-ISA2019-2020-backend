@@ -18,3 +18,11 @@ Alternatively you can use the [Spring Boot Maven plugin](https://docs.spring.io/
 ```shell
 mvn spring-boot:run
 ```
+## Starting Application
+Use IntelliJ or Eclipse to open and the application.
+
+## Port 8080
+
+Tamara Jovicic 
+Aleksandra Urban
+Zeljana Sipovac
