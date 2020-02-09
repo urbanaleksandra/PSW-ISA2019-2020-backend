@@ -249,4 +249,6 @@ public class Appointment {
 		this.finished = finished;
 		this.info = info;
 	}
+
+
 }
