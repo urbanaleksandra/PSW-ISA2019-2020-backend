@@ -214,15 +214,18 @@ public class AppointmentsController {
         appointment1.setDoctorUsername(appointment.getDoctorUsername());
         Doctor doctor = doctorService.findByUsername(appointment.getDoctorUsername());
         appointment1.setDoctor(doctor);
+        Clinic c=clinicService.findById(appointment1.getDoctor().getId());
         requestAppointmentService.save(appointment1);
+        for(ClinicAdministrator ca : c.getClinicAdministrator()) {
 
 
-        try {
-            emailService.sendNotificaitionAsync3();
-        }catch( Exception e ){
-            System.out.println("nije poslata poruka");
+
+            try {
+                emailService.sendNotificaitionAsyncc3(ca);
+            } catch (Exception e) {
+                System.out.println("nije poslata poruka");
+            }
         }
-
         return new ResponseEntity<>(appointment1, HttpStatus.OK);
 
     }
